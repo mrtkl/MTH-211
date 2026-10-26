@@ -1,0 +1,1054 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Chapter 1 Outline</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="author" content="Dr. Murat Kol">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Atkinson+Hyperlegible+Mono:wght@400;600&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap">
+<style>
+/* Layout: a two-tab lab. Each tab is a big Venn diagram with its tools beside it (stacked on phones). */
+:root {
+  --bg: #f3f4f8;
+  --panel: #ffffff;
+  --paper: #ffffff;
+  --fg: #1f2433;
+  --muted: #5d6478;
+  --line: #d3d7e2;
+  --ink: #1f2433;
+  --accent: #3949ab;
+  --accent-ink: #ffffff;
+  --good: #2e7d4f; --good-bg: #e2f3e8;
+  --warn: #b3401a; --warn-bg: #fbe8e0;
+  --pen1: #c8372d; --pen2: #2160a8; --pen3: #2e8540; --pen4: #8a3fb0;
+  --answer: #c58b00;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono: "Atkinson Hyperlegible Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12141b; --panel: #1b1e28; --paper: #1f2330; --fg: #e8eaf2; --muted: #a0a6b8; --line: #343a4c; --ink: #e8eaf2;
+    --accent: #8c9cff; --accent-ink: #10131c; --good: #7fd19a; --good-bg: #1b3324; --warn: #f29a78; --warn-bg: #3a2219;
+    --pen1: #ff7b6e; --pen2: #6aa8ff; --pen3: #6fd08a; --pen4: #c88cf0; --answer: #f2c14e;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12141b; --panel: #1b1e28; --paper: #1f2330; --fg: #e8eaf2; --muted: #a0a6b8; --line: #343a4c; --ink: #e8eaf2;
+  --accent: #8c9cff; --accent-ink: #10131c; --good: #7fd19a; --good-bg: #1b3324; --warn: #f29a78; --warn-bg: #3a2219;
+  --pen1: #ff7b6e; --pen2: #6aa8ff; --pen3: #6fd08a; --pen4: #c88cf0; --answer: #f2c14e;
+  color-scheme: dark;
+}
+html, body { background: var(--bg); color: var(--fg); }
+body { font-family: var(--body); font-size: 15px; line-height: 1.45; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-block: 20px 32px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 14px; }
+h1 { font-family: var(--display); font-weight: 800; font-size: clamp(1.6rem, 3.6vw, 2.3rem); letter-spacing: -0.01em; margin: 0; text-wrap: balance; }
+h2 { font-family: var(--display); font-weight: 600; font-size: 1.1rem; margin: 0; }
+.byline { margin: 4px 0 0; font-size: 0.9rem; color: var(--muted); }
+.byline strong { color: var(--fg); }
+.lede { margin: 2px 0 0; color: var(--muted); max-width: 72ch; }
+.credit { text-align: center; font-size: 0.85rem; color: var(--muted); margin: 6px 0 0; }
+.label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 700; }
+
+button, select, input { font: inherit; color: inherit; }
+button { cursor: pointer; border: 1px solid var(--line); background: var(--panel); border-radius: 10px; padding: 7px 12px; }
+button:hover:not(:disabled) { border-color: var(--accent); }
+button:disabled { opacity: .45; cursor: not-allowed; }
+button.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 700; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+select, input[type="text"] { border: 1px solid var(--line); background: var(--panel); border-radius: 10px; padding: 7px 10px; min-width: 0; }
+
+.topbar { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: end; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--panel); }
+.seg button { border: 0; border-radius: 0; padding: 7px 14px; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); font-weight: 700; }
+.field { display: grid; gap: 4px; }
+
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.tabs [role="tab"] { border: 1px solid transparent; border-bottom: 0; border-radius: 10px 10px 0 0; padding: 9px 16px; background: transparent; color: var(--muted); font-weight: 700; margin-bottom: -1px; }
+.tabs [role="tab"][aria-selected="true"] { background: var(--panel); border-color: var(--line); color: var(--fg); }
+
+.lab { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(280px, 1fr); gap: 16px; align-items: start; }
+@media (max-width: 900px) { .lab { grid-template-columns: 1fr; } }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 14px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.diagram { position: relative; width: 100%; touch-action: manipulation; }
+.diagram canvas { display: block; width: 100%; border-radius: 10px; cursor: pointer; }
+.chip-layer { position: absolute; inset: 0; pointer-events: none; }
+.chip-layer .chip { position: absolute; transform: translate(-50%, -50%); pointer-events: auto; }
+
+.sets { display: grid; gap: 4px; font-family: var(--mono); font-size: 0.98rem; overflow-wrap: anywhere; }
+.sets div b { font-family: var(--body); }
+.tray { display: flex; flex-wrap: wrap; gap: 6px; min-height: 44px; padding: 8px; border: 2px dashed var(--line); border-radius: 12px; }
+.tray:empty::before { content: "All elements are on the diagram."; color: var(--muted); font-size: 0.9rem; }
+.chip { min-width: 32px; height: 32px; padding: 0 8px; border-radius: 999px; font-family: var(--mono); font-weight: 600; font-size: 0.95rem; background: var(--panel); border: 2px solid var(--ink); touch-action: none; user-select: none; line-height: 1; }
+.chip[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.chip.ok { border-color: var(--good); box-shadow: 0 0 0 3px var(--good-bg); }
+.chip.bad { border-color: var(--warn); box-shadow: 0 0 0 3px var(--warn-bg); }
+.chip.dragging { position: fixed !important; transform: translate(-50%, -50%); z-index: 50; pointer-events: none; box-shadow: 0 6px 14px rgba(0,0,0,.25); }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.note { font-size: 0.92rem; border-radius: 10px; padding: 8px 10px; }
+.note.good { background: var(--good-bg); color: var(--good); }
+.note.warn { background: var(--warn-bg); color: var(--warn); }
+.note:empty { display: none; }
+.help { font-size: 0.88rem; color: var(--muted); margin: 0; }
+
+.qs { display: grid; gap: 10px; }
+.q { display: grid; gap: 6px; padding: 10px; border: 1px solid var(--line); border-radius: 12px; }
+.q .expr { font-family: var(--mono); font-weight: 600; font-size: 1.05rem; }
+.q .row input { flex: 1 1 140px; font-family: var(--mono); }
+.q .fb { font-size: 0.9rem; }
+.q .fb.good { color: var(--good); } .q .fb.warn { color: var(--warn); }
+
+.target { font-family: var(--mono); font-size: 1.35rem; font-weight: 600; overflow-wrap: anywhere; }
+.tools { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 6px; }
+.tool { display: flex; align-items: center; gap: 8px; text-align: left; padding: 6px 8px; }
+.tool svg { flex: none; border-radius: 4px; border: 1px solid var(--line); }
+.tool[aria-pressed="true"] { border: 2px solid var(--accent); padding: 5px 7px; font-weight: 700; }
+.regions { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px; }
+.regions button { text-align: left; font-size: 0.85rem; padding: 6px 8px; }
+.regions button small { display: block; color: var(--muted); font-size: 0.75rem; }
+.symbols { display: flex; flex-wrap: wrap; gap: 4px; }
+.symbols button { font-family: var(--mono); min-width: 38px; padding: 5px 8px; }
+details summary { cursor: pointer; font-weight: 700; }
+[hidden] { display: none !important; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* ===== Chapter 2 outline shell ===== */
+:root { --hl: #f2b632; --pv: #6d4aa8; --good: #23633a; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --hl: #f2c14e; --pv: #c4a4f0; } }
+:root[data-theme="dark"] { --hl: #f2c14e; --pv: #c4a4f0; }
+.shell { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (max-width: 860px) { .shell { grid-template-columns: 1fr; } }
+.pnav { position: sticky; top: 12px; display: grid; gap: 4px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 10px; }
+@media (max-width: 860px) { .pnav { position: static; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); } .pnav .nav-h { grid-column: 1 / -1; } }
+.pnav .nav-h { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 700; margin: 8px 6px 2px; }
+.pnav .nav-h:first-child { margin-top: 2px; }
+.pnav a { display: block; text-decoration: none; color: var(--fg); padding: 7px 10px; border-radius: 9px; line-height: 1.25; }
+.pnav a small { display: block; color: var(--muted); font-size: 0.76rem; }
+.pnav a:hover { background: var(--bg); }
+.pnav a[aria-current="page"] { background: var(--accent); color: var(--accent-ink); font-weight: 700; }
+.pnav a[aria-current="page"] small { color: var(--accent-ink); opacity: .85; }
+.page { display: grid; gap: 16px; min-width: 0; }
+.page > h2 { font-size: clamp(1.3rem, 2.6vw, 1.7rem); font-weight: 800; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: 0.8rem; border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 3px 10px; }
+.tag b { color: var(--accent); }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: grid; gap: 12px; min-width: 0; }
+.card > h3, .card h3 { font-family: var(--display); font-weight: 600; font-size: 1.12rem; margin: 0; }
+.card h4 { margin: 0; font-size: 1rem; }
+.card p { margin: 0; }
+.prose { max-width: 78ch; display: grid; gap: 10px; }
+.prose ul, .prose ol { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; }
+.defn { border-left: 4px solid var(--accent); background: color-mix(in srgb, var(--accent) 7%, var(--panel)); padding: 10px 12px; border-radius: 0 10px 10px 0; }
+.defn b:first-child { color: var(--accent); }
+.ex { border-left: 4px solid var(--pen3); background: color-mix(in srgb, var(--pen3) 7%, var(--panel)); padding: 10px 12px; border-radius: 0 10px 10px 0; }
+.mono { font-family: var(--mono); }
+.ov { text-decoration: overline; text-decoration-thickness: 1.5px; }
+.teach { border: 1px dashed var(--pv); border-radius: 12px; padding: 0; }
+.teach > summary { padding: 10px 12px; color: var(--pv); }
+.teach > div { padding: 0 14px 12px; display: grid; gap: 8px; }
+.teach ul { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)); gap: 14px; }
+.grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 12px; }
+.tbl { overflow-x: auto; }
+.tbl table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+.tbl th, .tbl td { border: 1px solid var(--line); padding: 7px 9px; text-align: left; vertical-align: top; }
+.tbl th { background: var(--bg); font-size: 0.8rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+.tbl tr.here td { background: color-mix(in srgb, var(--accent) 8%, var(--panel)); }
+.tbl a { color: var(--accent); }
+a { color: var(--accent); }
+
+/* Venn widget */
+.vbox { position: relative; width: 100%; max-width: 520px; }
+.vbox svg { display: block; width: 100%; height: auto; touch-action: manipulation; }
+.vbox svg.clickable { cursor: pointer; }
+.vbox .vlayer { position: absolute; inset: 0; pointer-events: none; }
+.vbox .vlayer > * { position: absolute; transform: translate(-50%, -50%); pointer-events: auto; }
+.vin { width: 3.4em; text-align: center; font-family: var(--mono); font-weight: 600; padding: 3px 2px !important; border-radius: 8px !important; border: 1.5px solid var(--line); background: var(--panel); font-size: 0.95rem; }
+.vin.given { border-color: var(--accent); }
+.vin.okv { border-color: var(--good); box-shadow: 0 0 0 2px var(--good-bg); }
+.vnum { font-family: var(--mono); font-weight: 700; font-size: 1.05rem; pointer-events: none !important; }
+.vstroke { fill: none; stroke: var(--ink); stroke-width: 2; }
+.vlabel { fill: var(--ink); font-family: var(--body); font-weight: 700; }
+.reg-hl { fill: var(--hl); fill-opacity: .45; }
+.reg-ans { fill: var(--answer); fill-opacity: .55; }
+
+/* Tool rows */
+.tools2 { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.tools2 button[aria-pressed="true"] { border: 2px solid var(--accent); padding: 6px 11px; font-weight: 700; }
+.tools2 svg { vertical-align: middle; margin-right: 4px; border-radius: 3px; border: 1px solid var(--line); }
+.prob { display: grid; gap: 10px; }
+.prob-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; }
+.prob-num { font-family: var(--display); font-weight: 800; font-size: 1.25rem; color: var(--accent); }
+.prob-expr { font-family: var(--mono); font-size: 1.35rem; font-weight: 600; }
+.steps-out { display: grid; gap: 6px; }
+.steps-out ol { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; }
+.qline { display: grid; gap: 6px; padding: 10px; border: 1px solid var(--line); border-radius: 12px; }
+.qline .row input[type="text"] { flex: 1 1 120px; }
+.fb { font-size: 0.9rem; }
+.fb.good { color: var(--good); } .fb.warn { color: var(--warn); }
+.clues { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.clues li { display: flex; gap: 8px; align-items: baseline; padding: 5px 8px; border-radius: 8px; border: 1px solid var(--line); font-size: 0.93rem; }
+.clues li .st { flex: none; width: 1.4em; text-align: center; font-weight: 700; }
+.clues li.met { border-color: var(--good); background: var(--good-bg); color: var(--good); }
+.clues li.off .st { color: var(--warn); }
+.clues li .have { margin-left: auto; font-family: var(--mono); font-size: 0.82rem; color: var(--muted); white-space: nowrap; }
+.clues li.met .have { color: var(--good); }
+.tok { min-width: 34px; height: 34px; padding: 0 10px; border-radius: 999px; font-family: var(--body); font-weight: 700; font-size: 0.9rem; background: var(--panel); border: 2px solid var(--ink); touch-action: none; user-select: none; line-height: 1; }
+.tok[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.tok.ok { border-color: var(--good); box-shadow: 0 0 0 3px var(--good-bg); }
+.tok.bad { border-color: var(--warn); box-shadow: 0 0 0 3px var(--warn-bg); }
+.tok.dragging { position: fixed !important; z-index: 60; pointer-events: none; transform: translate(-50%, -50%); }
+.tok.mono { font-family: var(--mono); }
+.ttray { display: flex; flex-wrap: wrap; gap: 6px; min-height: 46px; padding: 8px; border: 2px dashed var(--line); border-radius: 12px; }
+.ttray:empty::before { content: attr(data-empty); color: var(--muted); font-size: 0.9rem; align-self: center; }
+.pick { display: flex; flex-wrap: wrap; gap: 6px; }
+.pick button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 700; }
+.tf { display: grid; gap: 8px; }
+.tf .item { display: grid; gap: 6px; padding: 9px 10px; border: 1px solid var(--line); border-radius: 10px; }
+.tf .stmt { font-family: var(--mono); font-size: 1.05rem; }
+.match { display: grid; gap: 8px; }
+.match svg { width: 100%; height: auto; display: block; }
+.mtok { cursor: pointer; }
+.mtok circle { fill: var(--panel); stroke: var(--ink); stroke-width: 2; }
+.mtok.sel circle { fill: var(--accent); stroke: var(--accent); }
+.mtok.sel text { fill: var(--accent-ink); }
+.mtok.done circle { stroke: var(--good); stroke-width: 3; }
+.mtok text { fill: var(--ink); font-family: var(--mono); font-weight: 600; font-size: 15px; pointer-events: none; }
+.mtok:focus { outline: none; }
+.mtok:focus-visible circle { stroke: var(--accent); stroke-width: 4; }
+.mline { stroke: var(--pen2); stroke-width: 2.5; }
+.mleft circle { stroke: var(--warn); stroke-dasharray: 4 3; stroke-width: 3; }
+.subsets { display: flex; flex-wrap: wrap; gap: 6px; }
+.subsets span { font-family: var(--mono); border: 1px solid var(--line); border-radius: 8px; padding: 3px 8px; background: var(--bg); }
+.subsets span.proper { border-color: var(--accent); }
+.subsets span.cur { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.prod { border-collapse: collapse; }
+.prod th, .prod td { border: 1px solid var(--line); padding: 6px 9px; text-align: center; font-family: var(--mono); font-size: 0.88rem; }
+.prod th { background: var(--bg); font-family: var(--body); }
+.prod td.on { background: var(--accent); color: var(--accent-ink); }
+.big2 { font-family: var(--display); font-weight: 800; font-size: 1.5rem; }
+.dots { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; min-height: 34px; }
+.dot { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--ink); display: inline-grid; place-items: center; font-size: .7rem; font-weight: 700; }
+.dot.a { background: color-mix(in srgb, var(--pen1) 30%, var(--panel)); }
+.dot.b { background: color-mix(in srgb, var(--pen2) 30%, var(--panel)); }
+.dot.left { border-color: var(--warn); border-style: dashed; }
+.slider { display: grid; grid-template-columns: 9em 1fr 3ch; gap: 8px; align-items: center; }
+.slider input { width: 100%; accent-color: var(--accent); }
+.slider output { font-family: var(--mono); font-weight: 700; }
+.kbd-regions { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+.kbd-regions button { font-size: 0.8rem; padding: 4px 8px; }
+.lab-wrap { display: grid; gap: 14px; }
+.lab-wrap .topbar { margin-top: 2px; }
+@media print { .pnav, .teach > summary::marker { display: none; } .shell { grid-template-columns: 1fr; } }
+
+.page > h2:focus { outline: none; }
+.card, .page, .prob { grid-template-columns: minmax(0, 1fr); }
+
+.embed { min-height: 60px; border-radius: 12px; background: var(--bg); }
+.go { font-size: 0.85rem; padding: 3px 10px; border-radius: 999px; }
+.pilebox { display: flex; flex-wrap: wrap; gap: 6px; align-items: flex-end; min-height: 120px; padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); }
+.pone { display: inline-block; line-height: 0; }
+.pone.left { outline: 2px dashed var(--warn); outline-offset: 2px; border-radius: 3px; }
+.pgrp { display: inline-flex; gap: 2px; align-items: flex-end; padding: 4px; border: 2px dashed var(--accent); border-radius: 10px; line-height: 0; }
+.cncol { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; min-width: 2.2em; min-height: 2.2em; padding: 6px; border: 1.5px solid var(--line); border-radius: 10px; font-size: 1.5rem; line-height: 1.1; background: var(--paper); }
+.cnrow { display: flex; gap: 18px; flex-wrap: wrap; align-items: flex-start; margin-top: 8px; }
+.cnfig { margin: 0; display: grid; justify-items: center; gap: 6px; }
+.cnfig figcaption { font-size: .85rem; color: var(--muted); }
+.cnbtn { font-size: 1.15rem; padding: 4px 9px; }
+td.cn { font-size: 1.3rem; }
+.embed { min-height: 60px; border-radius: 12px; background: var(--bg); }
+.go { font-size: 0.85rem; padding: 3px 10px; border-radius: 999px; margin-left: 4px; }
+.quick { display: inline-flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.dgroups { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+.dgroup { border: 1.5px solid var(--line); border-radius: 10px; padding: 6px 8px; display: grid; gap: 4px; max-width: 220px; }
+.dgroup.left { border-style: dashed; border-color: var(--warn); }
+.dgroup .dot { width: 18px; height: 18px; }
+.prod td.on { background: var(--accent); color: var(--accent-ink); }
+.stmt { font-family: var(--mono); }
+.go2 { font-size: 0.85rem; padding: 3px 10px; border-radius: 999px; }
+.ppath { margin: 6px 0 0; padding-left: 1.4em; display: grid; gap: 4px; }
+.ppath li { display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: baseline; }
+.ppath .why { font-size: 0.85rem; color: var(--pv); font-style: italic; }
+table.alg { border-collapse: collapse; font-family: var(--mono); font-size: 1.15rem; margin: 6px 0; }
+table.alg td { padding: 2px 6px; text-align: right; min-width: 1.2em; }
+table.alg tr.carry td { font-size: 0.8rem; color: var(--pen1); }
+table.alg tr.under td { border-bottom: 2px solid var(--ink); }
+table.alg tr.over td { border-top: 2px solid var(--ink); }
+table.alg s { color: var(--muted); }
+table.alg.inter td:nth-child(2) { text-align: left; font-family: var(--body); }
+table.alg.scaf td { text-align: left; padding: 3px 10px; }
+.muted { color: var(--muted); }
+/* ---- Chapter 1 ---- */
+.tile { fill: color-mix(in srgb, var(--pen2) 10%, var(--panel)); stroke: var(--ink); stroke-width: 1; }
+.tile.c1 { fill: color-mix(in srgb, var(--pen1) 55%, var(--panel)); }
+.tile.c2 { fill: color-mix(in srgb, var(--pen2) 45%, var(--panel)); }
+.tile.c3 { fill: color-mix(in srgb, #e08a1e 65%, var(--panel)); }
+.tile.c4 { fill: color-mix(in srgb, var(--pen3) 50%, var(--panel)); }
+.tp { stroke: var(--ink); stroke-width: 4; stroke-linecap: round; }
+.tp.first { stroke: var(--pen1); }
+.hext { fill: color-mix(in srgb, var(--pen3) 18%, var(--panel)); stroke: var(--ink); stroke-width: 1.5; }
+.chair { fill: var(--pen2); }
+.chair.end { fill: var(--pen1); }
+.dt { fill: var(--pen2); }
+.dt.c1 { fill: var(--pen1); }
+.dt.c3 { fill: var(--pen4); }
+.sq0 { fill: var(--panel); stroke: var(--ink); stroke-width: .6; }
+.sq1 { fill: color-mix(in srgb, var(--ink) 22%, var(--panel)); stroke: var(--ink); stroke-width: .6; }
+.sqhl { fill: color-mix(in srgb, var(--pen1) 25%, transparent); stroke: var(--pen1); stroke-width: 4; }
+.tf { display: grid; gap: 8px; }
+.tf .row button { white-space: normal; }
+.checklist { margin-top: 10px; }
+.grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; align-items: end; }
+.slider label { font-size: .92rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Chapter 1: Introduction to Problem Solving</h1>
+    <p class="byline">By <strong>Dr. Murat Kol</strong> · MTH 211 Foundations of Elementary Mathematics</p>
+    <p class="lede">An outline for Chapter 1 of Musser, Peterson and Burger, <i>Mathematics for Elementary Teachers</i>, 10th ed.: Chapter Notes (1)–(3) with content explanations and manipulatives, then Activities 1.1 to 1.9 with virtual manipulatives, then an open practice lab.</p>
+  </header>
+
+  <div class="shell">
+    <nav class="pnav" aria-label="Pages">
+      <div class="nav-h">Start here</div>
+      <a href="#overview" data-page="overview">Chapter 1 overview<small>Big idea and sequence</small></a>
+      <div class="nav-h">Chapter notes</div>
+      <a href="#n1" data-page="n1">Notes (1) The Problem-Solving Process</a>
+      <a href="#n2" data-page="n2">Notes (2) How Do I Devise a Plan?</a>
+      <a href="#n3" data-page="n3">Notes (3) More Strategies</a>
+      <div class="nav-h">Activities</div>
+      <a href="#a11" data-page="a11">1.1 Polya’s Four Steps</a>
+      <a href="#a12" data-page="a12">1.2 Growing Tile T’s</a>
+      <a href="#a12a" data-page="a12a">1.2 A More Pattern Problems</a>
+      <a href="#a14" data-page="a14">1.4 Even and Odd Numbers</a>
+      <a href="#a17" data-page="a17">1.7 Cryptarithm</a>
+      <a href="#a18" data-page="a18">1.8 More Problem Solving</a>
+      <a href="#a19" data-page="a19">1.9 Checkerboards</a>
+      <div class="nav-h">Practice</div>
+      <a href="#practice" data-page="practice">Chapter 1 Practice Lab<small>Patterns, strategies, Polya</small></a>
+    </nav>
+
+    <main id="main">
+
+<!-- ===================== OVERVIEW ===================== -->
+<section class="page" id="pg-overview" aria-labelledby="h-overview">
+  <h2 id="h-overview">Chapter 1 overview</h2>
+  <div class="meta"><span class="tag"><b>Textbook</b> Musser et al. 10e, Ch. 1</span><span class="tag"><b>Sections</b> 1.1 The Problem-Solving Process and Strategies · 1.2 Three Additional Strategies</span></div>
+  <div class="card prose">
+    <p><b>Big idea.</b> Problem solving is the heart of mathematics and of this course. Polya’s four steps (understand, plan, carry out, look back) give a structure; the strategies (guess and test, draw a picture, use a variable, look for a pattern, make a list, solve a simpler problem) give the tools. The habit we build all term is <i>explaining reasoning</i> so that a class of children could follow it.</p>
+    <p><b>How to use this file.</b> The notes pages explain the content with manipulatives you can project. Each activity page keeps the handout’s questions in order and adds a manipulative: tiles that grow, toothpick houses, dot arrays, a checkerboard counter, a cryptarithm tester.</p>
+  </div>
+  <div class="card">
+    <h3>Sequence of the chapter</h3>
+    <div class="tbl"><table>
+      <caption class="sr">Order of topics, readings and pages for Chapter 1</caption>
+      <thead><tr><th scope="col">Step</th><th scope="col">Topic</th><th scope="col">Textbook reading</th><th scope="col">In this file</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Notes (1) The Problem-Solving Process<br>Activity 1.1: Practicing Polya’s Four Steps</td><td>pp. 1–17</td><td><a href="#n1">Notes (1)</a> · <a href="#a11">1.1</a></td></tr>
+        <tr><td>2</td><td>Notes (2) How Do I Devise a Plan? (guess and test, draw a picture, use a variable)</td><td>pp. 1–17</td><td><a href="#n2">Notes (2)</a></td></tr>
+        <tr><td>3</td><td>Activity 1.2: Growing Tile T’s<br>Activity 1.2 A: More Pattern Problems</td><td>pp. 21–31</td><td><a href="#a12">1.2</a> · <a href="#a12a">1.2 A</a></td></tr>
+        <tr><td>4</td><td>Notes (3) More Strategies (look for a pattern, make a list, solve a simpler problem)<br>Activity 1.4: Looking for and Expressing Patterns</td><td>pp. 21–31</td><td><a href="#n3">Notes (3)</a> · <a href="#a14">1.4</a></td></tr>
+        <tr><td>5</td><td>Activity 1.7: Cryptarithm (Parts 1 and 2)</td><td>—</td><td><a href="#a17">1.7</a></td></tr>
+        <tr><td>6</td><td>Activity 1.8: More Problem Solving<br>Activity 1.9: Checkerboards</td><td>—</td><td><a href="#a18">1.8</a> · <a href="#a19">1.9</a></td></tr>
+        <tr><td>7</td><td>Practice for the whole chapter</td><td>—</td><td><a href="#practice">Practice Lab</a></td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  
+</section>
+
+<!-- ===================== NOTES 1 ===================== -->
+<section class="page" id="pg-n1" aria-labelledby="h-n1" hidden>
+  <h2 id="h-n1">Chapter 1 Notes (1): The Problem-Solving Process</h2>
+  <div class="meta"><span class="tag"><b>Read</b> pp. 1–17</span><span class="tag"><b>Leads to</b> Activity 1.1</span></div>
+  <div class="card prose">
+    <p>The authors of our text distinguish between <b>exercises</b> and <b>problems</b>:</p>
+    <div class="defn"><b>Exercise.</b> A task that can be done by applying a known procedure; it is routine practice. Example: 347 + 586.</div>
+    <div class="defn"><b>Problem.</b> A task for which the solver does not have a ready-made method; it requires thinking and choosing a strategy. Example: Find two whole numbers whose sum is 30 and whose product is 216.</div>
+    <p>Whether a task is an exercise or a problem depends on the solver: what is a problem for a second grader may be an exercise for an adult.</p>
+  </div>
+  <div class="card">
+    <h3>Exercise or problem?</h3>
+    <div id="w-exprob" class="tf"></div>
+  </div>
+  <div class="card prose">
+    <h3>Polya’s four steps</h3>
+    <p>George Polya, author of <i>How to Solve It</i>, identified four distinct phases of successful problem solving:</p>
+    <ol>
+      <li><b>Understand the Problem (UTP):</b> What is the unknown? What are the data and conditions? Restate the problem in your own words, list the important details, and clarify vocabulary.</li>
+      <li><b>Devise a Plan (DAP):</b> Choose a strategy (or several). Have you seen a similar problem? Which clues in the problem suggest a strategy?</li>
+      <li><b>Carry out the Plan (COP):</b> Implement the strategy, showing and explaining every step. If it is not working, go back and change the plan.</li>
+      <li><b>Look Back (LB):</b> Check the answer in the original problem. Does it make sense? Are there other solutions? Is there another method, a generalization or an extension?</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>Sort the moves into Polya’s steps</h3>
+    <p class="help">For each thing a problem solver does, choose the step it belongs to.</p>
+    <div id="w-polya" class="tf"></div>
+  </div>
+  
+</section>
+
+<!-- ===================== NOTES 2 ===================== -->
+<section class="page" id="pg-n2" aria-labelledby="h-n2" hidden>
+  <h2 id="h-n2">Chapter 1 Notes (2): How Do I Devise a Plan?</h2>
+  <div class="meta"><span class="tag"><b>Read</b> pp. 1–17</span><span class="tag"><b>Strategies</b> 1–3</span></div>
+  <div class="card prose">
+    <p><b>How do we know when to try a particular strategy?</b> Each strategy has <b>clues</b>: features of a problem that suggest it may help.</p>
+  </div>
+  <div class="card">
+    <h3>Strategy 1: Guess and test</h3>
+    <div class="prose">
+      <p><b>Clues:</b> there is a limited number of possibilities to test; you want to understand the problem better; you have a good idea what the answer might be; the problem involves several conditions that are hard to satisfy at once.</p>
+      <p><b>Three types of guess and test:</b></p>
+      <ul><li><b>Random:</b> guesses with no particular order or reason.</li><li><b>Systematic:</b> guesses made in an organized way (a table, in order) so nothing is repeated or missed.</li><li><b>Inferential:</b> guesses chosen by reasoning, so many possibilities are ruled out without trying them.</li></ul>
+      <p><b>Example:</b> Find two whole numbers whose sum is 30 and whose product is 216. Try it three ways below.</p>
+    </div>
+    <div id="w-gt"></div>
+  </div>
+  <div class="card">
+    <h3>Strategy 2: Draw a picture</h3>
+    <div class="prose">
+      <p><b>Clues:</b> a physical situation is involved; geometric figures or measurements are involved; you want to understand the problem better; a visual representation is possible.</p>
+      <p><b>Example:</b> A fence is 100 feet long with a post every 10 feet, including both ends. How many posts? Many people answer 10; the picture shows 11.</p>
+    </div>
+    <div id="w-fence"></div>
+  </div>
+  <div class="card">
+    <h3>Strategy 3: Use a variable</h3>
+    <div class="prose">
+      <p><b>Clues:</b> a phrase like “for any number”; a problem that suggests an equation; a proof or general statement is called for; there are unknowns; you are trying to generalize a pattern.</p>
+      <p><b>Example:</b> “Think of a number. Add 5. Double it. Subtract 4. Divide by 2. Subtract the number you started with.” The result is always 3. A variable explains why: with n, ((n + 5) · 2 − 4) ÷ 2 − n = (2n + 6) ÷ 2 − n = n + 3 − n = 3.</p>
+    </div>
+    <div id="w-trick"></div>
+  </div>
+  <div class="card prose">
+    <div class="grid2">
+      <div><h3>Top 10 bad habits for problem solving</h3><ol>
+        <li>Trying to do it all in your head, not writing anything down.</li><li>Arbitrarily choosing a strategy.</li><li>Staying with a strategy when it’s not working.</li><li>Giving up on a strategy too early.</li><li>Getting fixated on a single strategy and trying to use it for everything.</li><li>Not asking yourself: “Does this make sense?”</li><li>Being afraid to ask for help.</li><li>Not checking your answer.</li><li>Not noticing patterns.</li><li>Going through the motions instead of thinking.</li></ol></div>
+      <div><h3>Top 10 ways to get unstuck</h3><ol>
+        <li>Reread the problem.</li><li>Modify your strategy.</li><li>Change your strategy.</li><li>Combine your strategy with another strategy.</li><li>Look at the problem from a new perspective.</li><li>Look at the answer.</li><li>Look at other similar problems.</li><li>Get help.</li><li>Wait awhile and try again.</li><li>All of the above.</li></ol></div>
+    </div>
+  </div>
+  
+</section>
+
+<!-- ===================== NOTES 3 ===================== -->
+<section class="page" id="pg-n3" aria-labelledby="h-n3" hidden>
+  <h2 id="h-n3">Chapter 1 Notes (3): More Strategies</h2>
+  <div class="meta"><span class="tag"><b>Read</b> pp. 21–31</span><span class="tag"><b>Strategies</b> 4–6</span></div>
+  <div class="card">
+    <h3>Strategy 4: Look for a pattern</h3>
+    <div class="prose">
+      <p><b>Clues:</b> a list of data is given; a sequence of numbers or figures is involved; listing special cases helps; you are asked to generalize or find the nth term.</p>
+      <p><b>Example:</b> Find the next terms and the nth term of 4, 7, 10, 13, … Each term is 3 more than the one before: the nth term is 3n + 1.</p>
+    </div>
+    <div id="w-seq"></div>
+  </div>
+  <div class="card">
+    <h3>Strategy 5: Make a list</h3>
+    <div class="prose">
+      <p><b>Clues:</b> information can easily be organized; data can easily be presented in a table; the problem asks “how many ways”; you are looking for all possible answers.</p>
+      <p><b>Example:</b> In how many ways can you make 25 cents with pennies, nickels, dimes and quarters? A systematic list, starting with the largest coin, finds all 13 ways.</p>
+    </div>
+    <div id="w-coins"></div>
+  </div>
+  <div class="card">
+    <h3>Strategy 6: Solve a simpler problem</h3>
+    <div class="prose">
+      <p><b>Clues:</b> the problem involves large numbers; a very complex problem; a more general problem could be solved more easily.</p>
+      <p><b>Example:</b> Find 1 + 2 + 3 + … + 100. Try 1 + … + 4 and 1 + … + 10 first: pairing first and last gives (n/2) pairs of (n + 1), so the sum is 100 · 101 ÷ 2 = 5050.</p>
+    </div>
+    <div id="w-gauss"></div>
+  </div>
+  <div class="card prose">
+    <h3>Combining strategies</h3>
+    <p>In many problem-solving situations you will need a combination of strategies. <b>Example:</b> how many squares of all sizes are on an 8 × 8 checkerboard? <i>Solve a simpler problem</i> (1 × 1, 2 × 2, 3 × 3 boards), <i>draw pictures</i>, <i>make a list</i> of squares by size, then <i>look for a pattern</i>: the totals 1, 5, 14, 30 are sums of square numbers. See Activity 1.9.</p>
+  </div>
+  
+</section>
+
+<!-- ===================== ACTIVITY 1.1 ===================== -->
+<section class="page" id="pg-a11" aria-labelledby="h-a11" hidden>
+  <h2 id="h-a11">Activity 1.1: Practicing Polya’s Four Steps</h2>
+  <div class="meta"><span class="tag"><b>Notes</b> Notes (1)</span><span class="tag"><b>Tool</b> write-up checklist, explorers</span></div>
+  <div class="card">
+    <h3>Part 1: Using Polya’s four steps effectively</h3>
+    <div class="prose">
+      <p><b>Understand the Problem:</b> a bulleted list of all the important details (do not just restate the problem), plus the clarifications you, as a teacher, would make so all students understand the vocabulary and mathematics.</p>
+      <p><b>Devise a Plan:</b> a short general statement of the strategy or strategies you will use; no steps of work.</p>
+      <p><b>Carry Out the Plan:</b> show all work clearly and completely; describe in words what you are doing and why it makes sense; finish by answering the question in a complete sentence.</p>
+      <p><b>Look Back:</b> check your answer and show the work; explain why the answer makes sense in context; check whether there is more than one solution, and find them all or explain why there is only one. You may also discuss changes to your plan, patterns, generalizations or extensions.</p>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Part 2, Problem 1: The book</h3>
+    <p>A student opens a 125-page book and announces, “The sum of the two facing page numbers is a square number.” What are the page numbers the student has opened to?</p>
+    <div id="w-book"></div>
+    <div class="checklist" data-key="p1"></div>
+  </div>
+  <div class="card">
+    <h3>Part 2, Problem 2: Raffle tickets</h3>
+    <p>Mariella is selling raffle tickets for a school fundraiser. Adult tickets cost $4 and student tickets cost $3. If she has collected $65 so far, how many adult tickets did she sell?</p>
+    <div id="w-raffle"></div>
+    <div class="checklist" data-key="p2"></div>
+  </div>
+  
+</section>
+
+<!-- ===================== ACTIVITY 1.2 ===================== -->
+<section class="page" id="pg-a12" aria-labelledby="h-a12" hidden>
+  <h2 id="h-a12">Activity 1.2: Growing Tile T’s</h2>
+  <div class="meta"><span class="tag"><b>Notes</b> Notes (3): look for a pattern</span><span class="tag"><b>Manipulative</b> square tiles</span></div>
+  <div class="card prose">
+    <p>Below is a sequence of growing capital “T”s made of square tiles (sizes 1, 2 and 3 are on the handout). Use the slider to build any size; turn on color coding to see the parts.</p>
+  </div>
+  <div class="card"><div id="w-tileT"></div></div>
+  <div class="card prose">
+    <h3>Alternative solution: two constant center tiles, three growing arms</h3>
+    <p>Look at the two tiles in the center of the T: the corner tile where the bar meets the stem, and the tile just below it. They are in <b>every</b> T, so they are the constant part. Everything else is three arms (left, right and down), and each arm has exactly n tiles in the T of Size n.</p>
+    <div class="tbl"><table class="prod" style="width:auto"><caption class="sr">Center tiles plus three arms</caption><thead><tr><th scope="col">Size</th><th scope="col">Center (constant)</th><th scope="col">Left arm</th><th scope="col">Right arm</th><th scope="col">Down arm</th><th scope="col">Total</th></tr></thead><tbody>
+      <tr><td>1</td><td>2</td><td>1</td><td>1</td><td>1</td><td>2 + 3 · 1 = 5</td></tr>
+      <tr><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2 + 3 · 2 = 8</td></tr>
+      <tr><td>3</td><td>2</td><td>3</td><td>3</td><td>3</td><td>2 + 3 · 3 = 11</td></tr>
+      <tr><td>10</td><td>2</td><td>10</td><td>10</td><td>10</td><td>2 + 3 · 10 = 32</td></tr>
+      <tr class="here"><td>n</td><td>2</td><td>n</td><td>n</td><td>n</td><td>2 + 3n</td></tr>
+    </tbody></table></div>
+    <p>So the T of Size n has <b>2 + n + n + n = 3n + 2</b> tiles, the same formula as the top-bar-and-stem view. Choose “Two center tiles + three arms” in the color coding above to see it on any size: the red tiles never change, and each colored arm grows by one tile from one size to the next. This view also explains <i>why</i> the T grows by 3 tiles each time: one tile is added to each of the three arms.</p>
+  </div>
+  <div class="card prose">
+    <ol>
+      <li>Draw the next two T’s in the sequence.</li>
+      <li>Describe in words how the tile T’s are growing.</li>
+      <li>What does the T of Size 10 look like? How many tiles? How do you know?</li>
+      <li>Describe in words, a sketch, and a formula a rule for the number of tiles in a T of Size n. Use color to connect the formula to the drawing.</li>
+      <li>With 47 tiles, can you make a T that uses all of them? What Size?</li>
+      <li>What is the largest Size T you could make with 145 tiles?</li>
+      <li>Describe any rules for numbers of tiles that can or cannot make tile T’s.</li>
+    </ol>
+    <div id="w-12" style="display:grid;gap:8px"></div>
+  </div>
+  
+</section>
+
+<!-- ===================== ACTIVITY 1.2 A ===================== -->
+<section class="page" id="pg-a12a" aria-labelledby="h-a12a" hidden>
+  <h2 id="h-a12a">Activity 1.2 A: More Pattern Problems</h2>
+  <div class="meta"><span class="tag"><b>Notes</b> Notes (3)</span><span class="tag"><b>Manipulative</b> tiles, toothpicks, hexagon tables</span></div>
+  <div class="card">
+    <h3>1. Growing tile I’s</h3>
+    <div class="prose"><p>a. Draw the tile I of size 5 and describe it in words. b. How many tiles for a tile I of size 38? c. Generalize to size n: words, sketch, formula, and color coding.</p></div>
+    <div id="w-tileI"></div>
+  </div>
+  <div class="card">
+    <h3>2. Toothpick houses</h3>
+    <div class="prose"><p>a. Sketch the 5th house arrangement. b. Describe arrangement #100 in words. c. How many toothpicks in #100? d. The nth arrangement: sketch, formula, explanation, color coding.</p></div>
+    <div id="w-house"></div>
+  </div>
+  <div class="card">
+    <h3>3. Chairs around hexagonal tables</h3>
+    <div class="prose"><p>Chairs are placed around hexagonal tables pushed together in a row. a. How many chairs for 27 tables? b. The nth arrangement: sketch, formula, explanation, color coding.</p></div>
+    <div id="w-hex"></div>
+  </div>
+  <div class="card"><div id="w-12a" style="display:grid;gap:8px"></div></div>
+  
+</section>
+
+<!-- ===================== ACTIVITY 1.4 ===================== -->
+<section class="page" id="pg-a14" aria-labelledby="h-a14" hidden>
+  <h2 id="h-a14">Activity 1.4: Looking for and Expressing Patterns: Even and Odd Numbers</h2>
+  <div class="meta"><span class="tag"><b>Notes</b> Notes (2)–(3)</span><span class="tag"><b>Manipulative</b> square tiles in two rows</span></div>
+  <div class="card">
+    <h3>Part 1: Two rows of tiles</h3>
+    <div class="prose"><p>1. Represent the counting numbers with tiles, then arrange each pile in two horizontal rows that are equal or as close to equal as possible. 2. Which numbers make two equal rows? Describe the 6th, 10th and nth such number. 3. Describe the numbers that cannot, as “one row of ___ tiles and another row of ___ tiles.” 4. Recap the nth even and nth odd number. 5. Is 0 even or odd?</p></div>
+    <div id="w-rows"></div>
+    <div id="w-14" style="display:grid;gap:8px;margin-top:10px"></div>
+  </div>
+  <div class="card">
+    <h3>Part 2: Generalizing sums</h3>
+    <div class="prose"><p>Make and justify (with tiles and symbols) conjectures about 1. even + even, 2. odd + odd, 3. even + odd.</p></div>
+    <div id="w-sums"></div>
+  </div>
+  <div class="card">
+    <h3>Part 3: Consecutive numbers and multiples of 3</h3>
+    <div class="prose"><ol>
+      <li>Is the sum of two consecutive whole numbers always odd, always even, or sometimes each? Justify.</li>
+      <li>Can every odd number be written as a sum of two consecutive whole numbers?</li>
+      <li>Multiples of 3: a. draw tile pictures (three equal rows); b. show the sum of three consecutive whole numbers is always a multiple of 3; c. show every nonzero multiple of 3 is a sum of three consecutive whole numbers; d. how are b and c different?</li>
+    </ol></div>
+    <div id="w-consec"></div>
+  </div>
+  
+</section>
+
+<!-- ===================== ACTIVITY 1.7 ===================== -->
+<section class="page" id="pg-a17" aria-labelledby="h-a17" hidden>
+  <h2 id="h-a17">Activity 1.7: Cryptarithm</h2>
+  <div class="meta"><span class="tag"><b>Notes</b> Notes (1)–(2): Polya, guess and test</span><span class="tag"><b>Tool</b> cryptarithm tester</span></div>
+  <div class="card prose">
+    <p><b>Part 1.</b> Find digits A, B, C and D that make the multiplication true:</p>
+    <p class="mono big2" style="text-align:left">ABCD × 4 = DCBA</p>
+    <p>Write out your solution using Polya’s four steps: label and show all four steps, show all work in the order you did it, and explain each step of reasoning in words.</p>
+  </div>
+  <div class="card">
+    <h3>Try digits</h3>
+    <div id="w-crypt"></div>
+  </div>
+  <div class="card">
+    <h3>Inferential guess and test: one clue at a time</h3>
+    <div id="w-cryptclues"></div>
+  </div>
+  <div class="card prose">
+    <h3>Part 2: Reflecting on your approach</h3>
+    <p>Answer the questions for the approach your group started with, then for any approach you used later.</p>
+    <ul>
+      <li><b>Random guess and test</b> (choices for no specific reason): Did you modify your approach after a few tries? What discoveries narrowed (or could have narrowed) the digits to check? What would you change now?</li>
+      <li><b>Systematic guess and check</b> (tries tracked carefully, nothing repeated): Same three questions.</li>
+      <li><b>Inferential guess and test</b> (ideas about how numbers work rule things out without trying them): What assumptions did you start with? What discoveries narrowed the digits after your first tries? What would you change now?</li>
+    </ul>
+    <div id="w-cryptcount"></div>
+  </div>
+  
+</section>
+
+<!-- ===================== ACTIVITY 1.8 ===================== -->
+<section class="page" id="pg-a18" aria-labelledby="h-a18" hidden>
+  <h2 id="h-a18">Activity 1.8: More Problem Solving: Looking for and Expressing Patterns</h2>
+  <div class="meta"><span class="tag"><b>Notes</b> Notes (3)</span><span class="tag"><b>Manipulative</b> dot arrays, handshake diagram</span></div>
+  <div class="card">
+    <h3>1. Rectangular numbers</h3>
+    <div class="prose"><p>The rectangular numbers are 2, 6, 12, 20, … a) 6th? b) 10th? c) What pattern exists in the diagrams? d) A formula for the nth. e) The 100th.</p></div>
+    <div id="w-rectn"></div>
+  </div>
+  <div class="card">
+    <h3>2. Triangular numbers</h3>
+    <div class="prose"><p>The triangular numbers are 1, 3, 6, 10, … a) 6th? b) 10th? c) How are they similar to and different from the rectangular numbers? d) A formula for the nth (find more than one way). e) The 100th.</p></div>
+    <div id="w-tri"></div>
+  </div>
+  <div class="card">
+    <h3>3. Handshakes</h3>
+    <div class="prose"><p>Each group member shakes hands with each other member exactly once. How many handshakes for a) 4 people, b) 8, c) 1, d) 10? e) A formula for n people (more than one way). f) 100 people.</p></div>
+    <div id="w-hand"></div>
+  </div>
+  <div class="card"><div id="w-18" style="display:grid;gap:8px"></div></div>
+  <div class="card prose">
+    <h3>Wrap-up discussion</h3>
+    <ol type="a"><li>Did the pattern in question 1 help with question 2? Why or why not?</li><li>Did the pattern in question 2 help with question 3? Why or why not?</li><li>Did you write the formula in question 2 in at least two ways? Which was easier to explain, and which to use?</li><li>The same for question 3.</li></ol>
+  </div>
+  
+</section>
+
+<!-- ===================== ACTIVITY 1.9 ===================== -->
+<section class="page" id="pg-a19" aria-labelledby="h-a19" hidden>
+  <h2 id="h-a19">Activity 1.9: Checkerboards</h2>
+  <div class="meta"><span class="tag"><b>Notes</b> Notes (3): combining strategies</span><span class="tag"><b>Manipulative</b> square grid</span></div>
+  <div class="card prose">
+    <p>Checkers is played on an 8 × 8 board. Count the total number of squares of <i>all sizes</i> on square grids.</p>
+    <p><b>Part 1</b> (private reasoning first): 1. How many squares in a 3 × 3 grid? 2. In a 4 × 4 grid? 3. In an 8 × 8 grid?</p>
+    <p><b>Part 2:</b> Can your approach be generalized to an n × n board? Record your group’s work with the first three of Polya’s steps.</p>
+  </div>
+  <div class="card"><div id="w-board"></div></div>
+  <div class="card"><div id="w-19" style="display:grid;gap:8px"></div></div>
+  
+</section>
+
+<!-- ===================== PRACTICE ===================== -->
+<section class="page" id="pg-practice" aria-labelledby="h-practice" hidden>
+  <h2 id="h-practice">Chapter 1 Practice Lab</h2>
+  <p class="lede">New problems every time: growing patterns, figurate numbers, guess and test, choosing a strategy, and Polya’s steps. Every answer comes with a picture or the reasoning.</p>
+  <div id="w-practice"></div>
+</section>
+
+    </main>
+  </div>
+  <footer class="credit">Chapter 1 Outline · © 2026 Dr. Murat Kol</footer>
+</div>
+
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const rand = (k) => Math.floor(Math.random() * k);
+  const rint = (a, b) => a + rand(b - a + 1);
+  const pick = (a) => a[rand(a.length)];
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fmt = (n) => n.toLocaleString('en-US');
+  const slider = (id, label, min, max, val) => `<div class="slider"><label for="${id}">${label}</label><input type="range" id="${id}" min="${min}" max="${max}" value="${val}"><output id="${id}o">${val}</output></div>`;
+  const sv = (id) => { const v = +$(id).value; $(id + 'o').textContent = v; return v; };
+  function items(host, list, idp) {
+    host.innerHTML = list.map(([lab, , unit], i) => `<div class="row"><span style="min-width:15em">${lab}</span><label class="sr" for="${idp}${i}">Answer</label><input type="text" id="${idp}${i}" class="mono" style="width:7em" autocomplete="off"><span class="help">${unit || ''}</span><button type="button" data-i="${i}">Check</button><button type="button" data-s="${i}">Answer</button><span class="fb" aria-live="polite"></span></div>`).join('');
+    host.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-i],[data-s]'); if (!b) return;
+      const i = +(b.dataset.i ?? b.dataset.s), [, ans, , ex] = list[i], fb = b.parentElement.querySelector('.fb');
+      if (b.dataset.s != null) { fb.className = 'fb good'; fb.innerHTML = ans[0] + (ex ? ' — ' + ex : ''); return; }
+      const v = $(idp + i).value.trim().replace(/[\s,]/g, '');
+      const ok = ans.some((a) => String(a).replace(/[\s,]/g, '') === v);
+      fb.className = 'fb ' + (ok ? 'good' : 'warn'); fb.innerHTML = ok ? 'Correct!' + (ex ? ' ' + ex : '') : 'Not yet.';
+    });
+  }
+  function choice(host, list, opts) {   // list: [statement, answer, why]
+    host.innerHTML = list.map(([s], i) => `<div class="item"><div>${s}</div><div class="row" role="group" aria-label="Choose">${opts.map((o) => `<button type="button" data-i="${i}" data-o="${esc(o)}">${o}</button>`).join('')}<span class="fb" aria-live="polite"></span></div></div>`).join('');
+    host.addEventListener('click', (e) => { const b = e.target.closest('[data-o]'); if (!b) return; const [, a, w] = list[+b.dataset.i], ok = b.dataset.o === a, fb = b.parentElement.querySelector('.fb'); fb.className = 'fb ' + (ok ? 'good' : 'warn'); fb.textContent = (ok ? 'Yes. ' : `Not quite: ${a}. `) + w; });
+  }
+  // grid of tiles: cells = [[r,c,cls]]
+  function tiles(cells, size = 16, label = '') {
+    const R = Math.max(...cells.map((c) => c[0])) + 1, C = Math.max(...cells.map((c) => c[1])) + 1, s = size;
+    return `<svg viewBox="-1 -1 ${C * s + 2} ${R * s + 2}" role="img" aria-label="${esc(label || cells.length + " tiles")}" style="width:100%;max-width:${Math.min(560, C * s + 2)}px;height:auto">${cells.map(([r, c, cls]) => `<rect x="${c * s}" y="${r * s}" width="${s}" height="${s}" class="tile ${cls || ''}"/>`).join('')}</svg>`;
+  }
+
+  // ================= Notes 1 =================
+  choice($('w-exprob'), [
+    ['Find 347 + 586.', 'Exercise', 'A known procedure (the addition algorithm) applies directly.'],
+    ['Find two whole numbers whose sum is 30 and whose product is 216.', 'Problem', 'No ready-made procedure; you must choose a strategy (for example, guess and test).'],
+    ['Find the area of a 6 cm by 9 cm rectangle.', 'Exercise', 'Apply the formula length × width.'],
+    ['How many squares of all sizes are on a checkerboard?', 'Problem', 'You need to plan: simpler problems, a list, a pattern.'],
+    ['Find all digits A, B, C, D with ABCD × 4 = DCBA.', 'Problem', 'Requires reasoning and guess and test.'],
+    ['List the multiples of 7 up to 70.', 'Exercise', 'Routine skip counting.'],
+  ], ['Exercise', 'Problem']);
+  choice($('w-polya'), [
+    ['Making a bulleted list of the important details', 'Understand the Problem', 'Identifying the data and conditions.'],
+    ['Asking what “facing pages” means', 'Understand the Problem', 'Clarifying vocabulary.'],
+    ['Deciding to make a table because there are few possibilities', 'Devise a Plan', 'Choosing a strategy from a clue.'],
+    ['Filling in the table and explaining each row', 'Carry Out the Plan', 'Implementing the strategy with reasons.'],
+    ['Answering the question in a complete sentence', 'Carry Out the Plan', 'The last part of carrying out the plan.'],
+    ['Substituting the answer back into the original problem', 'Look Back', 'Checking the answer.'],
+    ['Searching for other solutions', 'Look Back', 'Checking whether the solution is unique.'],
+    ['Noticing the method works for any square number', 'Look Back', 'Generalizing and extending.'],
+  ], ['Understand the Problem', 'Devise a Plan', 'Carry Out the Plan', 'Look Back']);
+
+  // ================= Notes 2: guess and test =================
+  (() => {
+    const host = $('w-gt'); let log = [];
+    host.innerHTML = `<div class="row"><button type="button" data-g="r">Random guess</button><button type="button" data-g="s">Next systematic guess</button><button type="button" data-g="i">Inferential guess</button><button type="button" data-g="c">Clear</button></div><div class="tbl"><table class="prod" style="width:auto"><caption class="sr">Guesses</caption><thead><tr><th scope="col">Type</th><th scope="col">Numbers (sum 30)</th><th scope="col">Product</th><th scope="col">216?</th></tr></thead><tbody id="gtB"></tbody></table></div><div class="note" id="gtMsg" aria-live="polite"></div>`;
+    let sys = 0, inf = 0; const INF = [[15, 15, 'Equal numbers make the largest product: 225 is a little too big, so move the numbers apart.'], [14, 16, '224: still too big; move apart.'], [13, 17, '221: closer; keep moving apart.'], [12, 18, '216: found it!']];
+    function add(type, a, note) { const b = 30 - a, p = a * b; log.push(`<tr><td>${type}</td><td>${a} and ${b}</td><td>${p}</td><td>${p === 216 ? '✓' : ''}</td></tr>`); $('gtB').innerHTML = log.join(''); $('gtMsg').className = 'note' + (p === 216 ? ' good' : ''); $('gtMsg').textContent = p === 216 ? `${a} + ${b} = 30 and ${a} × ${b} = 216. ${note || ''}` : note || `${a} × ${b} = ${p}.`; }
+    host.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-g]'); if (!b) return; const g = b.dataset.g;
+      if (g === 'c') { log = []; sys = 0; inf = 0; $('gtB').innerHTML = ''; $('gtMsg').textContent = ''; $('gtMsg').className = 'note'; return; }
+      if (g === 'r') add('Random', rint(1, 29), 'A random guess: no reason behind it, and it may repeat earlier guesses.');
+      if (g === 's') { sys = sys % 15 + 1; add('Systematic', sys, `Systematic: 1, 2, 3, … in order, so nothing is skipped or repeated.`); }
+      if (g === 'i') { const [x, , w] = INF[Math.min(inf, 3)]; inf++; add('Inferential', x, w); }
+    });
+  })();
+  (() => {
+    const host = $('w-fence');
+    host.innerHTML = slider('fcL', 'Length (ft)', 20, 120, 100) + slider('fcS', 'Post every (ft)', 5, 20, 10) + '<div id="fcPic"></div><div class="note good" id="fcMsg" aria-live="polite"></div>';
+    function draw() {
+      const L = sv('fcL'), S = sv('fcS'), n = Math.floor(L / S), W = 520, x = (d) => 20 + d * (W - 40) / L; let h = `<line x1="${x(0)}" y1="40" x2="${x(n * S)}" y2="40" style="stroke:var(--pen3);stroke-width:3"/><line x1="${x(0)}" y1="55" x2="${x(n * S)}" y2="55" style="stroke:var(--pen3);stroke-width:3"/>`;
+      for (let k = 0; k <= n; k++) h += `<rect x="${x(k * S) - 4}" y="25" width="8" height="45" rx="2" style="fill:var(--pen1)"/><text x="${x(k * S)}" y="88" text-anchor="middle" font-size="11" class="vlabel" style="font-weight:400">${k * S}</text>`;
+      $('fcPic').innerHTML = `<svg viewBox="0 0 ${W} 96" role="img" aria-label="${n + 1} posts" style="width:100%;height:auto">${h}</svg>`;
+      $('fcMsg').innerHTML = `${n} sections of ${S} ft need <b>${n + 1} posts</b>: one more post than sections, because both ends get a post.${L % S ? ` (The last ${L % S} ft has no section.)` : ''}`;
+    }
+    ['fcL', 'fcS'].forEach((id) => ($(id).oninput = draw)); draw();
+  })();
+  (() => {
+    const host = $('w-trick');
+    host.innerHTML = '<form class="row" id="tkF"><label for="tkN">Think of a number</label><input type="number" id="tkN" value="7" style="width:6em"><button type="submit">Run the trick</button></form><div class="tbl" id="tkT"></div>';
+    function go() {
+      const n = +$('tkN').value, s = [['Start with your number', n, 'n'], ['Add 5', n + 5, 'n + 5'], ['Double it', 2 * (n + 5), '2n + 10'], ['Subtract 4', 2 * (n + 5) - 4, '2n + 6'], ['Divide by 2', (2 * (n + 5) - 4) / 2, 'n + 3'], ['Subtract the starting number', 3, '3']];
+      $('tkT').innerHTML = `<table><caption class="sr">Number trick</caption><thead><tr><th scope="col">Step</th><th scope="col">With ${n}</th><th scope="col">With a variable n</th></tr></thead><tbody>${s.map(([a, b, c]) => `<tr><td>${a}</td><td class="mono">${b}</td><td class="mono">${c}</td></tr>`).join('')}</tbody></table><p class="help">The variable column proves the result is 3 for <i>every</i> starting number; the numeric column only checks one.</p>`;
+    }
+    $('tkF').addEventListener('submit', (e) => { e.preventDefault(); go(); }); go();
+  })();
+
+  // ================= Notes 3 =================
+  (() => {
+    const host = $('w-seq');
+    host.innerHTML = '<form class="row" id="sqF"><label for="sqA">First term</label><input type="number" id="sqA" value="4" style="width:5em"><label for="sqD">Add each time</label><input type="number" id="sqD" value="3" style="width:5em"><button type="submit">Make the table</button></form><div id="sqT"></div>';
+    function go() {
+      const a = +$('sqA').value, d = +$('sqD').value, c = a - d, f = (n) => d * n + c;
+      $('sqT').innerHTML = `<div class="tbl"><table class="prod" style="width:auto"><caption class="sr">Sequence table</caption><thead><tr><th scope="col">n</th>${[1, 2, 3, 4, 5, 6].map((n) => `<th scope="col">${n}</th>`).join('')}<th scope="col">10</th><th scope="col">n</th></tr></thead><tbody><tr><th scope="row">term</th>${[1, 2, 3, 4, 5, 6].map((n) => `<td>${f(n)}</td>`).join('')}<td>${f(10)}</td><td>${d}n ${c >= 0 ? '+' : '−'} ${Math.abs(c)}</td></tr></tbody></table></div><p class="help">Each term is ${d} more than the one before, so the nth term is ${d} · n plus a fixed amount: ${d} · 1 + ${c} = ${a} gives the fixed amount ${c}.</p>`;
+    }
+    $('sqF').addEventListener('submit', (e) => { e.preventDefault(); go(); }); go();
+  })();
+  (() => {
+    const host = $('w-coins');
+    host.innerHTML = '<div class="row"><label for="cnAmt" class="label">Amount</label><select id="cnAmt"><option>15</option><option selected>25</option><option>30</option><option>40</option><option>50</option></select><button type="button" class="primary" id="cnNext">Next row</button><button type="button" id="cnAll">Whole list</button></div><div class="tbl"><table class="prod" style="width:auto"><caption class="sr">Systematic list of coin combinations</caption><thead><tr><th scope="col">#</th><th scope="col">Quarters</th><th scope="col">Dimes</th><th scope="col">Nickels</th><th scope="col">Pennies</th></tr></thead><tbody id="cnB"></tbody></table></div><div class="note" id="cnMsg" aria-live="polite"></div>';
+    let all = [], k = 0;
+    function build() { const A = +$('cnAmt').value; all = []; for (let q = Math.floor(A / 25); q >= 0; q--) for (let d = Math.floor((A - 25 * q) / 10); d >= 0; d--) for (let n = Math.floor((A - 25 * q - 10 * d) / 5); n >= 0; n--) all.push([q, d, n, A - 25 * q - 10 * d - 5 * n]); k = 0; draw(); }
+    function draw() { $('cnB').innerHTML = all.slice(0, k).map((r, i) => `<tr><td>${i + 1}</td>${r.map((x) => `<td>${x}</td>`).join('')}</tr>`).join(''); $('cnMsg').className = 'note' + (k === all.length ? ' good' : ''); $('cnMsg').textContent = k === all.length ? `Done: ${all.length} ways. The list starts with the most quarters, then the most dimes, then the most nickels, so no way is missed or repeated.` : `${k} so far.`; }
+    $('cnAmt').onchange = build; $('cnNext').onclick = () => { if (k < all.length) k++; draw(); }; $('cnAll').onclick = () => { k = all.length; draw(); }; build();
+  })();
+  (() => {
+    const host = $('w-gauss');
+    host.innerHTML = slider('gsN', 'n', 2, 20, 6) + '<div id="gsPic"></div><div class="note good" id="gsMsg" aria-live="polite"></div>';
+    function draw() {
+      const n = sv('gsN');
+      $('gsPic').innerHTML = `<div class="tbl"><table class="prod" style="width:auto"><caption class="sr">Pairing numbers</caption><tbody><tr>${[...Array(n).keys()].map((i) => `<td>${i + 1}</td>`).join('')}</tr><tr>${[...Array(n).keys()].map((i) => `<td>${n - i}</td>`).join('')}</tr><tr>${[...Array(n).keys()].map(() => `<td class="on">${n + 1}</td>`).join('')}</tr></tbody></table></div>`;
+      $('gsMsg').innerHTML = `Write the sum forward and backward: each column adds to ${n + 1}, and there are ${n} columns. That is twice the sum, so 1 + 2 + … + ${n} = ${n} · ${n + 1} ÷ 2 = <b>${n * (n + 1) / 2}</b>. For 100: 100 · 101 ÷ 2 = 5050.`;
+    }
+    $('gsN').oninput = draw; draw();
+  })();
+
+  // ================= Activity 1.1 =================
+  (() => {
+    const host = $('w-book'), sq = new Set([...Array(20).keys()].map((k) => k * k));
+    host.innerHTML = slider('bkP', 'Left page (even)', 2, 124, 12) + '<div class="note" id="bkMsg" aria-live="polite"></div><div class="row"><button type="button" id="bkAll">Find every solution (Look Back)</button></div><div id="bkOut"></div>';
+    $('bkP').step = 2;
+    const draw = () => { const p = sv('bkP'), s = 2 * p + 1, ok = sq.has(s); $('bkMsg').className = 'note ' + (ok ? 'good' : ''); $('bkMsg').innerHTML = `Pages ${p} and ${p + 1}: sum ${s}. ${ok ? `<b>${s} = ${Math.sqrt(s)}²</b>, a square number!` : 'Not a square.'}`; };
+    $('bkP').oninput = draw; draw();
+    $('bkAll').onclick = () => { const sols = []; for (let p = 2; p <= 124; p += 2) if (sq.has(2 * p + 1)) sols.push(`${p}–${p + 1} (sum ${2 * p + 1} = ${Math.sqrt(2 * p + 1)}²)`); $('bkOut').innerHTML = `<p>There are <b>${sols.length}</b> solutions: ${sols.join('; ')}. The sum of facing pages is always odd, so only odd squares can work.</p>`; };
+  })();
+  (() => {
+    const host = $('w-raffle');
+    host.innerHTML = slider('rfA', 'Adult tickets', 0, 16, 5) + '<div class="note" id="rfMsg" aria-live="polite"></div><div class="row"><button type="button" id="rfAll">Make a systematic table</button></div><div id="rfOut"></div>';
+    const draw = () => { const a = sv('rfA'), r = 65 - 4 * a, ok = r >= 0 && r % 3 === 0; $('rfMsg').className = 'note ' + (ok ? 'good' : ''); $('rfMsg').innerHTML = `${a} adult tickets bring $${4 * a}; $${r} is left for student tickets. ${r < 0 ? 'Too much money.' : ok ? `<b>${r / 3} student tickets</b> works: 4 · ${a} + 3 · ${r / 3} = 65.` : `$${r} is not a multiple of $3, so this does not work.`}`; };
+    $('rfA').oninput = draw; draw();
+    $('rfAll').onclick = () => { const rows = []; for (let a = 0; a <= 16; a++) { const r = 65 - 4 * a; rows.push(`<tr${r % 3 === 0 ? ' class="here"' : ''}><td>${a}</td><td>$${4 * a}</td><td>$${r}</td><td>${r % 3 === 0 ? r / 3 : '—'}</td></tr>`); } $('rfOut').innerHTML = `<div class="tbl"><table><caption class="sr">All possibilities</caption><thead><tr><th scope="col">Adult</th><th scope="col">Adult $</th><th scope="col">Left</th><th scope="col">Student tickets</th></tr></thead><tbody>${rows.join('')}</tbody></table></div><p>Five possible answers: 2, 5, 8, 11 or 14 adult tickets. The problem does not give enough information for a single answer; say so in the Look Back step.</p>`; };
+  })();
+  document.querySelectorAll('.checklist').forEach((c) => {
+    const key = 'ch1-check-' + c.dataset.key, S = ['Understand the Problem: details listed', 'Understand the Problem: teacher clarifications', 'Devise a Plan: strategy stated, no work', 'Carry Out the Plan: all work shown and explained', 'Carry Out the Plan: answer in a complete sentence', 'Look Back: answer checked, with work', 'Look Back: why the answer makes sense', 'Look Back: all solutions found, or uniqueness explained'];
+    let saved = {}; try { saved = JSON.parse(localStorage.getItem(key) || '{}'); } catch (e) {}
+    c.innerHTML = `<details><summary class="help" style="font-weight:700">Self-assessment checklist for this write-up</summary><div style="display:grid;gap:4px;margin-top:6px">${S.map((t, i) => `<label class="toggle"><input type="checkbox" data-k="${i}"${saved[i] ? ' checked' : ''}> ${t}</label>`).join('')}</div></details>`;
+    c.addEventListener('change', (e) => { const k = e.target.dataset.k; saved[k] = e.target.checked; try { localStorage.setItem(key, JSON.stringify(saved)); } catch (er) {} });
+  });
+
+  // ================= Activity 1.2: tile T =================
+  (() => {
+    const host = $('w-tileT');
+    host.innerHTML = slider('tT', 'Size', 1, 12, 3) + '<div class="row"><label class="label" for="tTv">Color coding</label><select id="tTv"><option value="bar">Top bar + stem: (2n + 1) + (n + 1)</option><option value="ctr">Two center tiles + three arms: 2 + n + n + n</option><option value="col">Center column + two arms: (n + 2) + 2n</option><option value="none">No color</option></select></div><div id="tTpic"></div><div class="note good" id="tTmsg" aria-live="polite"></div>';
+    function draw() {
+      const n = sv('tT'), v = $('tTv').value, W = 2 * n + 1, cells = [];
+      for (let c = 0; c < W; c++) cells.push([0, c, v === 'bar' ? 'c1' : v === 'col' ? (c === n ? 'c2' : 'c3') : v === 'ctr' ? (c === n ? 'c1' : c < n ? 'c2' : 'c3') : '']);
+      for (let r = 1; r <= n + 1; r++) cells.push([r, n, v === 'bar' ? 'c2' : v === 'col' ? 'c2' : v === 'ctr' ? (r === 1 ? 'c1' : 'c4') : '']);
+      $('tTpic').innerHTML = tiles(cells, 18, `Tile T of size ${n} with ${3 * n + 2} tiles`);
+      $('tTmsg').innerHTML = v === 'ctr' ? `Two center tiles (red, always the same) + left arm ${n} (blue) + right arm ${n} (orange) + down arm ${n} (green) = 2 + 3 · ${n} = <b>${3 * n + 2}</b> tiles. In general 2 + 3n: each new size adds one tile to each arm.` : v === 'col' ? `Center column ${n + 2} (blue) + two arms of ${n} (orange) = <b>${3 * n + 2}</b> tiles` : `Top bar ${2 * n + 1} (red) + stem ${n + 1} (blue) = <b>${3 * n + 2}</b> tiles. In general: (2n + 1) + (n + 1) = 3n + 2.`;
+    }
+    $('tT').oninput = draw; $('tTv').onchange = draw; draw();
+  })();
+  items($('w-12'), [['3. Tiles in the T of Size 10', ['32'], '', 'top bar 21 + stem 11'], ['5. Size that uses exactly 47 tiles', ['15'], '', '3 · 15 + 2 = 47'], ['6. Largest Size with 145 tiles', ['47'], '', '3 · 47 + 2 = 143; Size 48 needs 146']], 'q12');
+
+  // ================= Activity 1.2 A =================
+  (() => {
+    const host = $('w-tileI');
+    host.innerHTML = slider('tI', 'Size', 1, 12, 5) + '<div id="tIpic"></div><div class="note good" id="tImsg" aria-live="polite"></div>';
+    const draw = () => { const n = sv('tI'), cells = []; [0, 1, 2].forEach((c) => cells.push([0, c, 'c1'])); for (let r = 1; r <= n; r++) cells.push([r, 1, 'c2']); [0, 1, 2].forEach((c) => cells.push([n + 1, c, 'c1'])); $('tIpic').innerHTML = tiles(cells, 18, `Tile I of size ${n}`); $('tImsg').innerHTML = `Top bar 3 + bottom bar 3 (red) + middle column ${n} (blue) = <b>${n + 6}</b> tiles: n + 6.`; };
+    $('tI').oninput = draw; draw();
+  })();
+  (() => {
+    const host = $('w-house');
+    host.innerHTML = slider('hs', 'Arrangement #', 1, 8, 3) + '<div id="hsPic"></div><div class="note good" id="hsMsg" aria-live="polite"></div>';
+    function draw() {
+      const n = sv('hs'), s = 50, W = n * s + 20; let h = `<line x1="10" y1="40" x2="10" y2="90" class="tp first"/>`;
+      for (let k = 0; k < n; k++) { const x = 10 + k * s; h += `<line x1="${x}" y1="40" x2="${x + s / 2}" y2="8" class="tp"/><line x1="${x + s / 2}" y1="8" x2="${x + s}" y2="40" class="tp"/><line x1="${x}" y1="40" x2="${x + s}" y2="40" class="tp"/><line x1="${x}" y1="90" x2="${x + s}" y2="90" class="tp"/><line x1="${x + s}" y1="40" x2="${x + s}" y2="90" class="tp"/>`; }
+      $('hsPic').innerHTML = `<svg viewBox="0 0 ${W} 100" role="img" aria-label="${n} houses, ${5 * n + 1} toothpicks" style="width:100%;max-width:${W * 1.4}px;height:auto">${h}</svg>`;
+      $('hsMsg').innerHTML = `The first wall (red) is 1 toothpick; each house adds 5 (roof 2, ceiling, floor, right wall): 1 + 5 · ${n} = <b>${5 * n + 1}</b>. In general 5n + 1.`;
+    }
+    $('hs').oninput = draw; draw();
+  })();
+  (() => {
+    const host = $('w-hex');
+    host.innerHTML = slider('hx', 'Tables', 1, 8, 6) + '<div id="hxPic"></div><div class="note good" id="hxMsg" aria-live="polite"></div>';
+    function draw() {
+      const n = sv('hx'), r = 24, w = r * Math.sqrt(3), W = n * w + 60, cy = 50; let h = '';
+      for (let k = 0; k < n; k++) {
+        const cx = 30 + w / 2 + k * w, pts = [0, 1, 2, 3, 4, 5].map((i) => { const a = Math.PI / 180 * (60 * i - 90); return [cx + r * Math.cos(a), cy + r * Math.sin(a)]; });
+        h += `<polygon points="${pts.map((p) => p.join(',')).join(' ')}" class="hext"/>`;
+        [[pts[5], pts[0]], [pts[0], pts[1]], [pts[2], pts[3]], [pts[3], pts[4]]].forEach(([a, b]) => { const mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2, ox = (mx - cx) * 0.38, oy = (my - cy) * 0.38; h += `<circle cx="${mx + ox}" cy="${my + oy}" r="5" class="chair"/>`; });
+      }
+      h += `<circle cx="${30 - 10}" cy="${cy}" r="5" class="chair end"/><circle cx="${30 + n * w + 10}" cy="${cy}" r="5" class="chair end"/>`;
+      $('hxPic').innerHTML = `<svg viewBox="0 0 ${W} 100" role="img" aria-label="${n} tables, ${4 * n + 2} chairs" style="width:100%;max-width:${W * 1.4}px;height:auto">${h}</svg>`;
+      $('hxMsg').innerHTML = `Each table seats 4 (2 above, 2 below, blue) and the two ends add 1 each (red): 4 · ${n} + 2 = <b>${4 * n + 2}</b> chairs. In general 4n + 2.`;
+    }
+    $('hx').oninput = draw; draw();
+  })();
+  items($('w-12a'), [['1b. Tiles in the I of size 38', ['44'], '', '38 + 6'], ['2c. Toothpicks in house #100', ['501'], '', '5 · 100 + 1'], ['3a. Chairs for 27 tables', ['110'], '', '4 · 27 + 2']], 'q12a');
+
+  // ================= Activity 1.4 =================
+  function rows2(n, cls = 'c2') { const top = Math.ceil(n / 2), bot = Math.floor(n / 2), cells = []; for (let c = 0; c < top; c++) cells.push([0, c, cls]); for (let c = 0; c < bot; c++) cells.push([1, c, cls]); return cells; }
+  (() => {
+    const host = $('w-rows');
+    host.innerHTML = slider('rw', 'Number of tiles', 0, 24, 7) + '<div id="rwPic" style="min-height:40px"></div><div class="note" id="rwMsg" aria-live="polite"></div>';
+    const draw = () => { const n = sv('rw'); $('rwPic').innerHTML = n ? tiles(rows2(n).map((c) => (n % 2 && c[0] === 0 && c[1] === Math.ceil(n / 2) - 1 ? [c[0], c[1], 'c1'] : c)), 22, `${n} tiles in two rows`) : '<p class="help">No tiles at all: two rows of 0 tiles each.</p>'; const k = Math.floor(n / 2); $('rwMsg').className = 'note ' + (n % 2 ? '' : 'good'); $('rwMsg').innerHTML = n === 0 ? '0 can be shown as two equal rows of 0 tiles, so <b>0 is even</b> (n = 0 in 2n).' : n % 2 ? `One row of ${k + 1} tiles and another row of ${k} tiles: <b>odd</b>. It is the ${k + 1}th odd number, 2 · ${k + 1} − 1 = ${n}.` : `Two equal rows of ${k} tiles: <b>even</b>. It is the ${k}th even number, 2 · ${k} = ${n}.`; };
+    $('rw').oninput = draw; draw();
+  })();
+  items($('w-14'), [['2b. The 6th even number', ['12']], ['2b. The 10th even number', ['20']], ['3. The 6th odd number', ['11']], ['3. The 10th odd number', ['19']]], 'q14');
+  (() => {
+    const host = $('w-sums');
+    host.innerHTML = slider('smA', 'First number', 0, 12, 6) + slider('smB', 'Second number', 0, 12, 5) + '<div class="grid3" id="smPic"></div><div class="note good" id="smMsg" aria-live="polite"></div>';
+    function draw() {
+      const a = sv('smA'), b = sv('smB'), s = a + b, pa = (x) => (x % 2 ? 'odd' : 'even');
+      const comb = rows2(a, 'c1').concat(rows2(b, 'c2').map(([r, c, k]) => [r, c + Math.ceil(a / 2), k]));
+      $('smPic').innerHTML = `<div><div class="label">${a} (${pa(a)})</div>${a ? tiles(rows2(a, 'c1'), 18) : '—'}</div><div><div class="label">${b} (${pa(b)})</div>${b ? tiles(rows2(b, 'c2'), 18) : '—'}</div><div><div class="label">Combined: ${s}</div>${s ? tiles(comb, 18, `${s} tiles`) : '—'}</div>`;
+      const why = a % 2 === 0 && b % 2 === 0 ? 'Even + even: both pictures have equal rows, so the combined rows are equal. 2m + 2n = 2(m + n).' : a % 2 && b % 2 ? 'Odd + odd: each has one extra tile; the two extras pair up into a column, so the rows are equal. (2m + 1) + (2n + 1) = 2(m + n + 1).' : 'Even + odd: only one picture has an extra tile, and nothing pairs with it. 2m + (2n + 1) = 2(m + n) + 1.';
+      $('smMsg').innerHTML = `${a} + ${b} = ${s} is <b>${pa(s)}</b>. ${why}`;
+    }
+    ['smA', 'smB'].forEach((id) => ($(id).oninput = draw)); draw();
+  })();
+  (() => {
+    const host = $('w-consec');
+    host.innerHTML = slider('csN', 'n', 1, 10, 4) + '<div class="grid2" id="csPic"></div><div class="note good" id="csMsg" aria-live="polite"></div>';
+    function draw() {
+      const n = sv('csN'), a = [], b = [];
+      for (let c = 0; c < n; c++) a.push([0, c, 'c1']); for (let c = 0; c < n + 1; c++) a.push([1, c, 'c2']);
+      [n - 1, n, n + 1].forEach((len, r) => { for (let c = 0; c < len; c++) b.push([r, c, r === 2 && c === n ? 'c3' : 'c2']); });
+      $('csPic').innerHTML = `<div><div class="label">${n} + ${n + 1}</div>${tiles(a, 18, `${n} plus ${n + 1}`)}</div><div><div class="label">${n - 1} + ${n} + ${n + 1}</div>${b.length ? tiles(b, 18, `${n - 1} plus ${n} plus ${n + 1}`) : ''}</div>`;
+      $('csMsg').innerHTML = `Two consecutive numbers: n + (n + 1) = 2n + 1 = ${2 * n + 1}, always <b>odd</b> (one row is one tile longer). Three consecutive: move the orange tile from the longest row to the shortest row and get three rows of ${n}: (n − 1) + n + (n + 1) = 3n = ${3 * n}, always a <b>multiple of 3</b>.`;
+    }
+    $('csN').oninput = draw; draw();
+  })();
+
+  // ================= Activity 1.7: cryptarithm =================
+  let tries = 0;
+  (() => {
+    const host = $('w-crypt');
+    host.innerHTML = `<form class="row" id="crF">${['A', 'B', 'C', 'D'].map((L) => `<label for="cr${L}">${L}</label><input type="number" id="cr${L}" min="0" max="9" style="width:4em">`).join('')}<button type="submit" class="primary">Test</button><button type="button" id="crRand">Random try</button><button type="button" id="crSys">Next systematic try</button></form><div class="note" id="crMsg" aria-live="polite"></div><p class="help" id="crCount">Tries so far: 0</p>`;
+    let sysN = 999;
+    function test(A, B, C, D) {
+      tries++; $('crCount').textContent = `Tries so far: ${tries}`;
+      const x = A * 1000 + B * 100 + C * 10 + D, y = D * 1000 + C * 100 + B * 10 + A, p = x * 4, m = $('crMsg');
+      if (A === 0) { m.className = 'note warn'; m.textContent = 'A cannot be 0: ABCD must be a four-digit number.'; return; }
+      m.className = 'note ' + (p === y ? 'good' : 'warn');
+      m.innerHTML = `${x} × 4 = ${fmt(p)}; DCBA = ${y}. ${p === y ? '<b>It works!</b>' : p > 9999 ? 'The product has five digits, so A is too big.' : 'Not equal.'}`;
+    }
+    $('crF').addEventListener('submit', (e) => { e.preventDefault(); const v = ['A', 'B', 'C', 'D'].map((L) => Math.max(0, Math.min(9, Math.floor(+$('cr' + L).value || 0)))); test(...v); });
+    $('crRand').onclick = () => { const v = [rint(1, 9), rand(10), rand(10), rand(10)]; ['A', 'B', 'C', 'D'].forEach((L, i) => ($('cr' + L).value = v[i])); test(...v); };
+    $('crSys').onclick = () => { sysN = sysN >= 9999 ? 1000 : sysN + 1; const v = String(sysN).split('').map(Number); ['A', 'B', 'C', 'D'].forEach((L, i) => ($('cr' + L).value = v[i])); test(...v); };
+  })();
+  (() => {
+    const host = $('w-cryptclues');
+    const C = [
+      ['Start: any four-digit ABCD', 9000, ''],
+      ['ABCD × 4 still has four digits, so ABCD &lt; 2500: A is 1 or 2.', 1500, 'A ≤ 2'],
+      ['DCBA is a multiple of 4, so it is even: its last digit A is even. A = 2.', 500, 'A = 2'],
+      ['2___ × 4 is at least 8000, so D is 8 or 9; and 4 × D must end in 2, so D = 8.', 50, 'D = 8'],
+      ['4 × 2 = 8 fills the thousands place, so no carry from the hundreds: B is 0, 1 or 2. The tens column 4C + 3 is odd and ends in B, so B = 1.', 10, 'B = 1'],
+      ['4C + 3 ends in 1, so C is 2 or 7; the hundreds column 4 · 1 + carry = C forces C = 7.', 1, 'C = 7'],
+    ];
+    host.innerHTML = `<div class="row"><button type="button" class="primary" id="clN">Next clue</button><button type="button" id="clR">Start over</button></div><ol class="ppath" id="clL"></ol><div class="note good" id="clM" aria-live="polite"></div>`;
+    let k = 0;
+    const draw = () => { $('clL').innerHTML = C.slice(0, k + 1).map(([t, n, f]) => `<li><span>${t}</span><span class="why">${fmt(n)} possibilit${n === 1 ? 'y' : 'ies'} left${f ? ' · ' + f : ''}</span></li>`).join(''); $('clM').innerHTML = k === C.length - 1 ? '<b>2178 × 4 = 8712.</b> Six inferences replaced up to 9000 random or systematic tries.' : ''; };
+    $('clN').onclick = () => { if (k < C.length - 1) k++; draw(); }; $('clR').onclick = () => { k = 0; draw(); }; draw();
+  })();
+  $('w-cryptcount').innerHTML = '<p class="help">Use the tester above to compare: a systematic search from 1000 upward needs 1178 tries to reach 2178; random tries may never get there; the inferential clues need none.</p>';
+
+  // ================= Activity 1.8 =================
+  function dotArr(R, C, colorFn) { let h = ''; for (let r = 0; r < R; r++) for (let c = 0; c < C; c++) { const k = colorFn ? colorFn(r, c) : 'c2'; if (k) h += `<circle cx="${10 + c * 18}" cy="${10 + r * 18}" r="6" class="dt ${k}"/>`; } return `<svg viewBox="0 0 ${C * 18 + 4} ${R * 18 + 4}" role="img" style="width:100%;max-width:${C * 18 + 4}px;height:auto">${h}</svg>`; }
+  (() => {
+    $('w-rectn').innerHTML = slider('rn', 'n', 1, 12, 5) + '<div id="rnPic"></div><div class="note good" id="rnMsg" aria-live="polite"></div>';
+    const draw = () => { const n = sv('rn'); $('rnPic').innerHTML = dotArr(n, n + 1); $('rnPic').querySelector('svg').setAttribute('aria-label', `${n} rows of ${n + 1} dots`); $('rnMsg').innerHTML = `The ${n}th rectangular number is ${n} rows of ${n + 1} dots: ${n} · ${n + 1} = <b>${n * (n + 1)}</b>. Each one has one more row and one more column than the last: n(n + 1).`; };
+    $('rn').oninput = draw; draw();
+  })();
+  (() => {
+    $('w-tri').innerHTML = slider('tr', 'n', 1, 12, 4) + '<label class="toggle"><input type="checkbox" id="trD"> Add a second, upside-down copy</label><div id="trPic"></div><div class="note good" id="trMsg" aria-live="polite"></div>';
+    const draw = () => { const n = sv('tr'), d = $('trD').checked; $('trPic').innerHTML = dotArr(n, n + 1, (r, c) => (c <= r ? 'c1' : d ? 'c2' : null)); $('trPic').querySelector('svg').setAttribute('aria-label', `Triangle of ${n * (n + 1) / 2} dots${d ? ' and its copy forming a rectangle' : ''}`); $('trMsg').innerHTML = d ? `Two copies make the ${n}th rectangular number, ${n} · ${n + 1} = ${n * (n + 1)}, so one triangle is half: n(n + 1)/2 = <b>${n * (n + 1) / 2}</b>.` : `The ${n}th triangular number is 1 + 2 + … + ${n} = <b>${n * (n + 1) / 2}</b>. Turn on the copy to see the connection to rectangular numbers.`; };
+    $('tr').oninput = draw; $('trD').onchange = draw; draw();
+  })();
+  (() => {
+    $('w-hand').innerHTML = slider('hd', 'People', 1, 12, 5) + '<div id="hdPic"></div><div class="note good" id="hdMsg" aria-live="polite"></div>';
+    const draw = () => {
+      const n = sv('hd'), R = 90, c = 110, P = [...Array(n).keys()].map((i) => [c + R * Math.cos(2 * Math.PI * i / n - Math.PI / 2), c + R * Math.sin(2 * Math.PI * i / n - Math.PI / 2)]); let h = '';
+      for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) h += `<line x1="${P[i][0]}" y1="${P[i][1]}" x2="${P[j][0]}" y2="${P[j][1]}" style="stroke:${i === 0 ? 'var(--pen1)' : 'var(--pen2)'};stroke-width:${i === 0 ? 2.5 : 1.2}"/>`;
+      P.forEach((p) => (h += `<circle cx="${p[0]}" cy="${p[1]}" r="9" class="dt c3"/>`));
+      $('hdPic').innerHTML = `<svg viewBox="0 0 220 220" role="img" aria-label="${n} people, ${n * (n - 1) / 2} handshakes" style="width:100%;max-width:260px;height:auto">${h}</svg>`;
+      $('hdMsg').innerHTML = `Each of the ${n} people shakes ${n - 1} hands (one person’s handshakes are red), but that counts every handshake twice: ${n} · ${n - 1} ÷ 2 = <b>${n * (n - 1) / 2}</b>. Also 1 + 2 + … + ${n - 1}, the (n − 1)th triangular number.`;
+    };
+    $('hd').oninput = draw; draw();
+  })();
+  items($('w-18'), [['1a. 6th rectangular number', ['42']], ['1b. 10th rectangular number', ['110']], ['1e. 100th rectangular number', ['10100']], ['2a. 6th triangular number', ['21']], ['2b. 10th triangular number', ['55']], ['2e. 100th triangular number', ['5050']], ['3a. Handshakes, 4 people', ['6']], ['3b. Handshakes, 8 people', ['28']], ['3c. Handshakes, 1 person', ['0']], ['3d. Handshakes, 10 people', ['45']], ['3f. Handshakes, 100 people', ['4950']]], 'q18');
+
+  // ================= Activity 1.9: checkerboard =================
+  (() => {
+    const host = $('w-board'); let timer = null, pos = 0;
+    host.innerHTML = slider('bdN', 'Board n × n', 1, 8, 4) + slider('bdK', 'Square size k × k', 1, 4, 2) + '<div class="row"><button type="button" class="primary" id="bdGo">Show every k × k square</button><button type="button" id="bdStop">Stop</button></div><div class="grid2"><div id="bdPic"></div><div id="bdTab"></div></div><div class="note" id="bdMsg" aria-live="polite"></div>';
+    function draw(hl) {
+      const n = sv('bdN'); $('bdK').max = n; const k = Math.min(sv('bdK'), n); $('bdK').value = k; $('bdKo').textContent = k;
+      const s = 34; let h = '';
+      for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) h += `<rect x="${c * s}" y="${r * s}" width="${s}" height="${s}" class="${(r + c) % 2 ? 'sq1' : 'sq0'}"/>`;
+      if (hl) h += `<rect x="${hl[1] * s + 2}" y="${hl[0] * s + 2}" width="${k * s - 4}" height="${k * s - 4}" class="sqhl"/>`;
+      $('bdPic').innerHTML = `<svg viewBox="-1 -1 ${n * s + 2} ${n * s + 2}" role="img" aria-label="${n} by ${n} board" style="width:100%;max-width:300px;height:auto">${h}</svg>`;
+      let tot = 0; const rows = [...Array(n).keys()].map((i) => { const kk = i + 1, c = (n - kk + 1) ** 2; tot += c; return `<tr${kk === k ? ' class="here"' : ''}><td>${kk} × ${kk}</td><td>${n - kk + 1} × ${n - kk + 1}</td><td>${c}</td></tr>`; });
+      $('bdTab').innerHTML = `<div class="tbl"><table><caption class="sr">Squares by size</caption><thead><tr><th scope="col">Size</th><th scope="col">Positions</th><th scope="col">Count</th></tr></thead><tbody>${rows.join('')}<tr><th scope="row">Total</th><td></td><td><b>${tot}</b></td></tr></tbody></table></div>`;
+      $('bdMsg').innerHTML = `A ${k} × ${k} square can start in ${n - k + 1} columns and ${n - k + 1} rows: (${n} − ${k} + 1)² = ${(n - k + 1) ** 2}. All sizes: ${[...Array(n).keys()].map((i) => (i + 1) ** 2).reverse().join(' + ')} = <b>${tot}</b>.`;
+    }
+    const stop = () => { clearInterval(timer); timer = null; };
+    $('bdGo').onclick = () => { stop(); const n = +$('bdN').value, k = +$('bdK').value, m = n - k + 1, all = []; for (let r = 0; r < m; r++) for (let c = 0; c < m; c++) all.push([r, c]); pos = 0; if (reduceMotion) { draw(all[all.length - 1]); return; } timer = setInterval(() => { draw(all[pos]); pos++; if (pos >= all.length) stop(); }, 450); };
+    $('bdStop').onclick = stop; ['bdN', 'bdK'].forEach((id) => ($(id).oninput = () => { stop(); draw(); })); draw();
+  })();
+  items($('w-19'), [['1. Squares in a 3 × 3 grid', ['14'], '', '9 + 4 + 1'], ['2. Squares in a 4 × 4 grid', ['30'], '', '16 + 9 + 4 + 1'], ['3. Squares in an 8 × 8 grid', ['204'], '', '64 + 49 + 36 + 25 + 16 + 9 + 4 + 1'], ['Part 2: squares on a 10 × 10 board', ['385'], '', '1² + 2² + … + 10² = 10 · 11 · 21 ÷ 6']], 'q19');
+
+  // ================= Practice Lab =================
+  (() => {
+    const TOP = [['mix', 'Mixed'], ['pat', 'Growing patterns'], ['fig', 'Figurate numbers and handshakes'], ['gt', 'Guess and test'], ['str', 'Choose a strategy'], ['pol', 'Polya’s steps'], ['eo', 'Even and odd']];
+    const host = $('w-practice');
+    host.innerHTML = `<div class="card"><div class="row"><label class="label" for="prT">Topic</label><select id="prT">${TOP.map(([v, t]) => `<option value="${v}">${t}</option>`).join('')}</select><button type="button" class="primary" id="prN">New problem</button><span class="help" id="prSc" aria-live="polite">0 correct out of 0</span></div></div>
+      <div class="card"><div id="prQ" style="font-size:1.08rem"></div><div id="prPic"></div><div id="prA"></div><div class="fb" id="prFb" aria-live="polite"></div><div id="prX"></div></div>`;
+    let Q, ok = 0, n = 0;
+    const G = {
+      pat() {
+        const a = rint(2, 4), b = rint(1, 4), size = pick([10, 15, 20, 25]);
+        const fig = (k) => { const cells = []; for (let r = 0; r < a; r++) for (let c = 0; c < k; c++) cells.push([r, c + 1, 'c2']); for (let i = 0; i < b; i++) cells.push([i % a, 0, 'c1']); return cells; };
+        return { text: `This pattern grows by the same rule each time (sizes 1, 2 and 3 are shown). How many tiles are in size ${size}?`, pic: `<div class="row" style="align-items:flex-end;gap:24px">${[1, 2, 3].map((k) => `<figure style="margin:0">${tiles(fig(k), 16, `size ${k}: ${a * k + b} tiles`)}<figcaption class="help">Size ${k}: ${a * k + b}</figcaption></figure>`).join('')}</div>`, ans: [String(a * size + b)], show: () => `<p>Each size adds ${a} tiles (blue), and ${b} tile${b > 1 ? 's' : ''} (red) stay${b > 1 ? '' : 's'} the same: ${a}n + ${b}. Size ${size}: ${a} · ${size} + ${b} = <b>${a * size + b}</b>.</p>` };
+      },
+      fig() {
+        const k = rand(4), m = rint(5, 30);
+        const S = [[`What is the ${m}th rectangular number (an ${m} by ${m + 1} array)?`, m * (m + 1), `${m} · ${m + 1}`], [`What is the ${m}th triangular number?`, m * (m + 1) / 2, `${m} · ${m + 1} ÷ 2`], [`How many handshakes if ${m} people each shake hands once with everyone else?`, m * (m - 1) / 2, `${m} · ${m - 1} ÷ 2`], [`How many squares of all sizes are on a ${Math.min(m, 12)} × ${Math.min(m, 12)} board?`, (() => { const q = Math.min(m, 12); return q * (q + 1) * (2 * q + 1) / 6; })(), 'the sum of the squares 1² + 2² + …']][k];
+        return { text: S[0], ans: [String(S[1])], show: () => `<p>${S[2]} = <b>${fmt(S[1])}</b>.</p>` };
+      },
+      gt() {
+        const pa = pick([3, 4, 5, 6]), ps = pa - pick([1, 2]), A = rint(3, 15), Sn = rint(3, 15), tot = A + Sn, money = pa * A + ps * Sn;
+        return { text: `A school sold ${tot} tickets: adult tickets cost $${pa} and student tickets $${ps}. They collected $${money}. How many adult tickets were sold?`, ans: [String(A)], show: () => `<p>Systematic guess and test: if all ${tot} were student tickets, that is $${ps * tot}. Each switch from student to adult adds $${pa - ps}. We need $${money - ps * tot} more, so ${money - ps * tot} ÷ ${pa - ps} = <b>${A}</b> adult tickets (and ${Sn} student). Check: ${pa} · ${A} + ${ps} · ${Sn} = ${money}.</p>` };
+      },
+      str() {
+        const S = [['How many different three-scoop cones can be made from 4 flavors?', 'Make a list'], ['What is the sum of the first 500 odd numbers?', 'Solve a simpler problem'], ['A snail climbs 3 ft up a 10 ft well each day and slides back 2 ft each night. When does it get out?', 'Draw a picture'], ['Show that the sum of any three consecutive whole numbers is divisible by 3.', 'Use a variable'], ['Find two numbers whose sum is 25 and whose product is 154.', 'Guess and test'], ['Find the 50th term of 7, 11, 15, 19, …', 'Look for a pattern']], s = pick(S);
+        return { text: `Which strategy is the most natural first choice? <br><i>${s[0]}</i>`, opts: ['Guess and test', 'Draw a picture', 'Use a variable', 'Look for a pattern', 'Make a list', 'Solve a simpler problem'], ans: s[1], show: () => '<p>Other strategies can work too; this is the one the clues point to most directly.</p>' };
+      },
+      pol() {
+        const S = [['Restating the problem in your own words', 'Understand the Problem'], ['Choosing to make a table', 'Devise a Plan'], ['Showing each calculation with a reason', 'Carry Out the Plan'], ['Checking whether another answer also works', 'Look Back'], ['Identifying what the question asks for', 'Understand the Problem'], ['Extending the result to a general rule', 'Look Back']], s = pick(S);
+        return { text: `Which of Polya’s steps is this? <br><i>${s[0]}</i>`, opts: ['Understand the Problem', 'Devise a Plan', 'Carry Out the Plan', 'Look Back'], ans: s[1], show: () => '' };
+      },
+      eo() {
+        const S = [['even + even', 'Even', '2m + 2n = 2(m + n)'], ['odd + odd', 'Even', '(2m + 1) + (2n + 1) = 2(m + n + 1)'], ['even + odd', 'Odd', '2m + (2n + 1) = 2(m + n) + 1'], ['odd × odd', 'Odd', '(2m + 1)(2n + 1) = 2(2mn + m + n) + 1'], ['even × any whole number', 'Even', '2m · n = 2(mn)'], ['the sum of two consecutive whole numbers', 'Odd', 'n + (n + 1) = 2n + 1']], s = pick(S);
+        return { text: `Is ${s[0]} always even or always odd?`, opts: ['Even', 'Odd'], ans: s[1], show: () => `<p class="mono">${s[2]}</p>` };
+      },
+    };
+    function make() {
+      let t = $('prT').value; if (t === 'mix') t = pick(Object.keys(G));
+      Q = G[t](); Q.done = false; $('prQ').innerHTML = Q.text; $('prPic').innerHTML = Q.pic || ''; $('prFb').textContent = ''; $('prX').innerHTML = '';
+      $('prA').innerHTML = Q.opts ? `<div class="pick" role="group" aria-label="Answer choices" style="margin-top:8px">${Q.opts.map((o) => `<button type="button" data-o="${esc(o)}">${o}</button>`).join('')}</div>` : `<form class="row" id="prForm" style="margin-top:8px"><label for="prIn">Answer</label><input type="text" id="prIn" class="mono" style="width:8em" autocomplete="off"><button type="submit" class="primary">Check</button><button type="button" id="prShow">Show the solution</button></form>`;
+    }
+    function fin(r) { if (!Q.done) { n++; if (r) ok++; Q.done = true; } $('prSc').textContent = `${ok} correct out of ${n}`; $('prFb').className = 'fb ' + (r ? 'good' : 'warn'); $('prFb').innerHTML = r ? 'Correct!' : `The answer is <b>${Q.ans}</b>.`; $('prX').innerHTML = Q.show(); }
+    $('prA').addEventListener('click', (e) => { const b = e.target.closest('[data-o]'); if (b) fin(b.dataset.o === Q.ans); if (e.target.id === 'prShow') fin(false); });
+    $('prA').addEventListener('submit', (e) => { e.preventDefault(); fin(Q.ans.includes($('prIn').value.trim().replace(/[\s,]/g, ''))); });
+    $('prN').onclick = make; $('prT').onchange = make; make();
+  })();
+
+  // ================= routing =================
+  const PAGES = ['overview', 'n1', 'n2', 'n3', 'a11', 'a12', 'a12a', 'a14', 'a17', 'a18', 'a19', 'practice'];
+  function go(focus) {
+    let id = location.hash.slice(1); if (!PAGES.includes(id)) id = 'overview';
+    PAGES.forEach((p) => { $('pg-' + p).hidden = p !== id; });
+    document.querySelectorAll('.pnav a').forEach((a) => { if (a.dataset.page === id) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+    try { localStorage.setItem('ch1-page', id); } catch (e) {}
+    if (focus) { const h = $('h-' + id); h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); window.scrollTo({ top: Math.max(0, $('main').offsetTop - 12) }); }
+  }
+  window.addEventListener('hashchange', () => go(true));
+  if (!location.hash) { try { const s = localStorage.getItem('ch1-page'); if (s && PAGES.includes(s)) history.replaceState(null, '', '#' + s); } catch (e) {} }
+  go(false);
+})();
+</script>
+<script>
+/* Canvas embed helper: asks Canvas to fit the iframe to the page and scroll to its top when a new section opens. Harmless outside Canvas. */
+(() => {
+  if (window.parent === window) return;
+  let last = 0;
+  const send = () => { const h = Math.ceil(document.documentElement.scrollHeight); if (Math.abs(h - last) > 4) { last = h; try { parent.postMessage(JSON.stringify({ subject: 'lti.frameResize', height: h }), '*'); } catch (e) {} } };
+  try { new ResizeObserver(send).observe(document.body); } catch (e) { setInterval(send, 1000); }
+  window.addEventListener('load', send);
+  window.addEventListener('hashchange', () => { setTimeout(send, 50); try { parent.postMessage(JSON.stringify({ subject: 'lti.scrollToTop' }), '*'); } catch (e) {} });
+})();
+</script>
+</body>
+</html>

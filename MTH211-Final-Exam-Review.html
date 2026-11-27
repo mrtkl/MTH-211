@@ -1,0 +1,882 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MTH 211 Final Exam Review | Oregon State University</title>
+<meta name="author" content="Dr. Murat Kol">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Atkinson+Hyperlegible+Mono:wght@400;600&family=Barlow+Semi+Condensed:wght@600;700;800&display=swap">
+<style>*,*::before,*::after{box-sizing:border-box}body{margin:0}[hidden]{display:none!important}</style>
+<style>
+
+/* Layout: a two-tab lab. Each tab is a big Venn diagram with its tools beside it (stacked on phones). */
+:root {
+  --bg: #f3f4f8;
+  --panel: #ffffff;
+  --paper: #ffffff;
+  --fg: #1f2433;
+  --muted: #5d6478;
+  --line: #d3d7e2;
+  --ink: #1f2433;
+  --accent: #3949ab;
+  --accent-ink: #ffffff;
+  --good: #2e7d4f; --good-bg: #e2f3e8;
+  --warn: #b3401a; --warn-bg: #fbe8e0;
+  --pen1: #c8372d; --pen2: #2160a8; --pen3: #2e8540; --pen4: #8a3fb0;
+  --answer: #c58b00;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono: "Atkinson Hyperlegible Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12141b; --panel: #1b1e28; --paper: #1f2330; --fg: #e8eaf2; --muted: #a0a6b8; --line: #343a4c; --ink: #e8eaf2;
+    --accent: #8c9cff; --accent-ink: #10131c; --good: #7fd19a; --good-bg: #1b3324; --warn: #f29a78; --warn-bg: #3a2219;
+    --pen1: #ff7b6e; --pen2: #6aa8ff; --pen3: #6fd08a; --pen4: #c88cf0; --answer: #f2c14e;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12141b; --panel: #1b1e28; --paper: #1f2330; --fg: #e8eaf2; --muted: #a0a6b8; --line: #343a4c; --ink: #e8eaf2;
+  --accent: #8c9cff; --accent-ink: #10131c; --good: #7fd19a; --good-bg: #1b3324; --warn: #f29a78; --warn-bg: #3a2219;
+  --pen1: #ff7b6e; --pen2: #6aa8ff; --pen3: #6fd08a; --pen4: #c88cf0; --answer: #f2c14e;
+  color-scheme: dark;
+}
+html, body { background: var(--bg); color: var(--fg); }
+body { font-family: var(--body); font-size: 15px; line-height: 1.45; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-block: 20px 32px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 14px; }
+h1 { font-family: var(--display); font-weight: 800; font-size: clamp(1.6rem, 3.6vw, 2.3rem); letter-spacing: -0.01em; margin: 0; text-wrap: balance; }
+h2 { font-family: var(--display); font-weight: 600; font-size: 1.1rem; margin: 0; }
+.byline { margin: 4px 0 0; font-size: 0.9rem; color: var(--muted); }
+.byline strong { color: var(--fg); }
+.lede { margin: 2px 0 0; color: var(--muted); max-width: 72ch; }
+.credit { text-align: center; font-size: 0.85rem; color: var(--muted); margin: 6px 0 0; }
+.label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 700; }
+
+button, select, input { font: inherit; color: inherit; }
+button { cursor: pointer; border: 1px solid var(--line); background: var(--panel); border-radius: 10px; padding: 7px 12px; }
+button:hover:not(:disabled) { border-color: var(--accent); }
+button:disabled { opacity: .45; cursor: not-allowed; }
+button.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 700; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+select, input[type="text"] { border: 1px solid var(--line); background: var(--panel); border-radius: 10px; padding: 7px 10px; min-width: 0; }
+
+.topbar { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: end; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--panel); }
+.seg button { border: 0; border-radius: 0; padding: 7px 14px; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); font-weight: 700; }
+.field { display: grid; gap: 4px; }
+
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.tabs [role="tab"] { border: 1px solid transparent; border-bottom: 0; border-radius: 10px 10px 0 0; padding: 9px 16px; background: transparent; color: var(--muted); font-weight: 700; margin-bottom: -1px; }
+.tabs [role="tab"][aria-selected="true"] { background: var(--panel); border-color: var(--line); color: var(--fg); }
+
+.lab { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(280px, 1fr); gap: 16px; align-items: start; }
+@media (max-width: 900px) { .lab { grid-template-columns: 1fr; } }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 14px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.diagram { position: relative; width: 100%; touch-action: manipulation; }
+.diagram canvas { display: block; width: 100%; border-radius: 10px; cursor: pointer; }
+.chip-layer { position: absolute; inset: 0; pointer-events: none; }
+.chip-layer .chip { position: absolute; transform: translate(-50%, -50%); pointer-events: auto; }
+
+.sets { display: grid; gap: 4px; font-family: var(--mono); font-size: 0.98rem; overflow-wrap: anywhere; }
+.sets div b { font-family: var(--body); }
+.tray { display: flex; flex-wrap: wrap; gap: 6px; min-height: 44px; padding: 8px; border: 2px dashed var(--line); border-radius: 12px; }
+.tray:empty::before { content: "All elements are on the diagram."; color: var(--muted); font-size: 0.9rem; }
+.chip { min-width: 32px; height: 32px; padding: 0 8px; border-radius: 999px; font-family: var(--mono); font-weight: 600; font-size: 0.95rem; background: var(--panel); border: 2px solid var(--ink); touch-action: none; user-select: none; line-height: 1; }
+.chip[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.chip.ok { border-color: var(--good); box-shadow: 0 0 0 3px var(--good-bg); }
+.chip.bad { border-color: var(--warn); box-shadow: 0 0 0 3px var(--warn-bg); }
+.chip.dragging { position: fixed !important; transform: translate(-50%, -50%); z-index: 50; pointer-events: none; box-shadow: 0 6px 14px rgba(0,0,0,.25); }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.note { font-size: 0.92rem; border-radius: 10px; padding: 8px 10px; }
+.note.good { background: var(--good-bg); color: var(--good); }
+.note.warn { background: var(--warn-bg); color: var(--warn); }
+.note:empty { display: none; }
+.help { font-size: 0.88rem; color: var(--muted); margin: 0; }
+
+.qs { display: grid; gap: 10px; }
+.q { display: grid; gap: 6px; padding: 10px; border: 1px solid var(--line); border-radius: 12px; }
+.q .expr { font-family: var(--mono); font-weight: 600; font-size: 1.05rem; }
+.q .row input { flex: 1 1 140px; font-family: var(--mono); }
+.q .fb { font-size: 0.9rem; }
+.q .fb.good { color: var(--good); } .q .fb.warn { color: var(--warn); }
+
+.target { font-family: var(--mono); font-size: 1.35rem; font-weight: 600; overflow-wrap: anywhere; }
+.tools { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 6px; }
+.tool { display: flex; align-items: center; gap: 8px; text-align: left; padding: 6px 8px; }
+.tool svg { flex: none; border-radius: 4px; border: 1px solid var(--line); }
+.tool[aria-pressed="true"] { border: 2px solid var(--accent); padding: 5px 7px; font-weight: 700; }
+.regions { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px; }
+.regions button { text-align: left; font-size: 0.85rem; padding: 6px 8px; }
+.regions button small { display: block; color: var(--muted); font-size: 0.75rem; }
+.symbols { display: flex; flex-wrap: wrap; gap: 4px; }
+.symbols button { font-family: var(--mono); min-width: 38px; padding: 5px 8px; }
+details summary { cursor: pointer; font-weight: 700; }
+[hidden] { display: none !important; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* ===== Chapter 2 outline shell ===== */
+:root { --hl: #f2b632; --pv: #6d4aa8; --good: #23633a; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --hl: #f2c14e; --pv: #c4a4f0; } }
+:root[data-theme="dark"] { --hl: #f2c14e; --pv: #c4a4f0; }
+.shell { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (max-width: 860px) { .shell { grid-template-columns: 1fr; } }
+.pnav { position: sticky; top: 12px; display: grid; gap: 4px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 10px; }
+@media (max-width: 860px) { .pnav { position: static; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); } .pnav .nav-h { grid-column: 1 / -1; } }
+.pnav .nav-h { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 700; margin: 8px 6px 2px; }
+.pnav .nav-h:first-child { margin-top: 2px; }
+.pnav a { display: block; text-decoration: none; color: var(--fg); padding: 7px 10px; border-radius: 9px; line-height: 1.25; }
+.pnav a small { display: block; color: var(--muted); font-size: 0.76rem; }
+.pnav a:hover { background: var(--bg); }
+.pnav a[aria-current="page"] { background: var(--accent); color: var(--accent-ink); font-weight: 700; }
+.pnav a[aria-current="page"] small { color: var(--accent-ink); opacity: .85; }
+.page { display: grid; gap: 16px; min-width: 0; }
+.page > h2 { font-size: clamp(1.3rem, 2.6vw, 1.7rem); font-weight: 800; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: 0.8rem; border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 3px 10px; }
+.tag b { color: var(--accent); }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: grid; gap: 12px; min-width: 0; }
+.card > h3, .card h3 { font-family: var(--display); font-weight: 600; font-size: 1.12rem; margin: 0; }
+.card h4 { margin: 0; font-size: 1rem; }
+.card p { margin: 0; }
+.prose { max-width: 78ch; display: grid; gap: 10px; }
+.prose ul, .prose ol { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; }
+.defn { border-left: 4px solid var(--accent); background: color-mix(in srgb, var(--accent) 7%, var(--panel)); padding: 10px 12px; border-radius: 0 10px 10px 0; }
+.defn b:first-child { color: var(--accent); }
+.ex { border-left: 4px solid var(--pen3); background: color-mix(in srgb, var(--pen3) 7%, var(--panel)); padding: 10px 12px; border-radius: 0 10px 10px 0; }
+.mono { font-family: var(--mono); }
+.ov { text-decoration: overline; text-decoration-thickness: 1.5px; }
+.teach { border: 1px dashed var(--pv); border-radius: 12px; padding: 0; }
+.teach > summary { padding: 10px 12px; color: var(--pv); }
+.teach > div { padding: 0 14px 12px; display: grid; gap: 8px; }
+.teach ul { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)); gap: 14px; }
+.grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 12px; }
+.tbl { overflow-x: auto; }
+.tbl table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+.tbl th, .tbl td { border: 1px solid var(--line); padding: 7px 9px; text-align: left; vertical-align: top; }
+.tbl th { background: var(--bg); font-size: 0.8rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+.tbl tr.here td { background: color-mix(in srgb, var(--accent) 8%, var(--panel)); }
+.tbl a { color: var(--accent); }
+a { color: var(--accent); }
+
+/* Venn widget */
+.vbox { position: relative; width: 100%; max-width: 520px; }
+.vbox svg { display: block; width: 100%; height: auto; touch-action: manipulation; }
+.vbox svg.clickable { cursor: pointer; }
+.vbox .vlayer { position: absolute; inset: 0; pointer-events: none; }
+.vbox .vlayer > * { position: absolute; transform: translate(-50%, -50%); pointer-events: auto; }
+.vin { width: 3.4em; text-align: center; font-family: var(--mono); font-weight: 600; padding: 3px 2px !important; border-radius: 8px !important; border: 1.5px solid var(--line); background: var(--panel); font-size: 0.95rem; }
+.vin.given { border-color: var(--accent); }
+.vin.okv { border-color: var(--good); box-shadow: 0 0 0 2px var(--good-bg); }
+.vnum { font-family: var(--mono); font-weight: 700; font-size: 1.05rem; pointer-events: none !important; }
+.vstroke { fill: none; stroke: var(--ink); stroke-width: 2; }
+.vlabel { fill: var(--ink); font-family: var(--body); font-weight: 700; }
+.reg-hl { fill: var(--hl); fill-opacity: .45; }
+.reg-ans { fill: var(--answer); fill-opacity: .55; }
+
+/* Tool rows */
+.tools2 { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.tools2 button[aria-pressed="true"] { border: 2px solid var(--accent); padding: 6px 11px; font-weight: 700; }
+.tools2 svg { vertical-align: middle; margin-right: 4px; border-radius: 3px; border: 1px solid var(--line); }
+.prob { display: grid; gap: 10px; }
+.prob-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; }
+.prob-num { font-family: var(--display); font-weight: 800; font-size: 1.25rem; color: var(--accent); }
+.prob-expr { font-family: var(--mono); font-size: 1.35rem; font-weight: 600; }
+.steps-out { display: grid; gap: 6px; }
+.steps-out ol { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; }
+.qline { display: grid; gap: 6px; padding: 10px; border: 1px solid var(--line); border-radius: 12px; }
+.qline .row input[type="text"] { flex: 1 1 120px; }
+.fb { font-size: 0.9rem; }
+.fb.good { color: var(--good); } .fb.warn { color: var(--warn); }
+.clues { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.clues li { display: flex; gap: 8px; align-items: baseline; padding: 5px 8px; border-radius: 8px; border: 1px solid var(--line); font-size: 0.93rem; }
+.clues li .st { flex: none; width: 1.4em; text-align: center; font-weight: 700; }
+.clues li.met { border-color: var(--good); background: var(--good-bg); color: var(--good); }
+.clues li.off .st { color: var(--warn); }
+.clues li .have { margin-left: auto; font-family: var(--mono); font-size: 0.82rem; color: var(--muted); white-space: nowrap; }
+.clues li.met .have { color: var(--good); }
+.tok { min-width: 34px; height: 34px; padding: 0 10px; border-radius: 999px; font-family: var(--body); font-weight: 700; font-size: 0.9rem; background: var(--panel); border: 2px solid var(--ink); touch-action: none; user-select: none; line-height: 1; }
+.tok[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.tok.ok { border-color: var(--good); box-shadow: 0 0 0 3px var(--good-bg); }
+.tok.bad { border-color: var(--warn); box-shadow: 0 0 0 3px var(--warn-bg); }
+.tok.dragging { position: fixed !important; z-index: 60; pointer-events: none; transform: translate(-50%, -50%); }
+.tok.mono { font-family: var(--mono); }
+.ttray { display: flex; flex-wrap: wrap; gap: 6px; min-height: 46px; padding: 8px; border: 2px dashed var(--line); border-radius: 12px; }
+.ttray:empty::before { content: attr(data-empty); color: var(--muted); font-size: 0.9rem; align-self: center; }
+.pick { display: flex; flex-wrap: wrap; gap: 6px; }
+.pick button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 700; }
+.tf { display: grid; gap: 8px; }
+.tf .item { display: grid; gap: 6px; padding: 9px 10px; border: 1px solid var(--line); border-radius: 10px; }
+.tf .stmt { font-family: var(--mono); font-size: 1.05rem; }
+.match { display: grid; gap: 8px; }
+.match svg { width: 100%; height: auto; display: block; }
+.mtok { cursor: pointer; }
+.mtok circle { fill: var(--panel); stroke: var(--ink); stroke-width: 2; }
+.mtok.sel circle { fill: var(--accent); stroke: var(--accent); }
+.mtok.sel text { fill: var(--accent-ink); }
+.mtok.done circle { stroke: var(--good); stroke-width: 3; }
+.mtok text { fill: var(--ink); font-family: var(--mono); font-weight: 600; font-size: 15px; pointer-events: none; }
+.mtok:focus { outline: none; }
+.mtok:focus-visible circle { stroke: var(--accent); stroke-width: 4; }
+.mline { stroke: var(--pen2); stroke-width: 2.5; }
+.mleft circle { stroke: var(--warn); stroke-dasharray: 4 3; stroke-width: 3; }
+.subsets { display: flex; flex-wrap: wrap; gap: 6px; }
+.subsets span { font-family: var(--mono); border: 1px solid var(--line); border-radius: 8px; padding: 3px 8px; background: var(--bg); }
+.subsets span.proper { border-color: var(--accent); }
+.subsets span.cur { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.prod { border-collapse: collapse; }
+.prod th, .prod td { border: 1px solid var(--line); padding: 6px 9px; text-align: center; font-family: var(--mono); font-size: 0.88rem; }
+.prod th { background: var(--bg); font-family: var(--body); }
+.prod td.on { background: var(--accent); color: var(--accent-ink); }
+.big2 { font-family: var(--display); font-weight: 800; font-size: 1.5rem; }
+.dots { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; min-height: 34px; }
+.dot { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--ink); display: inline-grid; place-items: center; font-size: .7rem; font-weight: 700; }
+.dot.a { background: color-mix(in srgb, var(--pen1) 30%, var(--panel)); }
+.dot.b { background: color-mix(in srgb, var(--pen2) 30%, var(--panel)); }
+.dot.left { border-color: var(--warn); border-style: dashed; }
+.slider { display: grid; grid-template-columns: 9em 1fr 3ch; gap: 8px; align-items: center; }
+.slider input { width: 100%; accent-color: var(--accent); }
+.slider output { font-family: var(--mono); font-weight: 700; }
+.kbd-regions { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+.kbd-regions button { font-size: 0.8rem; padding: 4px 8px; }
+.lab-wrap { display: grid; gap: 14px; }
+.lab-wrap .topbar { margin-top: 2px; }
+@media print { .pnav, .teach > summary::marker { display: none; } .shell { grid-template-columns: 1fr; } }
+
+.page > h2:focus { outline: none; }
+.card, .page, .prob { grid-template-columns: minmax(0, 1fr); }
+
+.embed { min-height: 60px; border-radius: 12px; background: var(--bg); }
+.go { font-size: 0.85rem; padding: 3px 10px; border-radius: 999px; }
+.pilebox { display: flex; flex-wrap: wrap; gap: 6px; align-items: flex-end; min-height: 120px; padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); }
+.pone { display: inline-block; line-height: 0; }
+.pone.left { outline: 2px dashed var(--warn); outline-offset: 2px; border-radius: 3px; }
+.pgrp { display: inline-flex; gap: 2px; align-items: flex-end; padding: 4px; border: 2px dashed var(--accent); border-radius: 10px; line-height: 0; }
+.cncol { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; min-width: 2.2em; min-height: 2.2em; padding: 6px; border: 1.5px solid var(--line); border-radius: 10px; font-size: 1.5rem; line-height: 1.1; background: var(--paper); }
+.cnrow { display: flex; gap: 18px; flex-wrap: wrap; align-items: flex-start; margin-top: 8px; }
+.cnfig { margin: 0; display: grid; justify-items: center; gap: 6px; }
+.cnfig figcaption { font-size: .85rem; color: var(--muted); }
+.cnbtn { font-size: 1.15rem; padding: 4px 9px; }
+td.cn { font-size: 1.3rem; }
+.embed { min-height: 60px; border-radius: 12px; background: var(--bg); }
+.go { font-size: 0.85rem; padding: 3px 10px; border-radius: 999px; margin-left: 4px; }
+.quick { display: inline-flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.dgroups { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+.dgroup { border: 1.5px solid var(--line); border-radius: 10px; padding: 6px 8px; display: grid; gap: 4px; max-width: 220px; }
+.dgroup.left { border-style: dashed; border-color: var(--warn); }
+.dgroup .dot { width: 18px; height: 18px; }
+.prod td.on { background: var(--accent); color: var(--accent-ink); }
+.stmt { font-family: var(--mono); }
+.go2 { font-size: 0.85rem; padding: 3px 10px; border-radius: 999px; }
+.ppath { margin: 6px 0 0; padding-left: 1.4em; display: grid; gap: 4px; }
+.ppath li { display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: baseline; }
+.ppath .why { font-size: 0.85rem; color: var(--pv); font-style: italic; }
+table.alg { border-collapse: collapse; font-family: var(--mono); font-size: 1.15rem; margin: 6px 0; }
+table.alg td { padding: 2px 6px; text-align: right; min-width: 1.2em; }
+table.alg tr.carry td { font-size: 0.8rem; color: var(--pen1); }
+table.alg tr.under td { border-bottom: 2px solid var(--ink); }
+table.alg tr.over td { border-top: 2px solid var(--ink); }
+table.alg s { color: var(--muted); }
+table.alg.inter td:nth-child(2) { text-align: left; font-family: var(--body); }
+table.alg.scaf td { text-align: left; padding: 3px 10px; }
+.muted { color: var(--muted); }
+.rects { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; margin-top: 8px; }
+.rect { margin: 0; display: grid; gap: 4px; justify-items: center; }
+.rect figcaption { font-family: var(--mono); font-size: .85rem; color: var(--muted); }
+.arr { display: grid; gap: 2px; }
+.arr span { width: 10px; height: 10px; border-radius: 50%; background: color-mix(in srgb, var(--pen2) 55%, var(--panel)); border: 1px solid var(--ink); }
+.sieve { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 3px; max-width: 460px; margin: 8px 0; }
+.sv { display: grid; place-items: center; font-family: var(--mono); font-size: .85rem; padding: 6px 0; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); }
+.sv.x { background: color-mix(in srgb, var(--c) 18%, var(--panel)); color: var(--muted); text-decoration: line-through; text-decoration-color: var(--c); text-decoration-thickness: 2px; }
+.sv.p { background: var(--good-bg); color: var(--good); font-weight: 700; border-color: var(--good); }
+.sv.one { color: var(--muted); border-style: dashed; }
+.ftree { font-family: var(--mono); overflow-x: auto; padding: 4px 0; }
+.tnode { display: inline-flex; flex-direction: column; align-items: center; margin: 0 4px; }
+.tval { padding: 2px 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
+.tkids { display: flex; gap: 6px; align-items: flex-start; margin-top: 10px; position: relative; padding-top: 4px; border-top: 1.5px solid var(--muted); }
+.tleaf { display: inline-block; padding: 2px 8px; border: 2px solid var(--good); border-radius: 999px; color: var(--good); font-weight: 700; margin: 0 4px; }
+.pchip { fill: color-mix(in srgb, var(--answer) 35%, var(--panel)); stroke: var(--ink); stroke-width: 1.5; }
+.cupview { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 6px 0; }
+.chipn { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--ink); font-family: var(--mono); font-weight: 700; background: var(--paper); }
+b.yes { color: var(--good); } b.no { color: var(--warn); }
+
+.fig{margin:4px 0;display:grid;gap:6px}
+.fig figcaption{font-size:.86rem;color:var(--muted);text-align:center}
+.figrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;align-items:end}
+.worked{border-left:4px solid var(--pen3);background:color-mix(in srgb,var(--pen3) 7%,var(--panel));padding:10px 12px;border-radius:0 10px 10px 0}
+.worked>div,.worked>.tbl{margin-top:6px}
+.worked .steps{font-family:var(--mono);font-size:.95rem;display:grid;grid-template-columns:auto 1fr;gap:2px 16px}
+.worked .steps span:nth-child(2n){color:var(--muted);font-family:var(--body);font-size:.85rem;align-self:center}
+.newtag{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.02em;border-radius:999px;padding:1px 8px;margin-left:6px;background:color-mix(in srgb,var(--pen4) 16%,var(--panel));color:var(--pen4);vertical-align:middle}
+.ft-grid{display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:2px;max-width:460px;font-family:var(--mono);font-size:.8rem}
+.ft-grid div{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:3px;background:var(--panel);min-width:0}
+.ft-grid .hd{background:color-mix(in srgb,var(--fg) 8%,var(--panel));font-weight:700}
+.ft-grid .sh{background:color-mix(in srgb,var(--fg) 14%,var(--panel));color:transparent}
+.ft-status{font-size:.95rem}
+.ft-status b{font-family:var(--mono)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.84rem;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px;border:1px solid var(--line)}
+.cls-item{border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:grid;gap:8px}
+.cls-item p{margin:0}
+.cls-item .fb{font-size:.9rem}
+.cls-item .fb.bad{color:var(--warn)}
+.cls-item .fb.ok{color:var(--good)}
+.grid22{table-layout:fixed;width:100%}.grid22 th:first-child{width:22%}
+.scaffold{font-family:var(--mono);font-size:.95rem;line-height:1.35;display:inline-grid;grid-template-columns:auto auto;column-gap:14px}
+.scaffold .r{text-align:right}
+
+.cls-item{min-width:0}.cls-item label{flex-wrap:wrap;max-width:100%}.cls-item select{max-width:100%;min-width:0}
+.card .figrow{align-items:start}
+.fgrid td,.fgrid th{text-align:center;font-family:var(--mono)}
+
+/* ===== Oregon State University theme for the MTH 212 teaching outlines =====
+   Primary: Beaver Orange #D73F09 and Black. Secondary accents from the OSU palette:
+   Stratosphere #006A8E, Pine Stand #4A773C, Luminance #FFB500, High Tide #0D5257, Seafoam #B8DDE1. */
+:root {
+  --osu-orange: #D73F09; --osu-black: #000000; --osu-strat: #006A8E; --osu-pine: #4A773C; --osu-lum: #FFB500; --osu-tide: #0D5257;
+  --bg: #f6f4f1; --panel: #ffffff; --paper: #ffffff; --fg: #1b1b1b; --muted: #5a5753; --line: #ddd8d1; --ink: #1b1b1b;
+  --accent: #D73F09; --accent-ink: #ffffff; --accent-text: #A8370A;
+  --good: #2f6b2a; --good-bg: #e5f0df; --warn: #b3261e; --warn-bg: #fbe6e3;
+  --pen1: #D73F09; --pen2: #006A8E; --pen3: #4A773C; --pen4: #7a4f9a; --answer: #FFB500;
+  --hl: #FFB500; --pv: #0D5257;
+  --chip-red: #c62828; --chip-black: #1b1b1b;
+  --display: "Barlow Semi Condensed", "Arial Narrow", "Segoe UI", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono: "Atkinson Hyperlegible Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111111; --panel: #1b1b1b; --paper: #202020; --fg: #f1eeea; --muted: #b0aaa3; --line: #3a3632; --ink: #f1eeea;
+    --accent: #ff6a2b; --accent-ink: #140800; --accent-text: #ff8a55;
+    --good: #8fd18a; --good-bg: #1d3320; --warn: #ff8f84; --warn-bg: #3d1f1c;
+    --pen1: #ff6a2b; --pen2: #4fb3d9; --pen3: #8cc97f; --pen4: #c59be6; --answer: #FFB500; --hl: #FFB500; --pv: #7fd0c8;
+    --chip-red: #ff6b6b; --chip-black: #e9e9e9;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111111; --panel: #1b1b1b; --paper: #202020; --fg: #f1eeea; --muted: #b0aaa3; --line: #3a3632; --ink: #f1eeea;
+  --accent: #ff6a2b; --accent-ink: #140800; --accent-text: #ff8a55;
+  --good: #8fd18a; --good-bg: #1d3320; --warn: #ff8f84; --warn-bg: #3d1f1c;
+  --pen1: #ff6a2b; --pen2: #4fb3d9; --pen3: #8cc97f; --pen4: #c59be6; --answer: #FFB500; --hl: #FFB500; --pv: #7fd0c8;
+  --chip-red: #ff6b6b; --chip-black: #e9e9e9;
+  color-scheme: dark;
+}
+a, .tbl a { color: var(--accent-text); }
+.tag b { color: var(--accent-text); }
+.defn b:first-child { color: var(--accent-text); }
+.prob-num { color: var(--accent-text); }
+h1, h2, .card h3, .page > h2 { font-family: var(--display); }
+.page > h2 { font-weight: 700; letter-spacing: .005em; }
+
+/* --- Brand bar --- */
+.osu-bar { background: #000; color: #fff; border-radius: 14px; overflow: hidden; display: grid; }
+.osu-bar .top { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; justify-content: space-between; padding: 12px 18px; }
+.osu-word { display: flex; align-items: center; gap: 12px; text-decoration: none; color: #fff; }
+.osu-mark { width: 40px; height: 40px; flex: none; border-radius: 50%; background: var(--osu-orange); display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: 1.05rem; color: #fff; letter-spacing: .02em; }
+.osu-name { display: grid; line-height: 1.05; }
+.osu-name b { font-family: var(--display); font-weight: 800; font-size: 1.15rem; letter-spacing: .09em; text-transform: uppercase; }
+.osu-name span { font-size: .8rem; color: #d9d4ce; letter-spacing: .03em; }
+.osu-course { text-align: right; font-size: .85rem; color: #e8e3dc; line-height: 1.25; }
+.osu-course b { color: var(--osu-lum); font-family: var(--display); font-size: 1.05rem; letter-spacing: .03em; }
+.osu-bar .stripe { height: 6px; background: var(--osu-orange); }
+.hero { display: grid; gap: 6px; padding: 18px 18px 16px; border: 1px solid var(--line); border-top: 0; border-radius: 0 0 14px 14px; background: var(--panel); margin-top: -14px; padding-top: 28px; }
+.hero h1 { font-family: var(--display); font-weight: 800; font-size: clamp(1.7rem, 3.8vw, 2.5rem); letter-spacing: .005em; }
+.hero .kicker { font-family: var(--display); font-weight: 700; text-transform: uppercase; letter-spacing: .12em; font-size: .82rem; color: var(--accent-text); }
+.hero .byline { margin: 0; }
+.hero .lede { margin: 0; }
+.osu-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; align-items: center; font-size: .83rem; color: var(--muted); border-top: 4px solid var(--osu-orange); padding-top: 10px; margin-top: 8px; }
+.osu-foot b { color: var(--fg); font-family: var(--display); letter-spacing: .06em; text-transform: uppercase; }
+@media (max-width: 640px) { .osu-course { text-align: left; } }
+
+/* --- Navigation and cards in OSU style --- */
+.pnav { border-top: 4px solid var(--osu-orange); }
+.pnav a[aria-current="page"] { background: var(--osu-black); color: #fff; box-shadow: inset 4px 0 0 var(--osu-orange); }
+:root[data-theme="dark"] .pnav a[aria-current="page"] { background: #2c2c2c; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pnav a[aria-current="page"] { background: #2c2c2c; } }
+.pnav .nav-h { color: var(--accent-text); }
+.card > h3, .card h3 { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.wk { display: inline-block; font-family: var(--display); font-weight: 700; font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; background: var(--osu-black); color: #fff; border-radius: 999px; padding: 2px 9px; }
+.wk.o { background: var(--osu-orange); }
+.manip-h { font-family: var(--display); font-weight: 700; font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-text); }
+.teach { border-color: var(--pv); background: color-mix(in srgb, var(--pv) 5%, var(--panel)); }
+.teach > summary { color: var(--pv); }
+button.primary { background: var(--osu-orange); border-color: var(--osu-orange); color: #fff; }
+.seg button[aria-pressed="true"], .pick button[aria-pressed="true"] { background: var(--osu-black); color: #fff; border-color: var(--osu-black); box-shadow: inset 0 -3px 0 var(--osu-orange); }
+:root[data-theme="dark"] .seg button[aria-pressed="true"], :root[data-theme="dark"] .pick button[aria-pressed="true"] { background: #333; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .seg button[aria-pressed="true"], :root:not([data-theme="light"]) .pick button[aria-pressed="true"] { background: #333; } }
+.go { border-color: var(--osu-orange); color: var(--accent-text); font-weight: 700; background: color-mix(in srgb, var(--osu-orange) 6%, var(--panel)); }
+.go:hover { background: var(--osu-orange); color: #fff; }
+.tabs [role="tab"][aria-selected="true"] { box-shadow: inset 0 3px 0 var(--osu-orange); }
+.theme-t { margin-left: auto; font-size: .8rem; padding: 4px 10px; border-radius: 999px; background: #1f1f1f; color: #fff; border-color: #444; }
+
+/* --- Stacked fractions --- */
+.fr { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; font-size: .82em; line-height: 1.05; margin: 0 .08em; }
+.fr > b { font-weight: inherit; display: block; padding: 0 .12em; }
+.fr > b:first-child { border-bottom: 1.4px solid currentColor; }
+.mx { white-space: nowrap; }
+
+/* --- Widgets shared by all chapters --- */
+.wbox { display: grid; gap: 10px; min-width: 0; }
+.wbox svg { display: block; width: 100%; height: auto; touch-action: manipulation; }
+.wbox .ctrl { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
+.wbox .ctrl label { display: inline-flex; gap: 6px; align-items: center; font-size: .92rem; }
+.wbox input[type="text"], .wbox input[type="number"] { width: 6.5em; font-family: var(--mono); border: 1px solid var(--line); background: var(--panel); border-radius: 10px; padding: 6px 8px; }
+.wbox input[type="number"] { width: 5em; }
+.wbox input[type="range"] { accent-color: var(--osu-orange); }
+.out { font-size: .95rem; border-radius: 10px; padding: 9px 12px; background: var(--bg); border: 1px solid var(--line); display: block; }
+.out > * + * { margin-top: 5px; }
+.out:empty { display: none; }
+.out .big { font-family: var(--mono); font-weight: 700; font-size: 1.15rem; }
+.steps { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; }
+.steps li.now { font-weight: 700; }
+.steps li.later { color: var(--muted); }
+.stage { border: 1px solid var(--line); border-radius: 12px; background: var(--paper); padding: 8px; min-width: 0; overflow-x: auto; }
+.legend2 { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: .84rem; color: var(--muted); }
+.legend2 i { display: inline-block; width: 13px; height: 13px; border-radius: 3px; margin-right: 5px; vertical-align: -2px; border: 1px solid var(--ink); }
+.reveal-a { border-left: 4px solid var(--osu-lum); background: color-mix(in srgb, var(--osu-lum) 10%, var(--panel)); padding: 8px 12px; border-radius: 0 10px 10px 0; }
+.ans-btn { font-size: .82rem; padding: 3px 10px; border-radius: 999px; }
+.qlist { margin: 0; padding-left: 1.4em; display: grid; gap: 8px; }
+.qlist > li > .go { margin-left: 6px; }
+.flash { animation: flash 1.2s ease-out; }
+@keyframes flash { from { box-shadow: 0 0 0 4px var(--osu-orange); } to { box-shadow: 0 0 0 0 transparent; } }
+@media (prefers-reduced-motion: reduce) { .flash { animation: none; } }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 3px 12px; font-size: .93rem; }
+.kv dt { color: var(--muted); }
+.kv dd { margin: 0; font-family: var(--mono); font-weight: 700; }
+.chipc { cursor: pointer; }
+.sel-ring { stroke: var(--osu-orange) !important; stroke-width: 3.5 !important; }
+.pill { display: inline-block; font-size: .78rem; border-radius: 999px; padding: 1px 8px; border: 1px solid var(--line); background: var(--bg); }
+.pill.ok { border-color: var(--good); color: var(--good); background: var(--good-bg); }
+.pill.no { border-color: var(--warn); color: var(--warn); background: var(--warn-bg); }
+.calrow td:first-child { white-space: nowrap; font-weight: 700; }
+.ext { font-size: .85rem; }
+.ext a { font-weight: 700; }
+@media print { .osu-bar { -webkit-print-color-adjust: exact; print-color-adjust: exact; } .go, .theme-t { display: none; } }
+
+/* --- Self-study quiz --- */
+.quizlist { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.qz { border-left: 5px solid var(--osu-orange); }
+.qz-h { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.qz-st { margin-left: auto; }
+.quiz-top { position: sticky; top: 8px; z-index: 5; border-top: 4px solid var(--osu-orange); }
+.reveal-a .tbl { margin-top: 6px; }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="osu-bar">
+      <div class="top">
+        <div class="osu-word"><span class="osu-mark" aria-hidden="true">211</span><span class="osu-name"><b>Oregon State University</b><span>College of Science · Department of Mathematics</span></span></div>
+        <div class="osu-course"><b>MTH 211</b> · Foundations of Elementary Mathematics<br><button type="button" class="theme-t" id="themeT">Dark mode</button></div>
+      </div>
+      <div class="stripe"></div>
+    </div>
+    <div class="hero">
+      <div class="kicker">Final exam · Quiz and practice for all chapters</div>
+      <h1>MTH 211 Final Exam Review</h1>
+      <p class="byline">By <strong>Dr. Murat Kol</strong> · Department of Mathematics, Oregon State University</p>
+      <p class="lede">A comprehensive review of Chapters 1–5: a practice final with detailed solutions, a final quiz for each chapter, and a practice lab with new problems from every chapter.</p>
+    </div>
+  </header>
+  <div class="shell">
+    <nav class="pnav" aria-label="Pages">
+      <div class="nav-h">Start here</div>
+      <a href="#overview" data-page="overview">Final exam overview<small>Topics and study plan</small></a>
+      <div class="nav-h">Final exam practice</div>
+      <a href="#qall" data-page="qall">Comprehensive practice final<small>All chapters, with solutions</small></a>
+      <a href="#q1" data-page="q1">Chapter 1 final quiz<small>Introduction to Problem Solving</small></a>
+      <a href="#q2" data-page="q2">Chapter 2 final quiz<small>Sets, Whole Numbers and Numeration</small></a>
+      <a href="#q3" data-page="q3">Chapter 3 final quiz<small>Whole-Number Operations and Their Properties</small></a>
+      <a href="#q4" data-page="q4">Chapter 4 final quiz<small>Whole-Number Computation</small></a>
+      <a href="#q5" data-page="q5">Chapter 5 final quiz<small>Number Theory</small></a>
+      <div class="nav-h">Mixed practice</div>
+      <a href="#practice" data-page="practice">Final Practice Lab<small>New problems from every chapter</small></a>
+    </nav>
+    <main id="main">
+<section class="page" id="pg-overview" aria-labelledby="h-overview">
+  <h2 id="h-overview">Final exam review: Chapters 1–5</h2>
+  <div class="card prose">
+    <p><b>What this covers.</b> Every chapter of MTH 211. The final exam asks you to compute, to model (with the manipulatives from class) and to explain why procedures work, so read each worked solution even when your answer is correct.</p>
+    <p><b>Suggested study plan.</b> (1) Take the comprehensive practice final without notes and note which topics you miss. (2) Redo the chapter final quizzes for those topics and reopen the chapter outlines and their manipulatives. (3) Use the Final Practice Lab for new problems until each topic feels routine. (4) Review the Self-Study Quiz in each chapter outline.</p>
+  </div>
+  <div class="card">
+    <h3>Topics on the final</h3>
+    <div class="tbl"><table>
+      <thead><tr><th scope="col">Chapter</th><th scope="col">Topics</th><th scope="col">Practice</th></tr></thead>
+      <tbody>
+<tr><td>1</td><td><b>Introduction to Problem Solving</b><br><span class="muted">Polya’s four steps; strategies: guess and test, draw a picture, use a variable, look for a pattern, make a list, solve a simpler problem</span></td><td><a href="#q1">Final quiz</a> · <a href="Chapter1-Introduction to Problem Solving.html">Chapter 1 outline</a></td></tr>
+<tr><td>2</td><td><b>Sets, Whole Numbers and Numeration</b><br><span class="muted">sets, Venn diagrams and set operations; whole numbers; numeration systems; place value in other bases</span></td><td><a href="#q2">Final quiz</a> · <a href="Chapter2-Sets, Whole Numbers and Numeration.html">Chapter 2 outline</a></td></tr>
+<tr><td>3</td><td><b>Whole-Number Operations and Their Properties</b><br><span class="muted">models and approaches for the four operations; properties; division with remainder; closure</span></td><td><a href="#q3">Final quiz</a> · <a href="Chapter3-Whole-Number Operations and Their Properties.html">Chapter 3 outline</a></td></tr>
+<tr><td>4</td><td><b>Whole-Number Computation</b><br><span class="muted">mental math and estimation; algorithms for the four operations; base five algorithms; order of operations</span></td><td><a href="#q4">Final quiz</a> · <a href="Chapter4-Whole-Number Computation, Mental, Electronic and Written.html">Chapter 4 outline</a></td></tr>
+<tr><td>5</td><td><b>Number Theory</b><br><span class="muted">primes and composites; divisibility tests; prime factorization; counting factors; GCF and LCM</span></td><td><a href="#q5">Final quiz</a> · <a href="Chapter5-Number Theory.html">Chapter 5 outline</a></td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section class="page" id="pg-qall" hidden aria-labelledby="h-qall">
+  <h2 id="h-qall">Comprehensive practice final</h2>
+  <p class="lede">Questions from every chapter, in chapter order. Work on paper first, then check. Your score is kept at the top; “Reset quiz” starts over.</p>
+  <div id="w-qall"></div>
+</section>
+
+<section class="page" id="pg-q1" hidden aria-labelledby="h-q1">
+  <h2 id="h-q1">Chapter 1 final quiz: Introduction to Problem Solving</h2>
+  <p class="lede">Final-exam style questions on Chapter 1. Answer, check, then open the detailed solution. For more, use the Self-Study Quiz and Practice Lab in the Chapter 1 outline.</p>
+  <div id="w-q1"></div>
+</section>
+<section class="page" id="pg-q2" hidden aria-labelledby="h-q2">
+  <h2 id="h-q2">Chapter 2 final quiz: Sets, Whole Numbers and Numeration</h2>
+  <p class="lede">Final-exam style questions on Chapter 2. Answer, check, then open the detailed solution. For more, use the Self-Study Quiz and Practice Lab in the Chapter 2 outline.</p>
+  <div id="w-q2"></div>
+</section>
+<section class="page" id="pg-q3" hidden aria-labelledby="h-q3">
+  <h2 id="h-q3">Chapter 3 final quiz: Whole-Number Operations and Their Properties</h2>
+  <p class="lede">Final-exam style questions on Chapter 3. Answer, check, then open the detailed solution. For more, use the Self-Study Quiz and Practice Lab in the Chapter 3 outline.</p>
+  <div id="w-q3"></div>
+</section>
+<section class="page" id="pg-q4" hidden aria-labelledby="h-q4">
+  <h2 id="h-q4">Chapter 4 final quiz: Whole-Number Computation</h2>
+  <p class="lede">Final-exam style questions on Chapter 4. Answer, check, then open the detailed solution. For more, use the Self-Study Quiz and Practice Lab in the Chapter 4 outline.</p>
+  <div id="w-q4"></div>
+</section>
+<section class="page" id="pg-q5" hidden aria-labelledby="h-q5">
+  <h2 id="h-q5">Chapter 5 final quiz: Number Theory</h2>
+  <p class="lede">Final-exam style questions on Chapter 5. Answer, check, then open the detailed solution. For more, use the Self-Study Quiz and Practice Lab in the Chapter 5 outline.</p>
+  <div id="w-q5"></div>
+</section>
+
+<section class="page" id="pg-practice" hidden aria-labelledby="h-practice">
+  <h2 id="h-practice">Final Practice Lab</h2>
+  <p class="lede">New problems every time, from every chapter. Choose a topic or mix them all for a random review.</p>
+  <div id="w-practice"></div>
+</section>
+    </main>
+  </div>
+
+  <footer class="osu-foot"><span><b>Oregon State University</b> · Department of Mathematics · MTH 211 Foundations of Elementary Mathematics</span><span>MTH 211 Final Exam Review · © 2026 Dr. Murat Kol</span></footer>
+</div>
+<script>
+/* MTH 212 teaching outlines: shared library (routing, fractions, quizzes, practice lab, SVG helpers). */
+const K = (() => {
+  const $ = (id) => document.getElementById(id);
+  const rand = (k) => Math.floor(Math.random() * k);
+  const rint = (a, b) => a + rand(b - a + 1);
+  const pick = (a) => a[rand(a.length)];
+  const shuffle = (a) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = rand(i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const gcd = (a, b) => { a = Math.abs(a); b = Math.abs(b); while (b) [a, b] = [b, a % b]; return a || 1; };
+  const lcm = (a, b) => Math.abs(a * b) / gcd(a, b);
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const round = (x, d = 2) => { const p = 10 ** d; return Math.round((x + Number.EPSILON) * p) / p; };
+  const fmt = (x, d = 2) => { const r = round(x, d); return r.toLocaleString('en-US', { maximumFractionDigits: d }); };
+  function el(tag, attrs, html) { const e = document.createElement(tag); if (attrs) for (const k in attrs) e.setAttribute(k, attrs[k]); if (html != null) e.innerHTML = html; return e; }
+  const NS = 'http://www.w3.org/2000/svg';
+  const VARPROPS = { fill: 1, stroke: 1, 'font-family': 1, 'stop-color': 1 };
+  function S(tag, attrs, parent) {
+    const e = document.createElementNS(NS, tag); let st = '';
+    if (attrs) for (const k in attrs) {
+      const v = attrs[k];
+      if (k === 'text') e.textContent = v;
+      else if (VARPROPS[k] && String(v).includes('var(')) st += `${k}:${v};`;
+      else e.setAttribute(k, v);
+    }
+    if (st) e.setAttribute('style', st + (e.getAttribute('style') || ''));
+    if (parent) parent.appendChild(e); return e;
+  }
+  function svg(w, h, label) { const s = S('svg', { viewBox: `0 0 ${w} ${h}`, role: 'img', 'aria-label': label || 'diagram' }); return s; }
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const sleep = (ms) => new Promise((r) => setTimeout(r, reduceMotion ? 0 : ms));
+
+  /* ---------- fractions (exact rational arithmetic) ---------- */
+  function F(n, d = 1) { if (d === 0) throw new Error('zero denominator'); if (d < 0) { n = -n; d = -d; } const g = gcd(n, d); return { n: n / g, d: d / g }; }
+  const add = (a, b) => F(a.n * b.d + b.n * a.d, a.d * b.d);
+  const sub = (a, b) => F(a.n * b.d - b.n * a.d, a.d * b.d);
+  const mul = (a, b) => F(a.n * b.n, a.d * b.d);
+  const div = (a, b) => F(a.n * b.d, a.d * b.n);
+  const val = (a) => a.n / a.d;
+  const eq = (a, b) => a.n * b.d === b.n * a.d;
+  /* parse "3/4", "2 1/3", "-1 1/2", "5", "0.25" */
+  function parse(s) {
+    s = String(s).trim().replace(/−/g, '-').replace(/\s+/g, ' ');
+    let m;
+    if ((m = s.match(/^(-?)(\d+) (\d+)\/(\d+)$/))) { const w = +m[2], n = +m[3], d = +m[4]; if (!d) return null; const f = F(w * d + n, d); return m[1] ? F(-f.n, f.d) : f; }
+    if ((m = s.match(/^(-?\d+)\/(-?\d+)$/))) { if (+m[2] === 0) return null; return F(+m[1], +m[2]); }
+    if ((m = s.match(/^-?\d+$/))) return F(+s, 1);
+    if ((m = s.match(/^(-?)(\d*)\.(\d+)$/))) { const d = 10 ** m[3].length; const f = F(+(m[2] || 0) * d + +m[3], d); return m[1] ? F(-f.n, f.d) : f; }
+    return null;
+  }
+  function html(f, mixed = true) {
+    if (f.d === 1) return `${f.n < 0 ? '−' : ''}${Math.abs(f.n)}`;
+    const neg = f.n < 0, n = Math.abs(f.n);
+    if (mixed && n > f.d) { const w = Math.floor(n / f.d), r = n % f.d; return `<span class="mx">${neg ? '−' : ''}${w}<span class="fr"><b>${r}</b><b>${f.d}</b></span></span>`; }
+    return `${neg ? '−' : ''}<span class="fr"><b>${n}</b><b>${f.d}</b></span>`;
+  }
+  const fr = (n, d) => `<span class="fr"><b>${n}</b><b>${d}</b></span>`;
+  function txt(f, mixed = true) {
+    if (f.d === 1) return String(f.n);
+    const neg = f.n < 0, n = Math.abs(f.n);
+    if (mixed && n > f.d) return `${neg ? '-' : ''}${Math.floor(n / f.d)} ${n % f.d}/${f.d}`;
+    return `${neg ? '-' : ''}${n}/${f.d}`;
+  }
+
+  /* ---------- instance registry: activity buttons set up tools ---------- */
+  const inst = {};
+  function reg(id, api) { inst[id] = api; return api; }
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-w]'); if (!b) return;
+    const id = b.dataset.w, api = inst[id]; if (!api) return;
+    let args = {}; try { args = JSON.parse(b.dataset.set || '{}'); } catch (err) {}
+    if (api.set) api.set(args);
+    const host = $(id); if (!host) return;
+    const box = host.closest('.card') || host;
+    box.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    box.classList.remove('flash'); void box.offsetWidth; box.classList.add('flash');
+  });
+  /* reveal-answer buttons: <button class="ans-btn" data-reveal="id"> */
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-reveal]'); if (!b) return;
+    const t = $(b.dataset.reveal); if (!t) return;
+    t.hidden = !t.hidden; b.setAttribute('aria-expanded', String(!t.hidden));
+    b.textContent = t.hidden ? (b.dataset.show || 'Show answer') : (b.dataset.hide || 'Hide answer');
+  });
+
+  /* ---------- segmented control ---------- */
+  function seg(host, opts, cur, onchange) {
+    host.classList.add('seg'); host.setAttribute('role', 'group'); host.innerHTML = '';
+    opts.forEach(([v, label]) => { const b = el('button', { type: 'button', 'data-v': v, 'aria-pressed': String(v === cur) }, label); host.appendChild(b); });
+    host.onclick = (e) => { const b = e.target.closest('button'); if (!b) return; set(b.dataset.v); onchange(b.dataset.v); };
+    function set(v) { host.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.v === v))); }
+    return { set };
+  }
+
+  /* ---------- tabs inside a widget ---------- */
+  function tabs(host, list, onchange) {
+    const bar = el('div', { class: 'tabs', role: 'tablist' });
+    list.forEach(([v, label], i) => bar.appendChild(el('button', { type: 'button', role: 'tab', 'data-v': v, 'aria-selected': String(i === 0) }, label)));
+    host.prepend(bar);
+    bar.onclick = (e) => { const b = e.target.closest('[role=tab]'); if (b) { set(b.dataset.v); onchange(b.dataset.v); } };
+    function set(v) { bar.querySelectorAll('[role=tab]').forEach((x) => x.setAttribute('aria-selected', String(x.dataset.v === v))); }
+    return { set };
+  }
+
+  /* ---------- classifier (choose from select boxes, then check) ---------- */
+  function classifier(id, items, fields) {
+    const host = $(id); if (!host) return; host.innerHTML = ''; host.classList.add('tf');
+    items.forEach((it, i) => {
+      const box = el('div', { class: 'cls-item' });
+      box.appendChild(el('p', null, `<b>${i + 1}.</b> ${it.q}`));
+      const row = el('div', { class: 'row' });
+      const sels = fields.map((f) => {
+        const lab = el('label', { style: 'display:flex;gap:6px;align-items:center;font-size:.9rem' });
+        if (f.name) lab.appendChild(document.createTextNode(f.name));
+        const sel = el('select'); sel.appendChild(el('option', { value: '' }, 'choose'));
+        f.opts.forEach((o) => sel.appendChild(el('option', { value: o }, o)));
+        lab.appendChild(sel); row.appendChild(lab); return sel;
+      });
+      const btn = el('button', { type: 'button', class: 'go' }, 'Check'); row.appendChild(btn);
+      const fb = el('p', { class: 'fb', 'aria-live': 'polite' });
+      box.appendChild(row); box.appendChild(fb);
+      btn.onclick = () => {
+        if (sels.some((s) => !s.value)) { fb.className = 'fb warn'; fb.textContent = 'Choose an answer for each box first.'; return; }
+        const ok = sels.every((s, j) => s.value === it.a[j]);
+        fb.className = 'fb ' + (ok ? 'good' : 'warn'); fb.innerHTML = (ok ? 'Correct. ' : 'Not quite. ') + it.why;
+      };
+      sels.forEach((s) => { s.onchange = () => { fb.textContent = ''; }; });
+      host.appendChild(box);
+    });
+  }
+
+  /* ---------- practice lab: generators return {text, ans, check?(s), opts?, show()} ---------- */
+  function practice(id, topics) {
+    const host = $(id); if (!host) return;
+    host.innerHTML = `<div class="card"><div class="row"><label for="${id}-t" class="label">Topic</label><select id="${id}-t"><option value="mix">Mix of all topics</option>${Object.entries(topics).map(([k, t]) => `<option value="${k}">${t.name}</option>`).join('')}</select><button type="button" class="primary" id="${id}-n">New problem</button><span class="pill" id="${id}-sc">0 correct out of 0</span></div>
+      <div class="prob"><div id="${id}-q" class="prose" style="font-size:1.05rem"></div><div id="${id}-a"></div><p class="fb" id="${id}-fb" aria-live="polite"></p><div id="${id}-x" class="out"></div></div></div>`;
+    let Q = null, n = 0, ok = 0;
+    const T = $(id + '-t');
+    function make() {
+      let t = T.value; if (t === 'mix') t = pick(Object.keys(topics));
+      Q = topics[t].gen(); Q.done = false;
+      $(id + '-q').innerHTML = `<div>${Q.text}</div>`; $(id + '-fb').textContent = ''; $(id + '-x').innerHTML = '';
+      $(id + '-a').innerHTML = Q.opts
+        ? `<div class="pick" role="group" aria-label="Answer choices">${Q.opts.map((o) => `<button type="button" data-o="${esc(o)}">${o}</button>`).join('')}</div>`
+        : `<form class="row" id="${id}-f"><label for="${id}-in">Answer</label><input type="text" id="${id}-in" class="mono" style="width:12em" autocomplete="off"><button type="submit" class="primary">Check</button><button type="button" data-showsol="1">Show the solution</button></form>`;
+    }
+    function fin(r) {
+      if (!Q.done) { n++; if (r) ok++; Q.done = true; }
+      $(id + '-sc').textContent = `${ok} correct out of ${n}`;
+      const fb = $(id + '-fb'); fb.className = 'fb ' + (r ? 'good' : 'warn');
+      fb.innerHTML = r ? 'Correct!' : `The answer is <b>${Q.ansHTML || Q.ans}</b>.`;
+      $(id + '-x').innerHTML = Q.show ? Q.show() : '';
+    }
+    $(id + '-a').addEventListener('click', (e) => {
+      const b = e.target.closest('[data-o]'); if (b) { $(id + '-a').querySelectorAll('[data-o]').forEach((x) => x.setAttribute('aria-pressed', String(x === b))); fin(b.dataset.o === String(Q.ans)); }
+      if (e.target.closest('[data-showsol]')) fin(false);
+    });
+    $(id + '-a').addEventListener('submit', (e) => { e.preventDefault(); const s = $(id + '-in').value.trim(); if (!s) return; fin(Q.check ? Q.check(s) : s.replace(/\s+/g, '') === String(Q.ans).replace(/\s+/g, '')); });
+    $(id + '-n').onclick = make; T.onchange = make; make();
+  }
+  /* ---------- self-study quiz: fixed questions with detailed solutions ----------
+     item: {q, opts?:[...], ans (string; for opts the exact option text), check?(s)->bool, sol (HTML), topic?} */
+  function quiz(id, items) {
+    const host = $(id); if (!host) return;
+    const done = new Array(items.length).fill(null);
+    host.innerHTML = `<div class="card quiz-top"><div class="row"><span class="pill" id="${id}-sc">Score: 0 / ${items.length}</span><span class="help" id="${id}-pr">0 of ${items.length} answered</span><button type="button" id="${id}-all">Show all solutions</button><button type="button" id="${id}-rs">Reset quiz</button></div></div><ol class="quizlist" id="${id}-l"></ol>`;
+    const list = $(id + '-l');
+    items.forEach((it, i) => {
+      const li = el('li', { class: 'card qz' });
+      const inp = it.opts
+        ? `<div class="pick" role="group" aria-label="Answer choices for question ${i + 1}">${it.opts.map((o) => `<button type="button" data-o="${esc(o)}">${o}</button>`).join('')}</div>`
+        : `<form class="row" data-f="${i}"><label class="sr" for="${id}-i${i}">Your answer</label><input type="text" id="${id}-i${i}" class="mono" style="width:13em" autocomplete="off" placeholder="your answer"><button type="submit" class="primary">Check</button></form>`;
+      li.innerHTML = `<div class="qz-h"><span class="prob-num">Q${i + 1}</span>${it.topic ? `<span class="pill">${it.topic}</span>` : ''}<span class="qz-st" id="${id}-s${i}"></span></div><div class="prose"><div>${it.q}</div></div>${inp}<p class="fb" id="${id}-fb${i}" aria-live="polite"></p><div><button type="button" class="ans-btn" data-reveal="${id}-sol${i}" data-show="Show detailed solution" data-hide="Hide solution" aria-expanded="false">Show detailed solution</button></div><div class="reveal-a prose" id="${id}-sol${i}" hidden><div><b>Answer:</b> ${it.ansHTML || it.ans}</div>${it.sol}</div>`;
+      list.appendChild(li);
+      const fin = (ok) => {
+        if (done[i] === null) done[i] = ok;
+        const fb = $(`${id}-fb${i}`); fb.className = 'fb ' + (ok ? 'good' : 'warn');
+        fb.innerHTML = ok ? 'Correct! Read the solution to compare your reasoning.' : 'Not quite. Try again, or open the detailed solution.';
+        $(`${id}-s${i}`).innerHTML = done[i] ? '<span class="pill ok">✓ first try</span>' : '<span class="pill no">review</span>';
+        const n = done.filter((x) => x !== null).length, c = done.filter((x) => x).length;
+        $(id + '-sc').textContent = `Score: ${c} / ${items.length}`; $(id + '-pr').textContent = `${n} of ${items.length} answered` + (n === items.length ? ' · finished!' : '');
+      };
+      li.addEventListener('click', (e) => { const b = e.target.closest('[data-o]'); if (!b) return; li.querySelectorAll('[data-o]').forEach((x) => x.setAttribute('aria-pressed', String(x === b))); fin(b.dataset.o === it.ans); });
+      li.addEventListener('submit', (e) => { e.preventDefault(); const s = $(`${id}-i${i}`).value.trim(); if (!s) return; fin(it.check ? it.check(s) : s.replace(/\s+/g, '').toLowerCase() === String(it.ans).replace(/\s+/g, '').toLowerCase()); });
+    });
+    $(id + '-all').onclick = () => { const show = list.querySelector('.reveal-a[hidden]') !== null; list.querySelectorAll('.reveal-a').forEach((x) => { x.hidden = !show; }); list.querySelectorAll('[data-reveal]').forEach((b) => { b.textContent = show ? 'Hide solution' : 'Show detailed solution'; }); $(id + '-all').textContent = show ? 'Hide all solutions' : 'Show all solutions'; };
+    $(id + '-rs').onclick = () => quiz(id, items);
+  }
+
+  /* answer checkers */
+  const chkFrac = (target) => (s) => { const f = parse(s.replace(/,/g, '')); return !!f && eq(f, target); };
+  const chkNum = (target, tol = 0.011) => (s) => { const x = parseFloat(s.replace(/[$,%\s]/g, '')); return isFinite(x) && Math.abs(x - target) <= tol; };
+
+  /* ---------- page routing ---------- */
+  function route(key) {
+    const pages = [...document.querySelectorAll('section.page')].map((s) => s.id.slice(3));
+    const shown = {};
+    function go(focus) {
+      let id = location.hash.slice(1); if (!pages.includes(id)) id = 'overview';
+      pages.forEach((p) => { $('pg-' + p).hidden = p !== id; });
+      document.querySelectorAll('.pnav a').forEach((a) => { if (a.dataset.page === id) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+      if (!shown[id]) { shown[id] = true; document.dispatchEvent(new CustomEvent('pageshown', { detail: id })); }
+      Object.values(inst).forEach((x) => x.redraw && x.redraw());
+      try { localStorage.setItem(key, id); } catch (e) {}
+      if (focus) { const h = $('h-' + id); h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); window.scrollTo({ top: Math.max(0, $('main').offsetTop - 12) }); }
+    }
+    window.addEventListener('hashchange', () => go(true));
+    if (!location.hash) { try { const s = localStorage.getItem(key); if (s && pages.includes(s)) history.replaceState(null, '', '#' + s); } catch (e) {} }
+    go(false);
+    /* theme toggle */
+    const tt = $('themeT');
+    if (tt) {
+      const cur = () => document.documentElement.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      try { const s = localStorage.getItem('mth212-theme'); if (s) document.documentElement.dataset.theme = s; } catch (e) {}
+      const lab = () => { tt.textContent = cur() === 'dark' ? 'Light mode' : 'Dark mode'; };
+      lab();
+      tt.onclick = () => { const t = cur() === 'dark' ? 'light' : 'dark'; document.documentElement.dataset.theme = t; try { localStorage.setItem('mth212-theme', t); } catch (e) {} lab(); };
+    }
+  }
+
+  /* ---------- small SVG helpers ---------- */
+  const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  function text(p, x, y, s, attrs = {}) { return S('text', Object.assign({ x, y, 'text-anchor': 'middle', 'font-size': 14, fill: 'var(--ink)', 'font-family': 'var(--body)', text: s }, attrs), p); }
+  /* stacked fraction inside SVG */
+  function svgFrac(p, x, y, f, size = 13, color = 'var(--ink)') {
+    if (f.d === 1) return text(p, x, y + size * 0.35, String(f.n), { 'font-size': size + 2, fill: color, 'font-weight': 700 });
+    const g = S('g', null, p); const neg = f.n < 0; let n = Math.abs(f.n), w = 0;
+    if (n > f.d) { w = Math.floor(n / f.d); n = n % f.d; }
+    let cx = x;
+    if (w) { text(g, x - size * 0.55, y + size * 0.4, (neg ? '−' : '') + w, { 'font-size': size + 2, fill: color, 'font-weight': 700 }); cx = x + size * 0.35; }
+    else if (neg) text(g, x - size * 0.8, y + size * 0.4, '−', { 'font-size': size + 2, fill: color, 'font-weight': 700 });
+    text(g, cx, y - 2, String(n), { 'font-size': size, fill: color, 'font-weight': 700 });
+    S('line', { x1: cx - size * 0.6, x2: cx + size * 0.6, y1: y + 1, y2: y + 1, stroke: color, 'stroke-width': 1.4 }, g);
+    text(g, cx, y + size + 1, String(f.d), { 'font-size': size, fill: color, 'font-weight': 700 });
+    return g;
+  }
+
+  return { $, el, S, svg, rand, rint, pick, shuffle, gcd, lcm, esc, round, fmt, sleep, reduceMotion,
+    F, add, sub, mul, div, val, eq, parse, html, fr, txt, reg, inst, seg, tabs, classifier, practice, quiz, chkFrac, chkNum, route, css, text, svgFrac };
+})();
+
+</script>
+<script>
+/* ===== MTH 211 Final Exam Review: quiz items by chapter + mixed practice generators ===== */
+(() => {
+const { rint, pick, fmt, chkNum, gcd, lcm } = K;
+const n = (v) => chkNum(v, 0.001);
+const base = (x, b) => x.toString(b);
+const clean = (s) => s.replace(/\s|_|three|four|five|six|eight|two|base|\(|\)/gi, '');
+const Q = {
+1: [
+  { topic: 'Like Activity 1.1 · The book', q: 'A student opens a 200-page book and says the two facing page numbers add to a square number. How many different pairs of facing pages are possible?', ans: '9', check: n(9), sol: '<p>Facing pages are an even page p and p + 1, so the sum 2p + 1 is an odd square: 9, 25, 49, 81, 121, 169, 225, 289, 361 (the next, 441, needs page 220). Pages 4–5, 12–13, 24–25, 40–41, 60–61, 84–85, 112–113, 144–145, 180–181: nine pairs.</p><p><b>Look back:</b> a systematic list guarantees none are missed.</p>' },
+  { topic: 'Like Activity 1.1 · Raffle tickets', q: 'Adult tickets cost $5 and student tickets $2. $41 was collected. How many combinations of tickets are possible?', ans: '4', check: n(4), sol: '<p>5a + 2s = 41. Since 2s is even, 5a must be odd, so a is odd: a = 1 (s = 18), 3 (13), 5 (8), 7 (3). Four combinations; the number of adult tickets can not be determined uniquely.</p>' },
+  { topic: 'Like Activity 1.2 · Growing tile T’s', q: 'The T of Size n uses 3n + 2 tiles. Can 200 tiles make a T that uses all of them? Type the Size (or “no”).', ans: '66', check: n(66), sol: '<p>3n + 2 = 200 gives 3n = 198 and n = 66. Yes, Size 66: 200 is 2 more than a multiple of 3.</p>' },
+  { topic: 'Like Activity 1.2 A · Toothpick houses', q: 'Toothpick houses in a row use 5n + 1 toothpicks for n houses. How many toothpicks for 50 houses?', ans: '251', check: n(251), sol: '<p>One left wall plus 5 per house (roof 2, top 1, floor 1, right wall 1): 5 · 50 + 1 = 251. Color-code the 1 and the 5n in a sketch.</p>' },
+  { topic: 'Like Activity 1.2 A · Hexagon tables', q: 'Hexagonal tables are pushed together in a row with chairs around them. How many chairs for 50 tables?', ans: '202', check: n(202), sol: '<p>4 chairs per table (2 above, 2 below) plus 1 at each end: 4n + 2 = 202.</p>' },
+  { topic: 'Like Activity 1.8 · Triangular numbers', q: 'The triangular numbers are 1, 3, 6, 10, … What is the 20th triangular number?', ans: '210', check: n(210), sol: '<p>The nth triangular number is half of the n × (n + 1) rectangular number: 20 · 21 ÷ 2 = 210. Or 1 + 2 + … + 20.</p>' },
+],
+2: [
+  { topic: 'Like Activity 2.3 · Survey data', q: 'Of 40 students, 22 like math, 18 like science and 7 like both. How many like neither?', ans: '7', check: n(7), sol: '<p>Fill from the inside out: both 7; math only 22 − 7 = 15; science only 18 − 7 = 11. Inside the circles: 33, so 40 − 33 = 7 like neither.</p>' },
+  { topic: 'Like Activity 2.3 · Inside out', q: '30 people own cats and dogs, including 8 who own cats, dogs and birds. What number goes in the region “cats and dogs, no birds”?', ans: '22', check: n(22), sol: '<p>The 30 includes the 8 in the center, so the lens outside the bird circle gets 30 − 8 = 22.</p>' },
+  { topic: 'Like Activity 2.7 · Base three pieces', q: 'A pile of 87 units is grouped and exchanged into base three pieces. Write the numeral.', ans: '10020', ansHTML: '10020<sub>three</sub>', check: (s) => clean(s) === '10020', sol: '<p>87 units → 29 longs + 0 units → 9 flats + 2 longs → 3 blocks + 0 flats → 1 long of blocks + 0 blocks. Digits: 1, 0, 0, 2, 0: 10020<sub>three</sub>.</p>' },
+  { topic: 'Like Activity 2.8 · Expanded form', q: 'Write 5046<sub>eight</sub> in base ten.', ans: '2598', check: n(2598), sol: '<p>5 × 512 + 0 × 64 + 4 × 8 + 6 × 1 = 2560 + 32 + 6 = 2598.</p>' },
+  { topic: 'Like Activity 2.8 · Base two', q: 'Write 10110<sub>two</sub> in base ten.', ans: '22', check: n(22), sol: '<p>16 + 0 + 4 + 2 + 0 = 22.</p>' },
+  { topic: 'Like Activity 2.8 · Counting in base six', q: 'What comes before 300<sub>six</sub>?', ans: '255', ansHTML: '255<sub>six</sub>', check: (s) => clean(s) === '255', sol: '<p>Take one unit away: exchange a flat for 6 longs and a long for 6 units, then remove one: 2 flats, 5 longs, 5 units = 255<sub>six</sub>.</p>' },
+],
+3: [
+  { topic: 'Like Activity 3.3 · Subtraction stories', q: '“Lena has 12 shells and Omar has 7. How many more does Lena have?” Omar counts on from 7 to 12. Which approach is this?', opts: ['missing addend with comparison', 'take away with comparison', 'take away (no comparison)', 'missing addend (no comparison)'], ans: 'missing addend with comparison', sol: '<p>Two sets are compared (comparison), and the difference is found by counting on from 7 to 12 (missing addend): 7 + ? = 12.</p>' },
+  { topic: 'Like Activity 3.4 · Distributive', q: 'Compute 4 × (25 + 8) using the distributive property.', ans: '132', check: n(132), sol: '<p>4 × 25 + 4 × 8 = 100 + 32 = 132.</p>' },
+  { topic: 'Like Activity 3.5 · Two approaches', q: '“27 stickers are shared equally among 3 friends. How many does each get?” Which approach to division?', opts: ['sharing (partitive)', 'measurement', 'missing factor'], ans: 'sharing (partitive)', sol: '<p>The number of groups (3) is known; we find the size of each group: sharing. “27 stickers, 3 per page; how many pages?” would be measurement.</p>' },
+  { topic: 'Like Activity 3.5 · Number line', q: 'A crew covers a 24-mile stretch and stops every 4 miles. How many stops?', ans: '6', check: n(6), sol: '<p>Measurement on a number line: 24 → 20 → 16 → 12 → 8 → 4 → 0: 6 jumps of 4, so 6 stops. Division as repeated subtraction.</p>' },
+  { topic: 'Like Activity 3.6 · Base six', q: 'Use the missing-addend approach: 12<sub>six</sub> − 4<sub>six</sub> = ?', ans: '4', ansHTML: '4<sub>six</sub>', check: (s) => clean(s) === '4', sol: '<p>4<sub>six</sub> + ? = 12<sub>six</sub>. In base six, 4 + 4 = 12<sub>six</sub> (eight is one six and two), so the answer is 4<sub>six</sub>.</p>' },
+  { topic: 'Like Activity 3.7 · Closure', q: 'Is the set of even whole numbers {0, 2, 4, …} closed under subtraction (within the whole numbers)?', opts: ['No', 'Yes'], ans: 'No', sol: '<p>2 − 4 is not a whole number, so one counterexample shows the set is not closed. (It is closed under addition: 2m + 2n = 2(m + n).)</p>' },
+],
+4: [
+  { topic: 'Like Activity 4.2 · Equal additions', q: 'Compute 82 − 37 with equal additions.', ans: '45', check: n(45), sol: '<p>Add 3 to both: 85 − 40 = 45. Shifting both numbers keeps the difference.</p>' },
+  { topic: 'Like Activity 4.2 · Division compensation', q: 'Compute 350 ÷ 14 by halving both numbers.', ans: '25', check: n(25), sol: '<p>350 ÷ 14 = 175 ÷ 7 = 25. The number of groups stays the same when the pile and the group size are scaled by the same factor.</p>' },
+  { topic: 'Like Activity 4.3 · Base pieces', q: 'Model 734 − 258 with base pieces (take-away). What is the difference?', ans: '476', check: n(476), sol: '<p>7 flats, 3 longs, 4 units; remove 2 flats, 5 longs, 8 units. Exchange 1 long for 10 units (14 units, 2 longs) and 1 flat for 10 longs (12 longs, 6 flats). Remove: 4 flats, 7 longs, 6 units = 476.</p>' },
+  { topic: 'Like Activity 4.4 · Arrays', q: 'Use the array model: 52 × 14.', ans: '728', check: n(728), sol: '<p>50 × 10 = 500 (5 flats), 50 × 4 = 200, 2 × 10 = 20, 2 × 4 = 8: 728. Each region is a partial product.</p>' },
+  { topic: 'Like Activity 4.5 · Base four', q: 'Use lattice multiplication: 213<sub>four</sub> × 32<sub>four</sub> (answer in base four).', ans: '20202', ansHTML: '20202<sub>four</sub>', check: (s) => clean(s) === '20202', sol: '<p>Use the base four table (2 × 2 = 10, 2 × 3 = 12, 3 × 3 = 21) in the lattice and add the diagonals in base four: 20202<sub>four</sub>. Check: 39 × 14 = 546 = 2 · 256 + 0 · 64 + 2 · 16 + 0 · 4 + 2.</p>' },
+  { topic: 'Like Activity 4.8 · Scaffold', q: 'Use the scaffold method: 7496 ÷ 32. Type the quotient.', ans: '234', check: n(234), sol: '<p>200 × 32 = 6400 (1096 left); 30 × 32 = 960 (136 left); 4 × 32 = 128 (8 left). Quotient 234, remainder 8.</p>' },
+],
+5: [
+  { topic: 'Like Activity 5.2 · Test for 8', q: 'Is 1456 divisible by 8?', opts: ['Yes', 'No'], ans: 'Yes', sol: '<p>The block (1000 = 125 · 8) leaves nothing, so check the last three digits: 456 = 8 · 57. Yes.</p>' },
+  { topic: 'Like Activity 5.2 · Test for 9', q: 'Is 4563 divisible by 9?', opts: ['Yes', 'No'], ans: 'Yes', sol: '<p>Each piece leaves 1 unit per group of 9, so the leftovers equal the digit sum 4 + 5 + 6 + 3 = 18, a multiple of 9.</p>' },
+  { topic: 'Like Activity 5.3 · Three numbers', q: 'Find LCM(27, 84, 98).', ans: '5292', check: n(5292), sol: '<p>27 = 3³, 84 = 2² · 3 · 7, 98 = 2 · 7². LCM = 2² · 3³ · 7² = 5292. GCF = 1 (no prime is in all three).</p>' },
+  { topic: 'Like Activity 5.3 · Pencils and erasers', q: 'Pencils come 12 per package and erasers 20 per package. Fewest packages of pencils so every pencil gets an eraser?', ans: '5', check: n(5), sol: '<p>LCM(12, 20) = 60: 5 packages of pencils and 3 of erasers.</p>' },
+  { topic: 'Like Activity 5.3 · Gears', q: 'Meshed gears have 24 and 36 teeth. How many turns does the small gear make before the marks align again?', ans: '3', check: n(3), sol: '<p>LCM(24, 36) = 72 teeth: the small gear turns 3 times, the large gear 2 times.</p>' },
+  { topic: 'Like Activity 5.3 · Factor tree', q: 'Factor 4455 with divisibility tests. What is its prime factorization?', opts: ['3⁴ · 5 · 11', '3³ · 5 · 33', '5 · 9 · 99', '3² · 5 · 99'], ans: '3⁴ · 5 · 11', sol: '<p>Ends in 5: 5 · 891. Digit sum of 891 is 18: 9 · 99 = 9 · 9 · 11. So 4455 = 3⁴ · 5 · 11.</p>' },
+],
+};
+
+const GENS = {
+  seq: { name: 'Ch 1 · Arithmetic patterns', gen() { const a = rint(1, 12), d = rint(2, 9), k = rint(10, 50); const v = a + d * (k - 1); return { text: `The pattern ${a}, ${a + d}, ${a + 2 * d}, ${a + 3 * d}, … continues. Find term number ${k}.`, ans: String(v), check: n(v), show: () => `Start at ${a} and add ${d} a total of ${k - 1} times: ${a} + ${d} · ${k - 1} = ${v}.` }; } },
+  sets: { name: 'Ch 2 · Counting with sets', gen() { const a = rint(5, 20), b = rint(5, 20), c = rint(0, Math.min(a, b)); return { text: `n(A) = ${a}, n(B) = ${b}, n(A ∩ B) = ${c}. Find n(A ∪ B).`, ans: String(a + b - c), check: n(a + b - c), show: () => `${a} + ${b} − ${c} = ${a + b - c} (the overlap counted once).` }; } },
+  b2t: { name: 'Ch 2 · Base b to base ten', gen() { const b = rint(2, 9), x = rint(b, b * b * b * 2); const s = base(x, b); return { text: `Write ${s}<sub>${b}</sub> in base ten.`, ans: String(x), check: n(x), show: () => `${[...s].map((d, i) => `${d} · ${b}<sup>${s.length - 1 - i}</sup>`).join(' + ')} = ${x}.` }; } },
+  t2b: { name: 'Ch 2 · Base ten to base b', gen() { const b = rint(2, 8), x = rint(b + 1, 300); const s = base(x, b); return { text: `Write ${x} in base ${b}.`, ans: s, check: (y) => clean(y) === s, show: () => `Repeated division by ${b} (read remainders bottom to top) gives ${s}<sub>${b}</sub>.` }; } },
+  div: { name: 'Ch 3 · Division with remainder', gen() { const b = rint(3, 12), q = rint(3, 40), r = rint(0, b - 1); const a = b * q + r; return { text: `${a} ÷ ${b}: type the quotient and remainder as “q r”.`, ans: `${q} ${r}`, check: (s) => s.trim().split(/[\sr,]+/).filter(Boolean).map(Number).join() === `${q},${r}`, show: () => `${a} = ${b} · ${q} + ${r}, with 0 ≤ ${r} &lt; ${b}.` }; } },
+  prop: { name: 'Ch 3 · Properties', gen() { const P = [['(3 + 7) + 5 = 3 + (7 + 5)', 'associative'], ['4 × 9 = 9 × 4', 'commutative'], ['6 × (10 + 2) = 6 × 10 + 6 × 2', 'distributive'], ['8 + 0 = 8', 'identity'], ['17 × 1 = 17', 'identity'], ['5 + 12 = 12 + 5', 'commutative'], ['(2 × 5) × 9 = 2 × (5 × 9)', 'associative']]; const [e, a] = pick(P); return { text: `Which property? ${e}`, opts: ['associative', 'commutative', 'distributive', 'identity'], ans: a, show: () => `${e}: ${a} property.` }; } },
+  mm: { name: 'Ch 4 · Mental math', gen() { const t = rint(0, 1); if (t) { const a = rint(2, 9) * 10 - rint(1, 3), b = rint(100, 400); return { text: `Compute ${a} + ${b} mentally.`, ans: String(a + b), check: n(a + b), show: () => `Compensation: ${a} + ${b} = ${Math.ceil(a / 10) * 10} + ${b - (Math.ceil(a / 10) * 10 - a)} = ${a + b}.` }; } const b = rint(12, 88); return { text: `Compute 25 × ${4 * b} mentally.`, ans: String(100 * b), check: n(100 * b), show: () => `25 × ${4 * b} = 25 × 4 × ${b} = 100 × ${b} = ${100 * b}.` }; } },
+  b5: { name: 'Ch 4 · Base five addition', gen() { const x = rint(5, 60), y = rint(5, 60); const s = base(x + y, 5); return { text: `${base(x, 5)}<sub>five</sub> + ${base(y, 5)}<sub>five</sub> = ? (in base five)`, ans: s, check: (z) => clean(z) === s, show: () => `${x} + ${y} = ${x + y} in base ten = ${s}<sub>five</sub>. Regroup five ones as one five.` }; } },
+  gcf: { name: 'Ch 5 · GCF and LCM', gen() { const g = rint(2, 12), a = g * rint(2, 9), b = g * rint(2, 9); const which = pick(['GCF', 'LCM']); const v = which === 'GCF' ? gcd(a, b) : lcm(a, b); return { text: `Find ${which}(${a}, ${b}).`, ans: String(v), check: n(v), show: () => `GCF(${a}, ${b}) = ${gcd(a, b)}; LCM = ${a} · ${b} ÷ ${gcd(a, b)} = ${lcm(a, b)}.` }; } },
+  dv: { name: 'Ch 5 · Divisibility', gen() { const d = pick([3, 4, 6, 8, 9, 11]); const x = rint(1000, 99999); const ok = x % d === 0; return { text: `Is ${x.toLocaleString('en-US')} divisible by ${d}?`, opts: ['Yes', 'No'], ans: ok ? 'Yes' : 'No', show: () => `${x} ÷ ${d} = ${fmt(x / d, 3)}. Test: ${({ 3: 'digit sum divisible by 3', 4: 'last two digits divisible by 4', 6: 'divisible by 2 and by 3', 8: 'last three digits divisible by 8', 9: 'digit sum divisible by 9', 11: 'alternating digit sums differ by a multiple of 11' })[d]}.` }; } },
+};
+
+[1, 2, 3, 4, 5].forEach((c) => K.quiz('w-q' + c, Q[c]));
+K.quiz('w-qall', [1, 2, 3, 4, 5].flatMap((c) => Q[c]));
+K.practice('w-practice', GENS);
+})();
+
+K.route('mth211-final-page');
+</script>
+</body>
+</html>

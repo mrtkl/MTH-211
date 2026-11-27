@@ -511,7 +511,6 @@ button.primary { background: var(--osu-orange); border-color: var(--osu-orange);
   </header>
 <!--cn:bar--><nav class="cnav" aria-label="Course chapters"><div class="cn-side"><a href="Chapter5-Number%20Theory.html" title="Chapter 5: Number Theory">←<span>Chapter 5: Number Theory</span></a></div><div class="cn-pills"><a class="home" href="index.html">⌂ All chapters</a><a href="Chapter1-Introduction%20to%20Problem%20Solving.html" title="Chapter 1: Introduction to Problem Solving">1</a><a href="Chapter2-Sets%2C%20Whole%20Numbers%20and%20Numeration.html" title="Chapter 2: Sets, Whole Numbers and Numeration">2</a><a href="Chapter3-Whole-Number%20Operations%20and%20Their%20Properties.html" title="Chapter 3: Whole-Number Operations and Their Properties">3</a><a href="Chapter4-Whole-Number%20Computation%2C%20Mental%2C%20Electronic%20and%20Written.html" title="Chapter 4: Whole-Number Computation, Mental, Electronic and Written">4</a><a href="Chapter5-Number%20Theory.html" title="Chapter 5: Number Theory">5</a><a href="MTH211-Final-Exam-Review.html" title="Final Exam Review" aria-current="page">★</a></div><div class="cn-side r"></div></nav><!--/cn-->
 
-
   <div class="shell">
     <nav class="pnav" aria-label="Pages">
       <div class="nav-h">Start here</div>
@@ -550,33 +549,33 @@ button.primary { background: var(--osu-orange); border-color: var(--osu-orange);
 
 <section class="page" id="pg-qall" hidden aria-labelledby="h-qall">
   <h2 id="h-qall">Comprehensive practice final</h2>
-  <p class="lede">Questions from every chapter, in chapter order. Work on paper first, then check. Your score is kept at the top; “Reset quiz” starts over.</p>
+  <p class="lede">Questions from every chapter, in chapter order. Work on paper first, then check. Your score is kept at the top; click <b>New questions</b> for a completely new practice final.</p>
   <div id="w-qall"></div>
 </section>
 
 <section class="page" id="pg-q1" hidden aria-labelledby="h-q1">
   <h2 id="h-q1">Chapter 1 final quiz: Introduction to Problem Solving</h2>
-  <p class="lede">Final-exam style questions on Chapter 1. Answer, check, then open the detailed solution. For more, use the Self-Study Quiz and Practice Lab in the Chapter 1 outline.</p>
+  <p class="lede">Final-exam style questions on Chapter 1. Answer, check, then open the detailed solution. Click <b>New questions</b> for a new set. For more, use the Self-Study Quiz and Practice Lab in the Chapter 1 outline.</p>
   <div id="w-q1"></div>
 </section>
 <section class="page" id="pg-q2" hidden aria-labelledby="h-q2">
   <h2 id="h-q2">Chapter 2 final quiz: Sets, Whole Numbers and Numeration</h2>
-  <p class="lede">Final-exam style questions on Chapter 2. Answer, check, then open the detailed solution. For more, use the Self-Study Quiz and Practice Lab in the Chapter 2 outline.</p>
+  <p class="lede">Final-exam style questions on Chapter 2. Answer, check, then open the detailed solution. Click <b>New questions</b> for a new set. For more, use the Self-Study Quiz and Practice Lab in the Chapter 2 outline.</p>
   <div id="w-q2"></div>
 </section>
 <section class="page" id="pg-q3" hidden aria-labelledby="h-q3">
   <h2 id="h-q3">Chapter 3 final quiz: Whole-Number Operations and Their Properties</h2>
-  <p class="lede">Final-exam style questions on Chapter 3. Answer, check, then open the detailed solution. For more, use the Self-Study Quiz and Practice Lab in the Chapter 3 outline.</p>
+  <p class="lede">Final-exam style questions on Chapter 3. Answer, check, then open the detailed solution. Click <b>New questions</b> for a new set. For more, use the Self-Study Quiz and Practice Lab in the Chapter 3 outline.</p>
   <div id="w-q3"></div>
 </section>
 <section class="page" id="pg-q4" hidden aria-labelledby="h-q4">
   <h2 id="h-q4">Chapter 4 final quiz: Whole-Number Computation</h2>
-  <p class="lede">Final-exam style questions on Chapter 4. Answer, check, then open the detailed solution. For more, use the Self-Study Quiz and Practice Lab in the Chapter 4 outline.</p>
+  <p class="lede">Final-exam style questions on Chapter 4. Answer, check, then open the detailed solution. Click <b>New questions</b> for a new set. For more, use the Self-Study Quiz and Practice Lab in the Chapter 4 outline.</p>
   <div id="w-q4"></div>
 </section>
 <section class="page" id="pg-q5" hidden aria-labelledby="h-q5">
   <h2 id="h-q5">Chapter 5 final quiz: Number Theory</h2>
-  <p class="lede">Final-exam style questions on Chapter 5. Answer, check, then open the detailed solution. For more, use the Self-Study Quiz and Practice Lab in the Chapter 5 outline.</p>
+  <p class="lede">Final-exam style questions on Chapter 5. Answer, check, then open the detailed solution. Click <b>New questions</b> for a new set. For more, use the Self-Study Quiz and Practice Lab in the Chapter 5 outline.</p>
   <div id="w-q5"></div>
 </section>
 
@@ -750,12 +749,21 @@ const K = (() => {
     $(id + '-a').addEventListener('submit', (e) => { e.preventDefault(); const s = $(id + '-in').value.trim(); if (!s) return; fin(Q.check ? Q.check(s) : s.replace(/\s+/g, '') === String(Q.ans).replace(/\s+/g, '')); });
     $(id + '-n').onclick = make; T.onchange = make; make();
   }
-  /* ---------- self-study quiz: fixed questions with detailed solutions ----------
+  /* ---------- self-study quiz: generated questions with detailed solutions ----------
      item: {q, opts?:[...], ans (string; for opts the exact option text), check?(s)->bool, sol (HTML), topic?} */
-  function quiz(id, items) {
+  /* src: an array of items and/or generator functions (each call returns a new item), or a function returning such an array.
+     n: how many to draw. Every call (and every "New questions" click) builds a fresh set: new draws, new numbers, shuffled choices. */
+  function sample(bank, n) { const idx = shuffle(bank.map((_, i) => i)).slice(0, Math.min(n, bank.length)).sort((a, b) => a - b); return idx.map((i) => bank[i]); }
+  function makeSet(src, n) {
+    let arr = typeof src === 'function' ? src() : src;
+    if (n) arr = sample(arr, n);
+    return arr.map((g) => { let it = typeof g === 'function' ? g() : g; it = Object.assign({}, it); if (it.opts && !it.keep) it.opts = shuffle(it.opts); return it; });
+  }
+  function quiz(id, src, nDraw) {
     const host = $(id); if (!host) return;
+    const items = makeSet(src, nDraw);
     const done = new Array(items.length).fill(null);
-    host.innerHTML = `<div class="card quiz-top"><div class="row"><span class="pill" id="${id}-sc">Score: 0 / ${items.length}</span><span class="help" id="${id}-pr">0 of ${items.length} answered</span><button type="button" id="${id}-all">Show all solutions</button><button type="button" id="${id}-rs">Reset quiz</button></div></div><ol class="quizlist" id="${id}-l"></ol>`;
+    host.innerHTML = `<div class="card quiz-top"><div class="row"><span class="pill" id="${id}-sc">Score: 0 / ${items.length}</span><span class="help" id="${id}-pr">0 of ${items.length} answered</span><button type="button" id="${id}-all">Show all solutions</button><button type="button" class="primary" id="${id}-rs">New questions</button></div></div><ol class="quizlist" id="${id}-l"></ol>`;
     const list = $(id + '-l');
     items.forEach((it, i) => {
       const li = el('li', { class: 'card qz' });
@@ -776,7 +784,7 @@ const K = (() => {
       li.addEventListener('submit', (e) => { e.preventDefault(); const s = $(`${id}-i${i}`).value.trim(); if (!s) return; fin(it.check ? it.check(s) : s.replace(/\s+/g, '').toLowerCase() === String(it.ans).replace(/\s+/g, '').toLowerCase()); });
     });
     $(id + '-all').onclick = () => { const show = list.querySelector('.reveal-a[hidden]') !== null; list.querySelectorAll('.reveal-a').forEach((x) => { x.hidden = !show; }); list.querySelectorAll('[data-reveal]').forEach((b) => { b.textContent = show ? 'Hide solution' : 'Show detailed solution'; }); $(id + '-all').textContent = show ? 'Hide all solutions' : 'Show all solutions'; };
-    $(id + '-rs').onclick = () => quiz(id, items);
+    $(id + '-rs').onclick = () => { quiz(id, src, nDraw); host.scrollIntoView({ block: 'start', behavior: 'smooth' }); };
   }
 
   /* answer checkers */
@@ -828,60 +836,188 @@ const K = (() => {
   }
 
   return { $, el, S, svg, rand, rint, pick, shuffle, gcd, lcm, esc, round, fmt, sleep, reduceMotion,
-    F, add, sub, mul, div, val, eq, parse, html, fr, txt, reg, inst, seg, tabs, classifier, practice, quiz, chkFrac, chkNum, route, css, text, svgFrac };
+    F, add, sub, mul, div, val, eq, parse, html, fr, txt, reg, inst, seg, tabs, classifier, practice, quiz, sample, chkFrac, chkNum, route, css, text, svgFrac };
 })();
 
 </script>
 <script>
+/* ===== MTH 211 question banks: every entry is a generator that returns a new question each call =====
+   Used by the chapter Self-Study Quizzes and the Final Exam Review. */
+const BANK = (() => {
+const { gcd, lcm, rint, pick, shuffle, fmt } = K;
+const NAMES = ['Ana', 'Ben', 'Carmen', 'Dev', 'Elena', 'Felix', 'Grace', 'Hiro', 'Isla', 'Jamal', 'Kira', 'Luis', 'Maya', 'Noah', 'Priya', 'Sam', 'Tara', 'Omar', 'Lena', 'Ravi'];
+const nm = () => pick(NAMES);
+const two = () => { const a = nm(); let b; do b = nm(); while (b === a); return [a, b]; };
+const num = (s) => +String(s).replace(/−/g, '-').replace(/[,\s$]/g, '');
+const exact = (v) => (s) => String(s).trim() !== '' && num(s) === v;
+const nq = (v) => ({ ans: String(v), check: exact(v) });
+const T = (a, t) => `Activity ${a} · ${t}`;
+const BN = { 2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six', 7: 'seven', 8: 'eight', 9: 'nine' };
+const toB = (n, b) => n.toString(b);
+const sb = (s, b) => `${s}<sub>${BN[b]}</sub>`;
+const clean = (s) => String(s).toLowerCase().replace(/base|two|three|four|five|six|seven|eight|nine|ten|[_\s()]/g, '');
+const bq = (n, b) => ({ ans: toB(n, b), ansHTML: sb(toB(n, b), b), check: (s) => clean(s) === toB(n, b) });
+const PIECES = ['units', 'longs', 'flats', 'blocks', 'long-blocks'];
+const sum = (a) => a.reduce((s, x) => s + x, 0);
+const factor = (n) => { const f = []; for (let p = 2; p * p <= n; p++) while (n % p === 0) { f.push(p); n /= p; } if (n > 1) f.push(n); return f; };
+const pf = (n) => { const c = {}; factor(n).forEach((p) => (c[p] = (c[p] || 0) + 1)); return Object.entries(c).map(([p, e]) => (e > 1 ? `${p}${'⁰¹²³⁴⁵⁶⁷⁸⁹'[e] !== undefined ? ['', '', '²', '³', '⁴', '⁵', '⁶', '⁷'][e] : '^' + e}` : p)).join(' · '); };
+const isPrime = (n) => n > 1 && factor(n).length === 1;
+const ord = (n) => n + (n % 100 >= 11 && n % 100 <= 13 ? 'th' : ['th', 'st', 'nd', 'rd'][n % 10] || 'th');
+const pl = (k, w) => `${k} ${k === 1 ? w.replace(/s$/, '') : w}`;
+const B = {};
+
+/* ================= Chapter 1: Problem solving ================= */
+B[1] = [
+  () => { const N = rint(90, 420); const pairs = []; for (let s = 3; (s * s + 1) / 2 <= N; s += 2) { const p = (s * s - 1) / 2; pairs.push(`${p}–${p + 1}`); }
+    return { topic: T('1.1', 'The book'), q: `A student opens a ${N}-page book and says, “The sum of the two facing page numbers is a square number.” How many different pairs of facing pages are possible? (Facing pages are an even page and the next odd page.)`, ...nq(pairs.length),
+      sol: `<p><b>Understand:</b> facing pages are p (even) and p + 1, so the sum 2p + 1 is odd. It must be an odd square: 9, 25, 49, …</p><p><b>Make a list:</b> ${pairs.join(', ')}. The next odd square would need a page beyond ${N}.</p><p><b>${pairs.length}</b> pairs.</p>` }; },
+  () => { let A, S, tot, list; do { A = rint(3, 7); S = rint(2, 5); tot = rint(30, 80); list = []; for (let a = 1; a * A < tot; a++) if ((tot - a * A) % S === 0) list.push([a, (tot - a * A) / S]); } while (A === S || tot % A === 0 || tot % S === 0 || list.length < 2 || list.length > 7);
+    return { topic: T('1.1', 'Raffle tickets'), q: `Adult raffle tickets cost $${A} and student tickets $${S}. ${nm()} collected $${tot}. How many different combinations of tickets are possible?`, ...nq(list.length),
+      sol: `<p>Let a = adult tickets and s = student tickets: ${A}a + ${S}s = ${tot}. Make a table of a and check whether the rest is a multiple of ${S}:</p><p>${list.map(([a, s]) => `${a} adult + ${s} student`).join('; ')}.</p><p><b>${list.length}</b> combinations, so the number of adult tickets cannot be determined uniquely.</p>` }; },
+  () => { const w = rint(0, 2); const n = rint(8, 60); const N = rint(40, 300);
+    if (w === 0) return { topic: T('1.2', 'Growing tile T’s'), q: `The T of Size 1 uses 5 tiles, Size 2 uses 8, Size 3 uses 11. How many tiles are in the T of Size ${n}?`, ...nq(3 * n + 2), sol: `<p>Each size adds 3 tiles (one to each arm and one to the stem). Color-code: 2 fixed tiles plus 3 for each size: 3n + 2.</p><p>Size ${n}: 3 · ${n} + 2 = <b>${3 * n + 2}</b>.</p>` };
+    if (w === 1) { const ok = (N - 2) % 3 === 0; return { topic: T('1.2', 'Growing tile T’s'), q: `The T of Size n uses 3n + 2 tiles. Can ${N} tiles make a T that uses all of them? Type the Size, or “no”.`, ans: ok ? String((N - 2) / 3) : 'no', check: (s) => (ok ? num(s) === (N - 2) / 3 : /^no\b/i.test(s.trim())), sol: `<p>Solve 3n + 2 = ${N}: 3n = ${N - 2}, n = ${fmt((N - 2) / 3, 3)}.</p><p>${ok ? `Yes: Size <b>${(N - 2) / 3}</b>.` : `${N - 2} is not a multiple of 3, so <b>no</b> T uses exactly ${N} tiles.`}</p>` }; }
+    return { topic: T('1.2', 'Growing tile T’s'), q: `The T of Size n uses 3n + 2 tiles. What is the largest Size T you can make with ${N} tiles?`, ...nq(Math.floor((N - 2) / 3)), sol: `<p>3n + 2 ≤ ${N} gives n ≤ ${fmt((N - 2) / 3, 3)}. The largest whole number is <b>${Math.floor((N - 2) / 3)}</b> (uses ${3 * Math.floor((N - 2) / 3) + 2} tiles).</p>` }; },
+  () => { const n = rint(20, 150); return { topic: T('1.2 A', 'Toothpick houses'), q: `A row of toothpick houses: 1 house uses 6 toothpicks, 2 houses use 11, 3 houses use 16. How many toothpicks are needed for ${n} houses?`, ...nq(5 * n + 1), sol: `<p>Each new house shares a wall, so it adds 5 toothpicks (2 roof, 1 top, 1 floor, 1 right wall). Start with 1 left wall: 5n + 1.</p><p>${n} houses: 5 · ${n} + 1 = <b>${5 * n + 1}</b>.</p>` }; },
+  () => { const n = rint(10, 80); return { topic: T('1.2 A', 'Hexagon tables'), q: `Hexagonal tables are pushed together in a row. 1 table seats 6, 2 tables seat 10, 3 tables seat 14. How many chairs for ${n} tables?`, ...nq(4 * n + 2), sol: `<p>Each table has 2 chairs on top and 2 on the bottom (4n), plus 1 chair at each end (2): 4n + 2.</p><p>${n} tables: 4 · ${n} + 2 = <b>${4 * n + 2}</b>.</p>` }; },
+  () => { const V = [['odd + odd', 'always even', 'Two odd tile arrangements each have one extra tile; the two extras pair up, so the sum is always in two even rows.'], ['even + odd', 'always odd', 'The even one fills two rows; the odd one has one extra tile, which stays unpaired.'], ['odd × odd', 'always odd', 'An odd number of rows of an odd number: (2a + 1)(2b + 1) = 2(2ab + a + b) + 1.'], ['even × any whole number', 'always even', '2a · b = 2(ab).'], ['the sum of three consecutive whole numbers', 'always a multiple of 3', 'n + (n + 1) + (n + 2) = 3n + 3 = 3(n + 1): move one tile from the largest to the smallest to make three equal stacks.'], ['the sum of two consecutive whole numbers', 'always odd', 'n + (n + 1) = 2n + 1.']]; const [e, a, w] = pick(V);
+    return { topic: T('1.4', 'Even and odd'), q: `${e[0].toUpperCase() + e.slice(1)} is…`, opts: ['always even', 'always odd', 'always a multiple of 3', 'sometimes even, sometimes odd'], keep: true, ans: a, sol: `<p><b>${a[0].toUpperCase() + a.slice(1)}.</b> ${w}</p>` }; },
+  () => { const [k, a] = pick([[4, 2178], [9, 1089]]); return { topic: T('1.7', 'Cryptarithm'), q: `Find the four-digit number ABCD with ABCD × ${k} = DCBA (each letter a digit).`, ...nq(a), sol: k === 4 ? '<p>DCBA is a four-digit number, so A × 4 &lt; 10: A = 1 or 2. DCBA ends in A and is a multiple of 4, so A is even: A = 2. Then D × 4 ends in 2, so D = 3 or 8, and D ≥ 4 × 2 = 8: D = 8. Guess and test the middle digits: B = 1, C = 7.</p><p><b>2178</b> × 4 = 8712.</p>' : '<p>A × 9 &lt; 10, so A = 1, and then D = 9 (since 9 × D ends in 1). Test the middle digits: B = 0, C = 8.</p><p><b>1089</b> × 9 = 9801.</p>' }; },
+  () => { const n = rint(6, 30); return { topic: T('1.8', 'Handshakes'), q: `Each of ${n} people shakes hands with each other person exactly once. How many handshakes?`, ...nq(n * (n - 1) / 2), sol: `<p><b>Solve a simpler problem:</b> the first person shakes ${n - 1} hands, the next ${n - 2} new hands, …, the last none: ${n - 1} + ${n - 2} + … + 1.</p><p>Or: each of ${n} people shakes ${n - 1} hands, and each handshake is counted twice: ${n} · ${n - 1} ÷ 2 = <b>${n * (n - 1) / 2}</b>.</p>` }; },
+  () => { const n = rint(3, 9); let s = 0; const parts = []; for (let k = 1; k <= n; k++) { s += k * k; parts.push(`${(n - k + 1) ** 2}`); }
+    return { topic: T('1.9', 'Checkerboards'), q: `How many squares of all sizes are in a ${n} × ${n} grid?`, ...nq(s), sol: `<p>Make a table by size: 1 × 1: ${n * n}, 2 × 2: ${(n - 1) ** 2}, …, ${n} × ${n}: 1. A k × k square fits in (${n} − k + 1)² positions.</p><p>${parts.join(' + ')} = <b>${s}</b>.</p>` }; },
+  () => { const n = rint(8, 40); return { topic: T('1.8', 'Triangular numbers'), q: `The triangular numbers are 1, 3, 6, 10, … What is the ${ord(n)} triangular number?`, ...nq(n * (n + 1) / 2), sol: `<p>Two copies of the nth triangle make an n × (n + 1) rectangle, so the nth triangular number is n(n + 1) ÷ 2.</p><p>${n} · ${n + 1} ÷ 2 = <b>${n * (n + 1) / 2}</b>.</p>` }; },
+  () => { const a = rint(3, 12), d = rint(2, 9), n = rint(20, 100); return { topic: T('1.2', 'Looking for a pattern'), q: `The pattern ${a}, ${a + d}, ${a + 2 * d}, ${a + 3 * d}, … continues. What is the ${ord(n)} term?`, ...nq(a + (n - 1) * d), sol: `<p>Each term adds ${d}. The nth term is ${a} plus (n − 1) jumps of ${d}: ${a} + ${d}(n − 1).</p><p>${ord(n)} term: ${a} + ${d} · ${n - 1} = <b>${a + (n - 1) * d}</b>.</p>` }; },
+  () => { const x = rint(12, 60), y = rint(5, x - 3); const [p, q] = two(); return { topic: T('1.8', 'Guess and test'), q: `${p} and ${q} have ${x + y} marbles together, and ${p} has ${x - y} more than ${q}. How many marbles does ${p} have?`, ...nq(x), sol: `<p><b>Guess and test</b> or <b>draw a picture</b>: take away the extra ${x - y}, and the rest, ${2 * y}, splits evenly: ${q} has ${y}.</p><p>${p} has ${y} + ${x - y} = <b>${x}</b>. Check: ${x} + ${y} = ${x + y}.</p>` }; },
+];
+
+/* ================= Chapter 2: Sets, whole numbers, numeration ================= */
+B[2] = [
+  () => { const V = [['A − B', 'A ∩ B′'], ['the complement of A ∩ B', 'A′ ∪ B′'], ['the complement of A ∪ B', 'A′ ∩ B′'], ['A ∩ (B ∪ C)', '(A ∩ B) ∪ (A ∩ C)'], ['A ∪ (B ∩ C)', '(A ∪ B) ∩ (A ∪ C)'], ['B − A', 'B ∩ A′']]; const [x, a] = pick(V); const wrong = shuffle(['A ∪ B′', 'A′ ∩ B', 'A ∩ B', '(A ∪ B) ∩ C', 'A′ ∪ B', 'A ∩ B ∩ C'].filter((o) => o !== a)).slice(0, 3);
+    return { topic: T('2.1', 'Shading'), q: `Which set has the same shading as ${x}?`, opts: [a, ...wrong], ans: a, sol: `<p>Shade both on a Venn diagram: ${x} and ${a} cover exactly the same regions.</p><p>${/complement/.test(x) ? 'This is De Morgan’s law: the complement switches ∩ and ∪ and complements each set.' : /B − A|A − B/.test(x) ? 'Removing B is the same as keeping only what is outside B.' : 'This is a distributive property for sets.'}</p>` }; },
+  () => { const r = Array.from({ length: 7 }, () => rint(1, 9)); const [a, b, c, ab, ac, bc, abc] = r; const w = pick(['exactly one', 'at least two', 'exactly two', 'all three']); const v = w === 'exactly one' ? a + b + c : w === 'at least two' ? ab + ac + bc + abc : w === 'exactly two' ? ab + ac + bc : abc;
+    return { topic: T('2.2', 'Reading Venn data'), q: `A three-circle Venn diagram of students’ classes (Art, Band, Chess) shows: Art only ${a}, Band only ${b}, Chess only ${c}, Art and Band only ${ab}, Art and Chess only ${ac}, Band and Chess only ${bc}, all three ${abc}. How many students took <b>${w}</b> of the classes?`, ...nq(v),
+      sol: `<p>${w === 'exactly one' ? `Exactly one: the three “only” regions: ${a} + ${b} + ${c}` : w === 'at least two' ? `At least two: the three two-class regions plus the center: ${ab} + ${ac} + ${bc} + ${abc}` : w === 'exactly two' ? `Exactly two: the three two-class regions, not the center: ${ab} + ${ac} + ${bc}` : 'All three: the center region'} = <b>${v}</b>.</p>` }; },
+  () => { const tot = rint(20, 60) * 100, center = rint(5, 15) * 100; const [X, Y, Z] = pick([['own a car', 'own a bike', 'own a motorcycle'], ['like soccer', 'like tennis', 'like golf'], ['speak Spanish', 'speak French', 'speak German']]);
+    return { topic: T('2.3', 'Fill from the inside out'), q: `In a survey, ${tot} people ${X.replace(/^own/, 'own')} and ${Y.replace(/^(own|like|speak) /, '')}; ${center} of them also ${Z}. What number goes in the region “${X} and ${Y}, but not ${Z}”?`, ...nq(tot - center), sol: `<p>The ${tot} people in both circles include the ${center} in the center (all three). Fill from the inside out: the center gets ${center}, and the rest of the lens gets ${tot} − ${center} = <b>${tot - center}</b>.</p>` }; },
+  () => { const N = rint(30, 60), both = rint(3, 12), a = rint(both + 5, N - 10), b = rint(both + 3, N - a + both - 1); const nei = N - (a + b - both);
+    return { topic: T('2.3', 'Survey data'), q: `Of ${N} students, ${a} like math, ${b} like science and ${both} like both. How many like neither?`, ...nq(nei), sol: `<p>Fill from the inside out: both ${both}; math only ${a} − ${both} = ${a - both}; science only ${b} − ${both} = ${b - both}.</p><p>Inside the circles: ${a - both + b - both + both}. Neither: ${N} − ${a + b - both} = <b>${nei}</b>.</p>` }; },
+  () => { const N = rint(8, 20), nei = rint(0, 3), both = rint(1, 5); const h = rint(both + 1, N - nei - 1); const b = N - nei - h + both; if (b <= both) return B[2][4]();
+    return { topic: T('2.4', 'Venn perplexor'), q: `At a rodeo, ${N} riders competed: ${h} rode horses, ${b} rode bulls, and ${nei} rode neither. How many rode both?`, ...nq(both), sol: `<p>Riders in at least one circle: ${N} − ${nei} = ${N - nei}. The circles hold ${h} + ${b} = ${h + b}, which counts the overlap twice.</p><p>Both: ${h + b} − ${N - nei} = <b>${both}</b>.</p>` }; },
+  () => { const b = pick([3, 4, 5, 6]); const n = rint(b * b + 1, b ** 4 - 1); const s = toB(n, b); const steps = []; let q = n; let k = 0; while (q >= b) { steps.push(`${pl(q, PIECES[k])} → ${pl(Math.floor(q / b), PIECES[k + 1])} + ${pl(q % b, PIECES[k])}`); q = Math.floor(q / b); k++; }
+    return { topic: T('2.7', `Base ${BN[b]} pieces`), q: `A pile of ${n} units is grouped and exchanged into base ${BN[b]} pieces (${b} units make a long, ${b} longs make a flat, …). Write the numeral.`, ...bq(n, b), sol: `<p>${steps.join('; ')}.</p><p>Read the pieces from largest to smallest: ${sb(s, b)}.</p>` }; },
+  () => { const b = pick([2, 3, 4, 5, 6, 7, 8]); const n = rint(b ** 2, b ** 4 - 1); const s = toB(n, b); const L = s.length; const terms = s.split('').map((d, i) => `${d} × ${b ** (L - 1 - i)}`);
+    return { topic: T('2.8', 'Expanded form'), q: `Write ${sb(s, b)} in base ten.`, ...nq(n), sol: `<p>Place values in base ${BN[b]}: ${Array.from({ length: L }, (_, i) => b ** (L - 1 - i)).join(', ')}.</p><p>${terms.join(' + ')} = <b>${n}</b>.</p>` }; },
+  () => { const b = pick([2, 3, 4, 5, 6, 7, 8]); const n = rint(b * 3, b ** 3 * 2); const s = toB(n, b); const pv = []; for (let p = b ** (s.length - 1); p >= 1; p /= b) pv.push(p); let r = n; const st = pv.map((p) => { const d = Math.floor(r / p); r -= d * p; return `${d} × ${p}`; });
+    return { topic: T('2.8', 'Converting to another base'), q: `Use exchanges (or place values) to write ${n} in base ${BN[b]}.`, ...bq(n, b), sol: `<p>Base ${BN[b]} place values: ${pv.join(', ')}. Take as many of each as possible: ${st.join(' + ')}.</p><p>${n} = ${sb(s, b)}. Check: ${st.join(' + ')} = ${n}.</p>` }; },
+  () => { const b = pick([3, 4, 5, 6, 7, 8]); const after = Math.random() < 0.5; const k = rint(2, 3); const lead = rint(1, b - 1); const n = after ? (lead + 1) * b ** k - 1 : lead * b ** k; const target = after ? n + 1 : n - 1;
+    return { topic: T('2.8', `Counting in base ${BN[b]}`), q: `What comes ${after ? 'after' : 'before'} ${sb(toB(n, b), b)}?`, ...bq(target, b), sol: after ? `<p>Add one unit: the units place fills to ${b}, so exchange ${b} units for a long, then ${b} longs for a flat${k > 2 ? ', and so on' : ''}. Each full place becomes 0 and carries 1: ${sb(toB(target, b), b)}.</p>` : `<p>Take one unit away: there are no units, so exchange one larger piece down through each place (each empty place becomes ${b - 1}), then remove one: ${sb(toB(target, b), b)}.</p>` }; },
+  () => { const b = pick([2, 3, 4, 5, 6, 7, 8]); const ok = Array.from({ length: b }, (_, i) => i).join(', ');
+    return { topic: T('2.7', 'Digits in a base'), q: `In base ${BN[b]}, which digits can appear after all exchanges are made?`, opts: [ok, Array.from({ length: b }, (_, i) => i + 1).join(', '), Array.from({ length: b + 1 }, (_, i) => i).join(', '), '0 through 9'], ans: ok, sol: `<p>Any group of ${b} pieces is exchanged for one larger piece, so at most ${b - 1} of each piece remain: digits ${ok}.</p>` }; },
+  () => { const V = [['Is the Chinese numeration system a place-value system?', 'No', 'It uses multipliers: 六百三 means 6 × 100 + 3, with symbols for 10, 100, 1000. The value comes from the symbol, not only from the position.'], ['Is the Babylonian numeration system a place-value system?', 'Yes', 'It groups by 60, and the position of each group tells its value (but it lacked a zero for a long time).'], ['Is the Egyptian numeration system a place-value system?', 'No', 'It is additive: each symbol has a fixed value, and the order of symbols does not matter.'], ['Does the Roman numeration system use a subtractive principle?', 'Yes', 'IV = 5 − 1 and XC = 100 − 10: a smaller symbol before a larger one is subtracted.'], ['Does the Hindu–Arabic system need a symbol for zero?', 'Yes', 'It is a place-value system, so a zero is needed to hold an empty place, as in 305.']]; const [q, a, w] = pick(V);
+    return { topic: T('2.6', 'Numeration systems'), q, opts: ['Yes', 'No'], keep: true, ans: a, sol: `<p><b>${a}.</b> ${w}</p>` }; },
+  () => { const U = rint(20, 50), A = rint(5, 18), Bn = rint(5, 18), both = rint(1, Math.min(A, Bn) - 1); const w = pick(['A ∪ B', '(A ∪ B)′', 'A − B']); const v = w === 'A ∪ B' ? A + Bn - both : w === '(A ∪ B)′' ? U - (A + Bn - both) : A - both;
+    return { topic: T('2.2', 'Counting with sets'), q: `n(U) = ${U}, n(A) = ${A}, n(B) = ${Bn} and n(A ∩ B) = ${both}. Find n(${w}).`, ...nq(v), sol: `<p>n(A ∪ B) = n(A) + n(B) − n(A ∩ B) = ${A} + ${Bn} − ${both} = ${A + Bn - both} (the overlap was counted twice).</p><p>${w === 'A ∪ B' ? '' : w === 'A − B' ? `A − B is A without the overlap: ${A} − ${both} = ` : `The complement is everything else in U: ${U} − ${A + Bn - both} = `}<b>${v}</b>.</p>` }; },
+];
+
+/* ================= Chapter 3: Whole-number operations ================= */
+B[3] = [
+  () => { const V = [() => { const a = rint(3, 8), b = 10 - a; return [`${a} + ${b + 2} = ${a} + (${b} + 2) = (${a} + ${b}) + 2 = ${a + b + 2}`, 'associative property of addition']; }, () => { const a = rint(2, 9); return [`${a} + 0 = ${a}`, 'additive identity property']; }, () => { const a = rint(2, 4), b = rint(7, 9); return [`${a} + ${b} = ${b} + ${a}, so count on from ${b}`, 'commutative property of addition']; }, () => { const a = rint(3, 9); return [`${a} + ${a + 1} = (${a} + ${a}) + 1 = ${2 * a + 1}`, 'associative property of addition']; }]; const [e, a] = pick(V)();
+    return { topic: T('3.2', 'Thinking strategies'), q: `Which property justifies this thinking strategy? ${e}`, opts: ['associative property of addition', 'commutative property of addition', 'additive identity property', 'closure property'], keep: true, ans: a, sol: `<p><b>${a[0].toUpperCase() + a.slice(1)}.</b> ${a.startsWith('assoc') ? 'The numbers are regrouped (the parentheses move) without changing the order.' : a.startsWith('comm') ? 'The order of the addends is switched.' : 'Adding 0 does not change a number.'}</p>` }; },
+  () => { const a = rint(3, 12), b = rint(a + 2, 20); const [p, q] = two(); const V = [[`${p} has ${b} stamps and gives away ${a}. How many are left?`, 'take-away (no comparison)'], [`${p} has ${b} stamps and ${q} has ${a}. How many more does ${p} have? ${q} lines the two sets up and removes the matched stamps.`, 'take-away with comparison'], [`${p} has ${a} stamps. How many more are needed to have ${b}?`, 'missing addend (no comparison)'], [`${p} has ${b} stamps and ${q} has ${a}. How many more does ${p} have? ${q} counts on from ${a} to ${b}.`, 'missing addend with comparison']]; const [s, ans] = pick(V);
+    return { topic: T('3.3', 'Subtraction stories'), q: `“${s}” Which approach to subtraction is this?`, opts: V.map((v) => v[1]), keep: true, ans, sol: `<p><b>${ans}</b>. ${/comparison\)/.test(ans) ? 'There is only one set.' : 'Two sets are compared.'} ${/take/.test(ans) ? `The answer is found by removing: ${b} − ${a} = ${b - a}.` : `The answer is found by building up: ${a} + ? = ${b}, so ? = ${b - a}.`}</p>` }; },
+  () => { const d = rint(2, 9); let x, y; do { x = rint(2, 9); y = rint(2, 9); } while (x === y); const opts = [`${d}, ${d}, ${2 * d}`, `${x}, ${y}, ${x + y}`]; let u, v; do { u = rint(2, 9); v = rint(2, 9); } while (u === v || (u === x && v === y) || (u === y && v === x)); opts.push(`${u}, ${v}, ${u + v}`);
+    return { topic: T('3.3', 'Fact families'), q: 'Which fact family has only two different facts?', opts, ans: opts[0], sol: `<p>${d} + ${d} = ${2 * d} and ${2 * d} − ${d} = ${d}: switching the addends gives the same fact. Families from two different addends have four facts, for example ${x} + ${y}, ${y} + ${x}, ${x + y} − ${x}, ${x + y} − ${y}.</p>` }; },
+  () => { const k = rint(2, 99); const [a, b] = pick([[4, 25], [25, 4], [5, 20], [2, 50], [8, 125]]); return { topic: T('3.4', 'Associative property'), q: `Compute ${a} × (${b} × ${k}) using the associative property.`, ...nq(a * b * k), sol: `<p>Regroup: ${a} × (${b} × ${k}) = (${a} × ${b}) × ${k} = ${a * b} × ${k} = <b>${a * b * k}</b>.</p>` }; },
+  () => { const a = rint(11, 39), b = rint(11, 39); const t = a - (a % 10), o = a % 10; if (!o) return B[3][4](); return { topic: T('3.4', 'Distributive property'), q: `Use the distributive property: ${a} × ${b}.`, ...nq(a * b), sol: `<p>${a} × ${b} = (${t} + ${o}) × ${b} = ${t} × ${b} + ${o} × ${b} = ${t * b} + ${o * b} = <b>${a * b}</b>.</p><p>In an array, split the ${a} rows into ${t} and ${o}.</p>` }; },
+  () => { const k = rint(3, 9), q = rint(4, 15), r = rint(1, k - 1); const N = k * q + r; const w = rint(0, 2); const who = nm();
+    const V = [[`${who} puts ${N} candies into bags of ${k}. How many <b>full</b> bags?`, q, `Only complete bags count: the quotient <b>${q}</b>; the remainder ${r} is left over.`], [`${who} packs ${N} oranges, ${k} per box. What is the smallest number of boxes that holds all of them?`, q + 1, `${q} full boxes hold ${q * k}; the ${r} left over need one more box: <b>${q + 1}</b>.`], [`${who} shares ${N} stickers equally among ${k} friends, giving whole stickers. How many stickers are left over?`, r, `Each friend gets ${q}, which uses ${q * k}; <b>${r}</b> ${r === 1 ? 'is' : 'are'} left.`]][w];
+    return { topic: T('3.5', 'Remainders in context'), q: V[0], ...nq(V[1]), sol: `<p>${N} ÷ ${k} = ${q} R ${r}, because ${k} × ${q} + ${r} = ${N}.</p><p>${V[2]}</p>` }; },
+  () => { const g = rint(3, 9), q = rint(3, 12); const N = g * q; const who = nm(); const share = Math.random() < 0.5;
+    const s = share ? `${N} stickers are shared equally among ${g} friends. How many does each friend get?` : `${who} has ${N} stickers and puts ${q} on each page. How many pages are filled?`;
+    return { topic: T('3.5', 'Two approaches to division'), q: `“${s}” Which approach to division is this?`, opts: ['sharing (partitive)', 'measurement (repeated subtraction)', 'missing addend'], keep: true, ans: share ? 'sharing (partitive)' : 'measurement (repeated subtraction)', sol: `<p>${share ? `The number of groups (${g}) is known; we find the size of each group: <b>sharing</b>.` : `The size of each group (${q}) is known; we find how many groups: <b>measurement</b>.`} Either way ${N} ÷ ${share ? g : q} = ${share ? q : g}.</p>` }; },
+  () => { const k = rint(2, 9), n = rint(3, 12); const L = k * n; return { topic: T('3.5', 'Division on a number line'), q: `A crew paints a ${L}-mile stretch of road and stops every ${k} miles to refill. How many stops?`, ...nq(n), sol: `<p>Measurement on a number line: start at ${L} and jump back ${k} at a time: ${Array.from({ length: n + 1 }, (_, i) => L - i * k).join(' → ')}.</p><p>${n} jumps, so <b>${n}</b> stops: ${L} ÷ ${k} = ${n}.</p>` }; },
+  () => { const V = [[`Why is ${rint(2, 20)} ÷ 0 undefined?`, 'No number times 0 gives a nonzero number', 'Missing factor: a ÷ 0 = c would mean 0 × c = a, but 0 × c is always 0.'], ['Why is 0 ÷ 0 not defined as one number?', 'Every number times 0 gives 0, so no single answer', '0 × c = 0 is true for every c, so the quotient is not unique.'], [`What is 0 ÷ ${rint(2, 20)}?`, '0', 'Missing factor: n × 0 = 0, so the quotient is 0.']]; const [q, a, w] = pick(V);
+    return { topic: T('3.5', 'Division and zero'), q, opts: ['No number times 0 gives a nonzero number', 'Every number times 0 gives 0, so no single answer', '0', 'The answer is infinity'], keep: true, ans: a, sol: `<p><b>${a}.</b> ${w}</p>` }; },
+  () => { const b = pick([5, 6, 7, 8]); const y = rint(2, b - 1), z = rint(1, b - 1); const x = b + rint(0, y - 1); const big = x; const diff = big - y; if (diff <= 0) return B[3][9]();
+    return { topic: T('3.6', `Base ${BN[b]}`), q: `Use the missing-addend approach in base ${BN[b]}: ${sb(toB(big, b), b)} − ${sb(toB(y, b), b)} = ?`, ...bq(diff, b), sol: `<p>Ask: ${sb(toB(y, b), b)} + ? = ${sb(toB(big, b), b)}. Count on from ${y} in base ${BN[b]}: ${Array.from({ length: diff }, (_, i) => toB(y + i + 1, b)).join(', ')}.</p><p>That is ${diff} steps: ${sb(toB(diff, b), b)}. (In base ten: ${big} − ${y} = ${diff}.)</p>` }; },
+  () => { const b = pick([5, 6, 7, 8]); const d = rint(2, b - 1), q = rint(2, b - 1); const p = d * q;
+    return { topic: T('3.6', `Base ${BN[b]} division`), q: `Use the missing-factor approach in base ${BN[b]}: ${sb(toB(p, b), b)} ÷ ${sb(toB(d, b), b)} = ?`, ...bq(q, b), sol: `<p>Ask: ${sb(toB(d, b), b)} × ? = ${sb(toB(p, b), b)}. In base ${BN[b]}, ${toB(d, b)} × ${toB(q, b)} = ${toB(p, b)} (in base ten, ${d} × ${q} = ${p} = ${Math.floor(p / b)} × ${b} + ${p % b}).</p><p>So the quotient is ${sb(toB(q, b), b)}.</p>` }; },
+  () => { const V = [['{0, 1}', 'multiplication', 'Yes', '0·0, 0·1, 1·1 are all in the set.'], ['{0, 1}', 'addition', 'No', '1 + 1 = 2 is not in the set.'], ['{1, 2, 3}', 'multiplication', 'No', '2 × 3 = 6 is not in the set.'], ['the odd whole numbers', 'addition', 'No', '1 + 3 = 4 is even.'], ['the odd whole numbers', 'multiplication', 'Yes', 'odd × odd is always odd.'], ['the even whole numbers', 'addition', 'Yes', '2m + 2n = 2(m + n).'], ['the even whole numbers', 'subtraction', 'No', '2 − 4 is not a whole number.'], ['the whole numbers', 'division', 'No', '1 ÷ 2 is not a whole number.']]; const [set, op, a, w] = pick(V);
+    return { topic: T('3.7', 'Closure'), q: `Is ${set.startsWith('{') ? 'the set ' + set : 'the set of ' + set.replace(/^the /, '')} closed under ${op}?`, opts: ['Yes', 'No'], keep: true, ans: a, sol: `<p><b>${a}.</b> ${w}${a === 'No' ? ' One counterexample is enough.' : ''}</p>` }; },
+];
+
+/* ================= Chapter 4: Computation ================= */
+B[4] = [
+  () => { const c = rint(12, 49), a = rint(30, 90); const b = a - pick([10, 20, 30, 40, 50]); if (b < 5) return B[4][0](); return { topic: T('4.1', 'Properties for mental math'), q: `Compute ${a} × ${c} − ${b} × ${c} mentally.`, ...nq((a - b) * c), sol: `<p>Distributive property: ${a} × ${c} − ${b} × ${c} = (${a} − ${b}) × ${c} = ${a - b} × ${c} = <b>${(a - b) * c}</b>.</p>` }; },
+  () => { const n = rint(12, 89); const [m, w] = pick([[102, `${n} × 100 + ${n} × 2 = ${n * 100} + ${2 * n}`], [99, `${n} × 100 − ${n} × 1 = ${n * 100} − ${n}`], [25, `${n} × 100 ÷ 4 = ${n * 100} ÷ 4`], [11, `${n} × 10 + ${n} = ${n * 10} + ${n}`], [101, `${n} × 100 + ${n} = ${n * 100} + ${n}`]]); return { topic: T('4.1', 'Special factors'), q: `Compute ${n} × ${m} mentally.`, ...nq(n * m), sol: `<p>${w} = <b>${n * m}</b>.</p>` }; },
+  () => { const a = rint(52, 400), b = rint(18, a - 10); const k = (10 - (b % 10)) % 10; if (!k) return B[4][2](); return { topic: T('4.2', 'Equal additions'), q: `Compute ${a} − ${b} with equal additions.`, ...nq(a - b), sol: `<p>Add ${k} to both numbers so the subtrahend is a multiple of ten: ${a + k} − ${b + k} = <b>${a - b}</b>.</p><p>Shifting both numbers the same amount keeps the difference (same distance on the number line).</p>` }; },
+  () => { const d = 2 * rint(6, 24), q = rint(5, 30); return { topic: T('4.2', 'Division compensation'), q: `Compute ${d * q} ÷ ${d} by halving both numbers.`, ...nq(q), sol: `<p>${d * q} ÷ ${d} = ${d * q / 2} ÷ ${d / 2}${(d / 2) % 2 === 0 && (d * q / 2) % 2 === 0 ? ` = ${d * q / 4} ÷ ${d / 4}` : ''} = <b>${q}</b>.</p><p>Scaling the pile and the group size by the same factor keeps the number of groups the same.</p>` }; },
+  () => { let a, b; do { a = rint(400, 999); b = rint(120, a - 50); } while (!(a % 10 < b % 10 && Math.floor(a / 10) % 10 >= 1 && Math.floor(a / 10) % 10 <= Math.floor(b / 10) % 10)); const [h, t, u] = [Math.floor(a / 100), Math.floor(a / 10) % 10, a % 10]; const [h2, t2, u2] = [Math.floor(b / 100), Math.floor(b / 10) % 10, b % 10];
+    return { topic: T('4.3', 'Subtracting with base pieces'), q: `Model ${a} − ${b} with base ten pieces (take-away). What is the difference?`, ...nq(a - b), sol: `<p>Start with ${h} flats, ${t} longs, ${u} units; take away ${h2} flats, ${t2} longs, ${u2} units.</p><p>Not enough units: exchange 1 long for 10 units (${u + 10} units, ${t - 1} longs). Not enough longs: exchange 1 flat for 10 longs (${t + 9} longs, ${h - 1} flats).</p><p>Remove: ${h - 1 - h2} flats, ${t + 9 - t2} longs, ${u + 10 - u2} units = <b>${a - b}</b>.</p>` }; },
+  () => { const V = [['“carrying” in the standard addition algorithm', 'exchanging 10 units for 1 long (or 10 longs for 1 flat)'], ['“borrowing” in the standard subtraction algorithm', 'exchanging 1 long for 10 units (or 1 flat for 10 longs)']]; const [x, a] = pick(V);
+    return { topic: T('4.3', 'Algorithms and base pieces'), q: `With base ten pieces, ${x} corresponds to…`, opts: [V[0][1], V[1][1], 'adding 1 to the next column for no reason', 'removing a unit from the answer'], keep: true, ans: a, sol: `<p><b>${a[0].toUpperCase() + a.slice(1)}.</b> The digit written above the next column records that exchange.</p>` }; },
+  () => { const a = rint(12, 59), b = rint(12, 39); const [at, ao, bt, bo] = [a - (a % 10), a % 10, b - (b % 10), b % 10]; if (!ao || !bo) return B[4][6]();
+    return { topic: T('4.4', 'Arrays'), q: `Fill a ${a} × ${b} array with base ten pieces. What is the product?`, ...nq(a * b), sol: `<p>Split ${a} = ${at} + ${ao} and ${b} = ${bt} + ${bo}. Four regions (partial products): ${at} × ${bt} = ${at * bt} (flats), ${at} × ${bo} = ${at * bo}, ${ao} × ${bt} = ${ao * bt} (longs), ${ao} × ${bo} = ${ao * bo} (units).</p><p>Total: ${at * bt} + ${at * bo} + ${ao * bt} + ${ao * bo} = <b>${a * b}</b>.</p>` }; },
+  () => { const b = pick([4, 5]); const x = rint(b + 1, b * b - 1), y = rint(b + 1, b * b - 1); const p = x * y;
+    return { topic: T('4.5', `Base ${BN[b]} multiplication`), q: `Find ${sb(toB(x, b), b)} × ${sb(toB(y, b), b)} (answer in base ${BN[b]}). Lattice multiplication works well.`, ...bq(p, b), sol: `<p>Use the base ${BN[b]} multiplication table in the lattice and add along the diagonals in base ${BN[b]} (exchange ${b} for 1 in the next diagonal).</p><p>Result: ${sb(toB(p, b), b)}. Check in base ten: ${x} × ${y} = ${p}.</p>` }; },
+  () => { const b = pick([4, 5, 6]); const x = rint(b * b, b ** 3 - 1), y = rint(b * b, b ** 3 - 1);
+    return { topic: T('4.5', `Base ${BN[b]} addition`), q: `Add in base ${BN[b]}: ${sb(toB(x, b), b)} + ${sb(toB(y, b), b)}.`, ...bq(x + y, b), sol: `<p>Add each column; whenever a column reaches ${b}, exchange ${b} for 1 in the next column.</p><p>Result: ${sb(toB(x + y, b), b)}. Check in base ten: ${x} + ${y} = ${x + y}.</p>` }; },
+  () => { const d = rint(3, 9), q = rint(102, 299), r = rint(0, d - 1); const N = d * q + r; const [h, t, u] = [Math.floor(N / 100), Math.floor(N / 10) % 10, N % 10];
+    return { topic: T('4.7', 'Long division with base pieces'), q: `Share ${N} among ${d} groups with base ten pieces. What does each group get (the quotient)?`, ...nq(q), sol: `<p>Start with ${h} flats, ${t} longs, ${u} units. Share the flats: ${Math.floor(h / d)} each, ${h % d} left, exchanged for ${(h % d) * 10} longs (${(h % d) * 10 + t} longs).</p><p>Share the longs and then the units the same way. Each group gets <b>${q}</b>, with ${r} left over: ${N} = ${d} × ${q} + ${r}.</p>` }; },
+  () => { const d = rint(3, 9); const q = rint(1, 9) * 1000 + rint(1, 9) * 100 + rint(1, 9); const r = rint(0, d - 1); const N = d * q + r;
+    return { topic: T('4.7', 'Zeros in the quotient'), q: `In ${N} ÷ ${d} = ${q} R ${r}, why is there a 0 in the tens place of the quotient?`, opts: ['After sharing the hundreds, there are fewer than ' + d + ' longs to share', 'Zero is always written in the tens place', 'The dividend has a 0 in it', 'The divisor is less than 10'], ans: 'After sharing the hundreds, there are fewer than ' + d + ' longs to share', sol: `<p>With base pieces: after the flats are shared and the leftovers exchanged, there are only ${Math.floor((N % (d * 100)) / 10)} longs, fewer than ${d}, so each group gets 0 longs. The 0 records that; the longs are exchanged for units.</p>` }; },
+  () => { const d = rint(23, 97), q = rint(11, 99), r = rint(1, d - 1); const N = d * q + r;
+    return { topic: T('4.8', 'Calculator remainder'), q: `A calculator shows ${N} ÷ ${d} ≈ ${(N / d).toFixed(6)}. Find the whole-number remainder.`, ...nq(r), sol: `<p>The whole-number part of the quotient is ${q}. Multiply back: ${d} × ${q} = ${d * q}.</p><p>Remainder: ${N} − ${d * q} = <b>${r}</b>.</p>` }; },
+  () => { const d = rint(21, 48), q = rint(105, 399), r = rint(0, d - 1); const N = d * q + r; const h = Math.floor(q / 100) * 100, t = Math.floor((q % 100) / 10) * 10, o = q % 10;
+    return { topic: T('4.8', 'Scaffold method'), q: `Use the scaffold method: ${N} ÷ ${d}. Type the quotient.`, ...nq(q), sol: `<p>${h} × ${d} = ${h * d} (${N - h * d} left); ${t} × ${d} = ${t * d} (${N - h * d - t * d} left); ${o} × ${d} = ${o * d} (${r} left).</p><p>Add the partial quotients: ${h} + ${t} + ${o} = <b>${q}</b>, remainder ${r}.</p>` }; },
+  () => { let a, b; do { a = rint(120, 880); b = rint(120, 880); } while (a % 100 === 50 || b % 100 === 50); const ra = Math.round(a / 100) * 100, rb = Math.round(b / 100) * 100;
+    return { topic: T('4.1', 'Estimation'), q: `Estimate ${a} + ${b} by rounding each number to the nearest hundred.`, ...nq(ra + rb), sol: `<p>${a} rounds to ${ra} and ${b} rounds to ${rb}. Estimate: ${ra} + ${rb} = <b>${ra + rb}</b> (exact: ${a + b}).</p>` }; },
+];
+
+/* ================= Chapter 5: Number theory ================= */
+const P4 = [2, 3, 5, 7];
+B[5] = [
+  () => { const V = ['Every composite number has exactly one prime factorization (Fundamental Theorem of Arithmetic)', 'Every product has a unique list of factors of any kind', 'Prime chips can only be drawn once', 'The product is always even']; return { topic: T('5.1', 'Big Bag O’ Numbers'), q: 'In Part Two (only prime chips), why can a careful guesser always name the chips from the product?', opts: V, ans: V[0], sol: '<p>With prime chips, the product’s prime factorization is unique (up to order), so the chips are determined. With composite chips (Part One), different sets can give the same product, like 4 · 3 and 2 · 6.</p>' }; },
+  () => { const k = rint(2, 4); const ch = Array.from({ length: k }, () => pick(P4)).sort((a, b) => a - b); const p = ch.reduce((x, y) => x * y, 1); const a = ch.join(', '); const alt = new Set([a]); const opts = [a];
+    const cands = [[...ch.slice(0, -1), ch[ch.length - 1] === 7 ? 5 : ch[ch.length - 1] + 1], [ch.length > 1 ? ch[0] * ch[1] : 4, ...ch.slice(2)], [...ch, 2]].map((x) => x.sort((u, v) => u - v).join(', '));
+    cands.forEach((c) => { if (!alt.has(c)) { alt.add(c); opts.push(c); } }); while (opts.length < 3) opts.push([...ch, 3].sort((u, v) => u - v).join(', ') + (opts.length > 2 ? ', 2' : ''));
+    return { topic: T('5.1', 'Big Bag O’ Numbers'), q: `In Part Two (prime chips 2, 3, 5, 7), the product of the drawn chips is ${p}. Which chips were drawn?`, opts: [...new Set(opts)], ans: a, sol: `<p>Factor ${p} into primes: ${p} = ${ch.join(' · ')}. By unique factorization this is the only set of prime chips: <b>${a}</b>.</p>` }; },
+  () => { const V = [['4', 'two', '100 is a multiple of 4, so every flat (and larger piece) splits evenly into groups of 4. Only the longs and units can leave a remainder.'], ['8', 'three', '1000 is a multiple of 8, so every block splits evenly into groups of 8. Only the flats, longs and units can leave a remainder.']]; const [d, w, why] = pick(V);
+    return { topic: T('5.2', `Test for ${d}`), q: `Why does the test for ${d} look only at the last ${w} digits?`, opts: [why, `Because ${d} is even`, 'Because the first digits are always zero', `Because ${d} is a factor of 10`], ans: why, sol: `<p>${why} So n is divisible by ${d} exactly when the number formed by the last ${w} digits is.</p>` }; },
+  () => { const th = rint(1, 9), h = rint(0, 9), t = rint(0, 9), u = rint(0, 9); const N = th * 1000 + h * 100 + t * 10 + u; const left = 4 * h + 2 * t + u;
+    return { topic: T('5.2', 'Groups of 8'), q: `Model ${N} with base pieces and split each piece into groups of 8: a block leaves 0, a flat leaves 4, a long leaves 2, a unit leaves 1. How many units are left over in total from all the pieces?`, ...nq(left), sol: `<p>${th} blocks leave 0; ${h} flats leave ${h} × 4 = ${4 * h}; ${t} longs leave ${t} × 2 = ${2 * t}; ${u} units leave ${u}.</p><p>Total leftover: ${4 * h} + ${2 * t} + ${u} = <b>${left}</b>. ${N} is divisible by 8 exactly when these leftovers are: ${left % 8 === 0 ? 'here they are, so 8 divides ' + N : left + ' is not a multiple of 8, so 8 does not divide ' + N}.</p>` }; },
+  () => { const d = pick([3, 4, 6, 8, 9]); const yes = Math.random() < 0.5; let N; do N = rint(1000, 99999); while ((N % d === 0) !== yes);
+    const ds = String(N).split('').map(Number); const why = d === 3 || d === 9 ? `Digit sum: ${ds.join(' + ')} = ${sum(ds)}, ${sum(ds) % d === 0 ? 'a' : 'not a'} multiple of ${d}.` : d === 4 ? `Last two digits: ${N % 100}, ${(N % 100) % 4 === 0 ? '' : 'not '}a multiple of 4.` : d === 8 ? `Last three digits: ${N % 1000}, ${(N % 1000) % 8 === 0 ? '' : 'not '}a multiple of 8.` : `Divisible by 6 means divisible by 2 and 3: ${N % 2 === 0 ? 'even' : 'odd'}, digit sum ${sum(ds)}${sum(ds) % 3 === 0 ? ' (multiple of 3)' : ' (not a multiple of 3)'}.`;
+    return { topic: T('5.2', `Test for ${d}`), q: `Is ${N.toLocaleString('en-US')} divisible by ${d}?`, opts: ['Yes', 'No'], keep: true, ans: yes ? 'Yes' : 'No', sol: `<p>${why} So the answer is <b>${yes ? 'yes' : 'no'}</b>.</p>` }; },
+  () => { const ps = shuffle([2, 3, 5, 7]).slice(0, rint(2, 3)); const es = ps.map(() => rint(1, 3)); const n = ps.reduce((x, p, i) => x * p ** es[i], 1); if (n > 2000) return B[5][5](); const c = es.reduce((x, e) => x * (e + 1), 1);
+    return { topic: T('5.3', 'Counting factors'), q: `How many factors does ${n} have?`, ...nq(c), sol: `<p>${n} = ${pf(n)}. A factor uses each prime ${es.map((e, i) => `${ps[i]} from 0 to ${e} times`).join(', ')}.</p><p>Number of factors: ${es.map((e) => `(${e} + 1)`).join(' × ')} = <b>${c}</b>. (Or list them in pairs: 1 · ${n}, …)</p>` }; },
+  () => { const ps = [3, 3, 5, 7, 11, 2, 2, 13]; const f = shuffle(ps).slice(0, rint(3, 5)); const n = f.reduce((x, y) => x * y, 1); if (n > 30000 || n < 100) return B[5][6](); const a = pf(n); const fs = factor(n);
+    const wrong = new Set(); wrong.add(fs.length > 2 ? [fs[0] * fs[1], ...fs.slice(2)].join(' · ') : `${n}`); wrong.add([...fs.slice(0, -1), fs[fs.length - 1] + 2].join(' · ')); wrong.add(fs.length > 1 ? [fs[0], fs.slice(1).reduce((x, y) => x * y, 1)].join(' · ') : '1 · ' + n); wrong.delete(a);
+    return { topic: T('5.3', 'Factor tree'), q: `Use divisibility tests to factor ${n.toLocaleString('en-US')}. What is its prime factorization?`, opts: [a, ...[...wrong].slice(0, 3)], ans: a, sol: `<p>Divide by the primes the tests detect, again and again: ${fs.join(', ')}.</p><p>${n} = <b>${a}</b>. Every factor at the end of the tree must be prime.</p>` }; },
+  () => { const [p, e] = pick([[12, 20], [18, 24], [15, 20], [8, 12], [16, 24], [10, 15], [14, 21], [9, 12]]); const L = lcm(p, e);
+    return { topic: T('5.3', 'Pencils and erasers'), q: `Pencils come ${p} to a package and erasers ${e} to a package. What is the fewest number of <b>pencil</b> packages so every pencil gets exactly one eraser?`, ...nq(L / p), sol: `<p>The number of pencils must be a common multiple of ${p} and ${e}; the least is LCM(${p}, ${e}) = ${L}.</p><p>${L} ÷ ${p} = <b>${L / p}</b> packages of pencils (and ${L / e} of erasers).</p>` }; },
+  () => { const g = rint(3, 15); let a, b; do { a = rint(2, 9); b = rint(2, 9); } while (gcd(a, b) !== 1 || a === b); const who = nm();
+    return { topic: T('5.3', 'Gift bags'), q: `${who} has ${a * g} red and ${b * g} green candies. What is the largest number of identical gift bags that uses all the candy?`, ...nq(g), sol: `<p>The number of bags must divide both ${a * g} and ${b * g}: GCF(${a * g}, ${b * g}) = ${g}.</p><p><b>${g}</b> bags, each with ${a} red and ${b} green.</p>` }; },
+  () => { const a = rint(12, 99), b = rint(12, 99); if (a === b) return B[5][9](); const L = lcm(a, b);
+    return { topic: T('5.3', 'LCM'), q: `Find LCM(${a}, ${b}).`, ...nq(L), sol: `<p>${a} = ${pf(a)} and ${b} = ${pf(b)}.</p><p>Take each prime with its larger exponent (the union of the Venn diagram of prime factors): LCM = <b>${L}</b>. Check: GCF × LCM = ${gcd(a, b)} × ${L} = ${a * b} = ${a} × ${b}.</p>` }; },
+  () => { const a = rint(24, 180), b = rint(24, 180); if (a === b || gcd(a, b) === 1) return B[5][10](); const g = gcd(a, b);
+    return { topic: T('5.3', 'GCF'), q: `Find GCF(${a}, ${b}).`, ...nq(g), sol: `<p>${a} = ${pf(a)} and ${b} = ${pf(b)}.</p><p>Take the primes they share, with the smaller exponent (the intersection of the Venn diagram): GCF = <b>${g}</b>.</p>` }; },
+  () => { const [x, y] = pick([[24, 36], [35, 15], [12, 18], [20, 30], [16, 40], [21, 28]]); const big = Math.max(x, y), sm = Math.min(x, y); const L = lcm(x, y); const ask = pick(['large', 'small']);
+    return { topic: T('5.3', 'Gears'), q: `Two meshed gears have ${big} and ${sm} teeth, with marks lined up. How many turns does the <b>${ask}</b> gear make before the marks line up again?`, ...nq(L / (ask === 'large' ? big : sm)), sol: `<p>The marks line up when the same number of teeth has passed on each gear: a common multiple of ${big} and ${sm}. The first time is LCM(${big}, ${sm}) = ${L} teeth.</p><p>Large gear: ${L} ÷ ${big} = ${L / big} turns; small gear: ${L} ÷ ${sm} = ${L / sm} turns. Answer: <b>${L / (ask === 'large' ? big : sm)}</b>.</p>` }; },
+  () => { const N = rint(50, 400); return { topic: T('5.1', 'Prime or composite'), q: `Is ${N} prime?`, opts: ['Yes', 'No'], keep: true, ans: isPrime(N) ? 'Yes' : 'No', sol: `<p>Test the primes up to √${N} ≈ ${fmt(Math.sqrt(N), 2)}: ${[2, 3, 5, 7, 11, 13, 17, 19].filter((p) => p <= Math.sqrt(N)).join(', ')}.</p><p>${isPrime(N) ? `None divides ${N}, so it is <b>prime</b>.` : `${factor(N)[0]} divides ${N} (${N} = ${factor(N)[0]} × ${N / factor(N)[0]}), so it is <b>not prime</b>.`}</p>` }; },
+  () => { const [a, b] = pick([[3, 10], [8, 9], [4, 5], [7, 6]]); return { topic: T('5.3', 'LCM misconception'), q: `A teacher shows only examples like LCM(${a}, ${b}) = ${a * b}. What misconception might students develop?`, opts: ['That the LCM is always the product of the two numbers', 'That the LCM is always the larger number', 'That the LCM is always 1', 'That the LCM equals the GCF'], ans: 'That the LCM is always the product of the two numbers', sol: `<p>${a} and ${b} share no prime factors, so their LCM happens to be the product. Show a counterexample: LCM(6, 8) = 24, not 48.</p>` }; },
+];
+
+return B;
+})();
+
 /* ===== MTH 211 Final Exam Review: quiz items by chapter + mixed practice generators ===== */
 (() => {
 const { rint, pick, fmt, chkNum, gcd, lcm } = K;
 const n = (v) => chkNum(v, 0.001);
 const base = (x, b) => x.toString(b);
 const clean = (s) => s.replace(/\s|_|three|four|five|six|eight|two|base|\(|\)/gi, '');
-const Q = {
-1: [
-  { topic: 'Like Activity 1.1 · The book', q: 'A student opens a 200-page book and says the two facing page numbers add to a square number. How many different pairs of facing pages are possible?', ans: '9', check: n(9), sol: '<p>Facing pages are an even page p and p + 1, so the sum 2p + 1 is an odd square: 9, 25, 49, 81, 121, 169, 225, 289, 361 (the next, 441, needs page 220). Pages 4–5, 12–13, 24–25, 40–41, 60–61, 84–85, 112–113, 144–145, 180–181: nine pairs.</p><p><b>Look back:</b> a systematic list guarantees none are missed.</p>' },
-  { topic: 'Like Activity 1.1 · Raffle tickets', q: 'Adult tickets cost $5 and student tickets $2. $41 was collected. How many combinations of tickets are possible?', ans: '4', check: n(4), sol: '<p>5a + 2s = 41. Since 2s is even, 5a must be odd, so a is odd: a = 1 (s = 18), 3 (13), 5 (8), 7 (3). Four combinations; the number of adult tickets can not be determined uniquely.</p>' },
-  { topic: 'Like Activity 1.2 · Growing tile T’s', q: 'The T of Size n uses 3n + 2 tiles. Can 200 tiles make a T that uses all of them? Type the Size (or “no”).', ans: '66', check: n(66), sol: '<p>3n + 2 = 200 gives 3n = 198 and n = 66. Yes, Size 66: 200 is 2 more than a multiple of 3.</p>' },
-  { topic: 'Like Activity 1.2 A · Toothpick houses', q: 'Toothpick houses in a row use 5n + 1 toothpicks for n houses. How many toothpicks for 50 houses?', ans: '251', check: n(251), sol: '<p>One left wall plus 5 per house (roof 2, top 1, floor 1, right wall 1): 5 · 50 + 1 = 251. Color-code the 1 and the 5n in a sketch.</p>' },
-  { topic: 'Like Activity 1.2 A · Hexagon tables', q: 'Hexagonal tables are pushed together in a row with chairs around them. How many chairs for 50 tables?', ans: '202', check: n(202), sol: '<p>4 chairs per table (2 above, 2 below) plus 1 at each end: 4n + 2 = 202.</p>' },
-  { topic: 'Like Activity 1.8 · Triangular numbers', q: 'The triangular numbers are 1, 3, 6, 10, … What is the 20th triangular number?', ans: '210', check: n(210), sol: '<p>The nth triangular number is half of the n × (n + 1) rectangular number: 20 · 21 ÷ 2 = 210. Or 1 + 2 + … + 20.</p>' },
-],
-2: [
-  { topic: 'Like Activity 2.3 · Survey data', q: 'Of 40 students, 22 like math, 18 like science and 7 like both. How many like neither?', ans: '7', check: n(7), sol: '<p>Fill from the inside out: both 7; math only 22 − 7 = 15; science only 18 − 7 = 11. Inside the circles: 33, so 40 − 33 = 7 like neither.</p>' },
-  { topic: 'Like Activity 2.3 · Inside out', q: '30 people own cats and dogs, including 8 who own cats, dogs and birds. What number goes in the region “cats and dogs, no birds”?', ans: '22', check: n(22), sol: '<p>The 30 includes the 8 in the center, so the lens outside the bird circle gets 30 − 8 = 22.</p>' },
-  { topic: 'Like Activity 2.7 · Base three pieces', q: 'A pile of 87 units is grouped and exchanged into base three pieces. Write the numeral.', ans: '10020', ansHTML: '10020<sub>three</sub>', check: (s) => clean(s) === '10020', sol: '<p>87 units → 29 longs + 0 units → 9 flats + 2 longs → 3 blocks + 0 flats → 1 long of blocks + 0 blocks. Digits: 1, 0, 0, 2, 0: 10020<sub>three</sub>.</p>' },
-  { topic: 'Like Activity 2.8 · Expanded form', q: 'Write 5046<sub>eight</sub> in base ten.', ans: '2598', check: n(2598), sol: '<p>5 × 512 + 0 × 64 + 4 × 8 + 6 × 1 = 2560 + 32 + 6 = 2598.</p>' },
-  { topic: 'Like Activity 2.8 · Base two', q: 'Write 10110<sub>two</sub> in base ten.', ans: '22', check: n(22), sol: '<p>16 + 0 + 4 + 2 + 0 = 22.</p>' },
-  { topic: 'Like Activity 2.8 · Counting in base six', q: 'What comes before 300<sub>six</sub>?', ans: '255', ansHTML: '255<sub>six</sub>', check: (s) => clean(s) === '255', sol: '<p>Take one unit away: exchange a flat for 6 longs and a long for 6 units, then remove one: 2 flats, 5 longs, 5 units = 255<sub>six</sub>.</p>' },
-],
-3: [
-  { topic: 'Like Activity 3.3 · Subtraction stories', q: '“Lena has 12 shells and Omar has 7. How many more does Lena have?” Omar counts on from 7 to 12. Which approach is this?', opts: ['missing addend with comparison', 'take away with comparison', 'take away (no comparison)', 'missing addend (no comparison)'], ans: 'missing addend with comparison', sol: '<p>Two sets are compared (comparison), and the difference is found by counting on from 7 to 12 (missing addend): 7 + ? = 12.</p>' },
-  { topic: 'Like Activity 3.4 · Distributive', q: 'Compute 4 × (25 + 8) using the distributive property.', ans: '132', check: n(132), sol: '<p>4 × 25 + 4 × 8 = 100 + 32 = 132.</p>' },
-  { topic: 'Like Activity 3.5 · Two approaches', q: '“27 stickers are shared equally among 3 friends. How many does each get?” Which approach to division?', opts: ['sharing (partitive)', 'measurement', 'missing factor'], ans: 'sharing (partitive)', sol: '<p>The number of groups (3) is known; we find the size of each group: sharing. “27 stickers, 3 per page; how many pages?” would be measurement.</p>' },
-  { topic: 'Like Activity 3.5 · Number line', q: 'A crew covers a 24-mile stretch and stops every 4 miles. How many stops?', ans: '6', check: n(6), sol: '<p>Measurement on a number line: 24 → 20 → 16 → 12 → 8 → 4 → 0: 6 jumps of 4, so 6 stops. Division as repeated subtraction.</p>' },
-  { topic: 'Like Activity 3.6 · Base six', q: 'Use the missing-addend approach: 12<sub>six</sub> − 4<sub>six</sub> = ?', ans: '4', ansHTML: '4<sub>six</sub>', check: (s) => clean(s) === '4', sol: '<p>4<sub>six</sub> + ? = 12<sub>six</sub>. In base six, 4 + 4 = 12<sub>six</sub> (eight is one six and two), so the answer is 4<sub>six</sub>.</p>' },
-  { topic: 'Like Activity 3.7 · Closure', q: 'Is the set of even whole numbers {0, 2, 4, …} closed under subtraction (within the whole numbers)?', opts: ['No', 'Yes'], ans: 'No', sol: '<p>2 − 4 is not a whole number, so one counterexample shows the set is not closed. (It is closed under addition: 2m + 2n = 2(m + n).)</p>' },
-],
-4: [
-  { topic: 'Like Activity 4.2 · Equal additions', q: 'Compute 82 − 37 with equal additions.', ans: '45', check: n(45), sol: '<p>Add 3 to both: 85 − 40 = 45. Shifting both numbers keeps the difference.</p>' },
-  { topic: 'Like Activity 4.2 · Division compensation', q: 'Compute 350 ÷ 14 by halving both numbers.', ans: '25', check: n(25), sol: '<p>350 ÷ 14 = 175 ÷ 7 = 25. The number of groups stays the same when the pile and the group size are scaled by the same factor.</p>' },
-  { topic: 'Like Activity 4.3 · Base pieces', q: 'Model 734 − 258 with base pieces (take-away). What is the difference?', ans: '476', check: n(476), sol: '<p>7 flats, 3 longs, 4 units; remove 2 flats, 5 longs, 8 units. Exchange 1 long for 10 units (14 units, 2 longs) and 1 flat for 10 longs (12 longs, 6 flats). Remove: 4 flats, 7 longs, 6 units = 476.</p>' },
-  { topic: 'Like Activity 4.4 · Arrays', q: 'Use the array model: 52 × 14.', ans: '728', check: n(728), sol: '<p>50 × 10 = 500 (5 flats), 50 × 4 = 200, 2 × 10 = 20, 2 × 4 = 8: 728. Each region is a partial product.</p>' },
-  { topic: 'Like Activity 4.5 · Base four', q: 'Use lattice multiplication: 213<sub>four</sub> × 32<sub>four</sub> (answer in base four).', ans: '20202', ansHTML: '20202<sub>four</sub>', check: (s) => clean(s) === '20202', sol: '<p>Use the base four table (2 × 2 = 10, 2 × 3 = 12, 3 × 3 = 21) in the lattice and add the diagonals in base four: 20202<sub>four</sub>. Check: 39 × 14 = 546 = 2 · 256 + 0 · 64 + 2 · 16 + 0 · 4 + 2.</p>' },
-  { topic: 'Like Activity 4.8 · Scaffold', q: 'Use the scaffold method: 7496 ÷ 32. Type the quotient.', ans: '234', check: n(234), sol: '<p>200 × 32 = 6400 (1096 left); 30 × 32 = 960 (136 left); 4 × 32 = 128 (8 left). Quotient 234, remainder 8.</p>' },
-],
-5: [
-  { topic: 'Like Activity 5.2 · Test for 8', q: 'Is 1456 divisible by 8?', opts: ['Yes', 'No'], ans: 'Yes', sol: '<p>The block (1000 = 125 · 8) leaves nothing, so check the last three digits: 456 = 8 · 57. Yes.</p>' },
-  { topic: 'Like Activity 5.2 · Test for 9', q: 'Is 4563 divisible by 9?', opts: ['Yes', 'No'], ans: 'Yes', sol: '<p>Each piece leaves 1 unit per group of 9, so the leftovers equal the digit sum 4 + 5 + 6 + 3 = 18, a multiple of 9.</p>' },
-  { topic: 'Like Activity 5.3 · Three numbers', q: 'Find LCM(27, 84, 98).', ans: '5292', check: n(5292), sol: '<p>27 = 3³, 84 = 2² · 3 · 7, 98 = 2 · 7². LCM = 2² · 3³ · 7² = 5292. GCF = 1 (no prime is in all three).</p>' },
-  { topic: 'Like Activity 5.3 · Pencils and erasers', q: 'Pencils come 12 per package and erasers 20 per package. Fewest packages of pencils so every pencil gets an eraser?', ans: '5', check: n(5), sol: '<p>LCM(12, 20) = 60: 5 packages of pencils and 3 of erasers.</p>' },
-  { topic: 'Like Activity 5.3 · Gears', q: 'Meshed gears have 24 and 36 teeth. How many turns does the small gear make before the marks align again?', ans: '3', check: n(3), sol: '<p>LCM(24, 36) = 72 teeth: the small gear turns 3 times, the large gear 2 times.</p>' },
-  { topic: 'Like Activity 5.3 · Factor tree', q: 'Factor 4455 with divisibility tests. What is its prime factorization?', opts: ['3⁴ · 5 · 11', '3³ · 5 · 33', '5 · 9 · 99', '3² · 5 · 99'], ans: '3⁴ · 5 · 11', sol: '<p>Ends in 5: 5 · 891. Digit sum of 891 is 18: 9 · 99 = 9 · 9 · 11. So 4455 = 3⁴ · 5 · 11.</p>' },
-],
-};
-
 const GENS = {
   seq: { name: 'Ch 1 · Arithmetic patterns', gen() { const a = rint(1, 12), d = rint(2, 9), k = rint(10, 50); const v = a + d * (k - 1); return { text: `The pattern ${a}, ${a + d}, ${a + 2 * d}, ${a + 3 * d}, … continues. Find term number ${k}.`, ans: String(v), check: n(v), show: () => `Start at ${a} and add ${d} a total of ${k - 1} times: ${a} + ${d} · ${k - 1} = ${v}.` }; } },
   sets: { name: 'Ch 2 · Counting with sets', gen() { const a = rint(5, 20), b = rint(5, 20), c = rint(0, Math.min(a, b)); return { text: `n(A) = ${a}, n(B) = ${b}, n(A ∩ B) = ${c}. Find n(A ∪ B).`, ans: String(a + b - c), check: n(a + b - c), show: () => `${a} + ${b} − ${c} = ${a + b - c} (the overlap counted once).` }; } },
@@ -895,8 +1031,8 @@ const GENS = {
   dv: { name: 'Ch 5 · Divisibility', gen() { const d = pick([3, 4, 6, 8, 9, 11]); const x = rint(1000, 99999); const ok = x % d === 0; return { text: `Is ${x.toLocaleString('en-US')} divisible by ${d}?`, opts: ['Yes', 'No'], ans: ok ? 'Yes' : 'No', show: () => `${x} ÷ ${d} = ${fmt(x / d, 3)}. Test: ${({ 3: 'digit sum divisible by 3', 4: 'last two digits divisible by 4', 6: 'divisible by 2 and by 3', 8: 'last three digits divisible by 8', 9: 'digit sum divisible by 9', 11: 'alternating digit sums differ by a multiple of 11' })[d]}.` }; } },
 };
 
-[1, 2, 3, 4, 5].forEach((c) => K.quiz('w-q' + c, Q[c]));
-K.quiz('w-qall', [1, 2, 3, 4, 5].flatMap((c) => Q[c]));
+[1, 2, 3, 4, 5].forEach((c) => K.quiz('w-q' + c, BANK[c], 8));
+K.quiz('w-qall', () => [1, 2, 3, 4, 5].flatMap((c) => K.sample(BANK[c], 5)));
 K.practice('w-practice', GENS);
 })();
 

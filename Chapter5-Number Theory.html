@@ -473,6 +473,26 @@ button.primary { background: var(--osu-orange); border-color: var(--osu-orange);
 .reveal-a .tbl { margin-top: 6px; }
 
 </style>
+<!--cn:css--><style id="cn-css">
+.cnav { display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px 12px; align-items: center; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 8px 12px; font-size: .88rem; }
+.cnav a { text-decoration: none; color: var(--fg); }
+.cnav .cn-side { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.cnav .cn-side.r { justify-content: flex-end; text-align: right; }
+.cnav .cn-side a { display: inline-flex; gap: 6px; align-items: center; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line); max-width: 100%; }
+.cnav .cn-side a span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cnav .cn-side a:hover, .cnav .cn-pills a:hover { border-color: var(--osu-orange, #D73F09); color: var(--accent-text); }
+.cnav .cn-pills { display: flex; gap: 4px; flex-wrap: wrap; justify-content: center; }
+.cnav .cn-pills a { min-width: 30px; height: 30px; padding: 0 8px; display: grid; place-items: center; border-radius: 999px; border: 1px solid var(--line); font-family: var(--display); font-weight: 700; }
+.cnav .cn-pills a.home { padding: 0 12px; }
+.cnav .cn-pills a[aria-current="page"] { background: #000; color: #fff; border-color: #000; box-shadow: inset 0 -3px 0 var(--osu-orange, #D73F09); }
+.cn-pager { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--line); }
+.cn-pager a { display: grid; gap: 2px; text-decoration: none; color: var(--fg); border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; background: var(--panel); }
+.cn-pager a:hover { border-color: var(--osu-orange, #D73F09); }
+.cn-pager a.next { text-align: right; grid-column: 2; }
+.cn-pager small { font-family: var(--display); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; font-size: .72rem; color: var(--accent-text); }
+.cn-pager b { font-weight: 700; }
+@media (max-width: 720px) { .cnav { grid-template-columns: 1fr 1fr; } .cnav .cn-pills { grid-column: 1 / -1; order: -1; } .cn-pager { grid-template-columns: 1fr; } .cn-pager a.next { grid-column: 1; } }
+</style><!--/cn-->
 </head>
 <body>
 <div class="wrap">
@@ -491,6 +511,9 @@ button.primary { background: var(--osu-orange); border-color: var(--osu-orange);
       <p class="lede">A teaching outline for Chapter 5: Chapter Notes (1)–(2) with content explanations and manipulatives, then Activities 5.1 to 5.3 with virtual manipulatives, then an open practice lab.</p>
     </div>
   </header>
+<!--cn:bar--><nav class="cnav" aria-label="Course chapters"><div class="cn-side"><a href="Chapter4-Whole-Number%20Computation%2C%20Mental%2C%20Electronic%20and%20Written.html" title="Chapter 4: Whole-Number Computation, Mental, Electronic and Written">←<span>Chapter 4: Whole-Number Computation, Mental, Electronic and Written</span></a></div><div class="cn-pills"><a class="home" href="index.html">⌂ All chapters</a><a href="Chapter1-Introduction%20to%20Problem%20Solving.html" title="Chapter 1: Introduction to Problem Solving">1</a><a href="Chapter2-Sets%2C%20Whole%20Numbers%20and%20Numeration.html" title="Chapter 2: Sets, Whole Numbers and Numeration">2</a><a href="Chapter3-Whole-Number%20Operations%20and%20Their%20Properties.html" title="Chapter 3: Whole-Number Operations and Their Properties">3</a><a href="Chapter4-Whole-Number%20Computation%2C%20Mental%2C%20Electronic%20and%20Written.html" title="Chapter 4: Whole-Number Computation, Mental, Electronic and Written">4</a><a href="Chapter5-Number%20Theory.html" title="Chapter 5: Number Theory" aria-current="page">5</a><a href="MTH211-Final-Exam-Review.html" title="Final Exam Review">★</a></div><div class="cn-side r"><a href="MTH211-Final-Exam-Review.html" title="Final Exam Review"><span>Final Exam Review</span>→</a></div></nav><!--/cn-->
+
+
 
   <div class="shell">
     <nav class="pnav" aria-label="Pages">
@@ -850,7 +873,8 @@ button.primary { background: var(--osu-orange); border-color: var(--osu-orange);
   <div id="w-practice"></div>
 </section>
 
-    </main>
+    <!--cn:pager--><nav class="cn-pager" id="cn-pager" aria-label="Previous and next"></nav><!--/cn-->
+</main>
   </div>
   <footer class="osu-foot"><span><b>Oregon State University</b> · Department of Mathematics · MTH 211 Foundations of Elementary Mathematics</span><span>Chapter 5 Teaching Outline · © 2026 Dr. Murat Kol</span></footer>
 </div>
@@ -1541,5 +1565,33 @@ K.quiz('w-quiz', QZ[5]); })();
   tt.onclick = () => { const t = cur() === 'dark' ? 'light' : 'dark'; document.documentElement.dataset.theme = t; try { localStorage.setItem('mth211-theme', t); } catch (e) {} lab(); };
 })();
 </script>
+<!--cn:js--><script id="cn-js">
+(() => {
+  const NAV = {"prev": {"href": "Chapter4-Whole-Number%20Computation%2C%20Mental%2C%20Electronic%20and%20Written.html", "label": "Chapter 4: Whole-Number Computation, Mental, Electronic and Written"}, "next": {"href": "MTH211-Final-Exam-Review.html", "label": "Final Exam Review"}};
+  const host = document.getElementById('cn-pager'); if (!host) return;
+  const links = []; const seen = new Set();
+  document.querySelectorAll('.pnav a[href^="#"]').forEach((a) => {
+    const h = a.getAttribute('href'); if (h.length < 2 || seen.has(h)) return; seen.add(h);
+    const c = a.cloneNode(true); c.querySelectorAll('small').forEach((x) => x.remove());
+    links.push({ h, t: c.textContent.replace(/\s+/g, ' ').trim() });
+  });
+  const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const card = (cls, href, small, label) => `<a class="${cls}" href="${href}"><small>${small}</small><b>${esc(label)}</b></a>`;
+  const draw = () => {
+    const cur = document.querySelector('.pnav a[aria-current="page"]');
+    let i = cur ? links.findIndex((l) => l.h === cur.getAttribute('href')) : links.findIndex((l) => l.h === location.hash);
+    if (i < 0) i = 0;
+    let out = '';
+    if (i > 0) out += card('prev', links[i - 1].h, '← Previous', links[i - 1].t);
+    else if (NAV.prev) out += card('prev', NAV.prev.href, '← Previous chapter', NAV.prev.label);
+    if (i < links.length - 1) out += card('next', links[i + 1].h, 'Next →', links[i + 1].t);
+    else if (NAV.next) out += card('next', NAV.next.href, 'Next chapter →', NAV.next.label);
+    host.innerHTML = out;
+  };
+  window.addEventListener('hashchange', () => setTimeout(draw, 0));
+  document.addEventListener('click', (e) => { if (e.target.closest('a[href^="#"], .pnav a, button.go')) setTimeout(draw, 30); });
+  setTimeout(draw, 50);
+})();
+</script><!--/cn-->
 </body>
 </html>
